@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="concept_kwm_jp1_fcb">
+ <title>Symbols in Linker scripts</title>
+ <conbody>
+  <p>Symbols can be defined in a linker script simply by assigning a value to it. Symbols defined in
+   the linker script file are placed in symbol table with a global scope. Following example defines
+   symbol __memory_size. </p>
+  <codeblock>__memory_size = 0x10000; </codeblock>
+  <p>In the linker script file, ‘.’ is a special symbol which represents the location counter. It
+   can be read or written. </p>
+  <codeblock>. = 0x80200000; /* Assign 0x80200000 to location counter */
+   _end = .; /* Assign location counter to symbol _end */</codeblock>
+  
+  <p>The following table lists important symbols defined in the linker script file: </p>
+  <table id="table_hyc_hr1_fcb">
+   <title>Symbols defined in default linker script file</title>
+   <tgroup cols="2">
+    <colspec colnum="1" colname="col1"/>
+    <colspec colnum="2" colname="col2"/>
+    <thead>
+     <row>
+      <entry><b>Symbol</b></entry>
+      <entry><b>Description</b></entry>
+     </row>
+    </thead>
+    <tbody>
+     <row>
+      <entry><codeph>_ftext</codeph></entry>
+      <entry>Start of .text output section</entry>
+     </row>
+     <row>
+      <entry><codeph>_etext</codeph></entry>
+      <entry>End of .text output section</entry>
+     </row>
+     <row>
+      <entry><codeph>__nanoMIPS_abiflags_start</codeph></entry>
+      <entry>Start of .nanoMIPS.abiflags section</entry>
+     </row>
+     <row>
+      <entry><codeph>__nanoMIPS_abiflags_end</codeph></entry>
+      <entry>End of .nanoMIPS.abiflags section</entry>
+     </row>
+     <row>
+      <entry><codeph>_fdata</codeph></entry>
+      <entry>Start of read/write data section</entry>
+     </row>
+     <row>
+      <entry><codeph>_gp</codeph></entry>
+      <entry>Global data pointer</entry>
+     </row>
+     <row>
+      <entry><codeph>_edata</codeph></entry>
+      <entry>End of read/write data section</entry>
+     </row>
+     <row>
+      <entry><codeph>_fbss</codeph></entry>
+      <entry>Start of zero initialized read/write data section</entry>
+     </row>
+     <row>
+      <entry><codeph>_end</codeph></entry>
+      <entry>End of zero initialized read/write data section. </entry>
+     </row>
+     <row>
+      <entry><codeph>__stack</codeph></entry>
+      <entry>Start of stack (if not defined to zero).</entry>
+     </row>
+     <row>
+      <entry><codeph>__memory_size</codeph></entry>
+      <entry>Size of available memory.</entry>
+     </row>
+    </tbody>
+   </tgroup>
+  </table>
+
+  <p>A linker script file can be used to define start of stack and heap sections. Stack and heap are
+   located at the end of .bss section (zero initialized read/write data section). <codeph>Symbol
+    __stack</codeph> can be defined to a non-zero value to set the start of stack section. The following
+   example sets start of stack to address 0x80201000.</p>
+  
+  <codeblock>__stack = 0x80201000;</codeblock>
+  
+  <p>There is no special symbol which defined start/end of heap section. Heap starts at the end of
+   .bss section (symbol _end).</p>
+ </conbody>
+</concept>

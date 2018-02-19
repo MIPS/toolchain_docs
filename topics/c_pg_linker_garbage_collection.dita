@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="concept_zgd_tv1_fcb">
+ <title>Linker Garbage Collection</title>
+ <conbody>
+  <p>Compiler command line options <codeph>–ffunction-section</codeph> and
+    <codeph>–fdata-sections</codeph> can be used to create unique sections for functions and
+   variables declared in a source file. With the <codeph>--gc-sections</codeph> option of the
+   linker, unused functions and variables can be removed from the final executable image.</p>
+  <p>This process of linker ‘‘garbage collection’’ may require some manual intervention if there are
+   sections of your code or data which are not explicitly referenced by your code, but are perhaps
+   required by some external software, such as an operating system loader. In this case you will
+   have to create a linker script, and mark those sections which must not be eliminated using the
+   ‘‘KEEP’’ directive, for example ‘‘<codeph>KEEP(*(.init))</codeph>’’. See the linker manual [Ld]
+   for more details.</p>
+  <p> Note that <codeph>--gc-sections</codeph> cannot be used when generating a relocatable output
+   file, i.e. when using the linker’s −r flag.</p>
+ </conbody>
+</concept>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="c_pg_intro">
+ <title>Introduction</title>
+ <conbody>
+    <p>This is a programmers’ guide for the 'Codescape GNU tools for nanoMIPS' (henceforth called
+                '<ph keyref="var_nanotoolchain"/>' in this manual). </p>
+    <p>The <ph keyref="var_nanotoolchain"/> is a software engineer’s cross-development system for
+            nanoMIPS architecture processors, intended for statically linked bare metal applications or
+            light-weight operating systems. It is a component of the Codescape SDK, which includes
+            toolchain, debugger, target simulators and other useful development tools. </p>
+     
+  
+ </conbody>
+</concept>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="c_pg_small_c_intro">
+ <title>Small C library reference</title>
+ <conbody>
+    <p>This appendix discusses design principles of size-optimized variants of the C standard library, referred to as SmallCLib which provided as part of the MIPS bare metal toolchain and also serves as a technical reference.</p>
+<p>SmallCLib is derived from Newlib v2.5 with small influences from Musl v0.9.14. </p><p>This appendix enumerates all functional differences in the library as compared with Newlib 2.5. </p>
+<p>It is intended to be used in conjunction with Newlib reference documentation provided with the
+         nanoMIPS Bare Metal toolchain under <codeph>&lt;toolchain-root>/share/doc</codeph> or available
+         on-line at <xref href="https://sourceware.org/newlib" format="html" scope="external"/></p>
+<note>SmallCLib is an optional component of <ph keyref="var_nanotoolchain"/>. </note>
+     
+  
+ </conbody>
+</concept>

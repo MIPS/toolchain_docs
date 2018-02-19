@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="c_032_p32_abi_comparison">
+ <title>032/p32 ABI comparison</title>
+ <conbody>
+  <table id="table_xls_lcz_wcb">
+   <title>ABI comparison</title>
+   <tgroup cols="3">
+    <colspec colnum="1" colname="col1"/>
+    <colspec colnum="2" colname="col2"/>
+    <colspec colnum="3" colname="col3"/>
+    <thead>
+     <row>
+      <entry> </entry>
+      <entry>o32</entry>
+      <entry>p32</entry>
+     </row>
+    </thead>
+    <tbody>
+     <row>
+      <entry>Compiler used</entry>
+      <entry>gcc/llvm</entry>
+      <entry>gcc</entry>
+     </row>
+     <row>
+      <entry>Integer model</entry>
+      <entry>ILP32</entry>
+      <entry>ILP32</entry>
+     </row>
+     <row>
+      <entry>Calling convention</entry>
+      <entry>o32</entry>
+      <entry>new</entry>
+     </row>
+     <row>
+      <entry>Width of GP registers</entry>
+      <entry>32 bits</entry>
+      <entry>32 bits</entry>
+     </row>
+     <row>
+      <entry>Number of GP registers</entry>
+      <entry>32</entry>
+      <entry>32</entry>
+     </row>
+     <row>
+      <entry>Number of GP argument registers</entry>
+      <entry>4 ($4..$7)</entry>
+      <entry>8 ($r4..$r11)</entry>
+     </row>
+     <row>
+      <entry>Number of GP return registers</entry>
+      <entry>2 ($2..$3)</entry>
+      <entry>2 ($r4..$r5)</entry>
+     </row>
+     <row>
+      <entry>Width of FP registers</entry>
+      <entry>32/64 bits</entry>
+      <entry>64 bits</entry>
+     </row>
+     <row>
+      <entry>Number of FP registers</entry>
+      <entry>16 (FR=0) or 32 (FR=1)</entry>
+      <entry>32</entry>
+     </row>
+     <row>
+      <entry>Number of FP argument registers</entry>
+      <entry>4</entry>
+      <entry>8</entry>
+     </row>
+     <row>
+      <entry>Stack region alignment</entry>
+      <entry>8 bytes</entry>
+      <entry>16 bytes</entry>
+     </row>
+     <row>
+      <entry>Stack slot size for GPRs</entry>
+      <entry>32 bits</entry>
+      <entry>32 bits</entry>
+     </row>
+     <row>
+      <entry>Stack slot size for FPRs</entry>
+      <entry>32 bits</entry>
+      <entry>64 bits</entry>
+     </row>
+     <row>
+      <entry>Debug format</entry>
+      <entry>dwarf</entry>
+      <entry>dwarf</entry>
+     </row>
+     <row>
+      <entry>ISAs supported</entry>
+      <entry>MIPS32R1 MIPS32R2 MIPS32R6</entry>
+      <entry>nanoMIPS32R6</entry>
+     </row>
+    </tbody>
+   </tgroup>
+  </table>
+  <note>The FR=0 mode describes an FPU where registers are constructed of 32-bit parts and there are
+   16 double-precision registers. The double-precision registers exist at even indices and their
+   upper half exists in the odd indices.</note>
+ </conbody>
+</concept>

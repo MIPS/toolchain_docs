@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="concept_qvt_clg_1cb">
+ <title>Components</title>
+ <conbody>
+  <p></p>
+  <table id="table_eyg_mlg_1cb">
+   <title>Toolchain component list</title>
+   <tgroup cols="4">
+    <colspec colnum="1" colname="col1" colwidth="1*"/>
+    <colspec colnum="2" colname="col2" colwidth="1*"/>
+    <colspec colnum="3" colname="col3" colwidth="1.5*"/>
+    <colspec colnum="4" colname="col4" colwidth="1*"/>
+    <thead>
+     <row>
+      <entry><b>Tool</b></entry>
+      <entry><b>Description</b></entry>
+      <entry><b>Executable</b></entry>
+      <entry><b>Version</b></entry>
+     </row>
+    </thead>
+    <tbody>
+     <row>
+      <entry>Compiler</entry>
+      <entry>nanoMIPS compiler and compiler driver which invokes the compiler and/or core binary
+       tools.</entry>
+      <entry>
+       <p><codeph>nanomips-elf-gcc</codeph></p>
+       <p><codeph>nanomips-elf-cpp</codeph></p>
+       <p><codeph>nanomips-elf-c++</codeph></p>
+       <p><codeph>nanomips-elf-g++</codeph></p>
+       <p><codeph>nanomips-elf-gcov</codeph></p>
+      </entry>
+      <entry>2018.01-01 (Based on FSF GCC 6.3.0)</entry>
+     </row>
+     <row>
+      <entry>Libraries</entry>
+      <entry>
+       <p>C libraries</p>
+       <p> </p>
+      </entry>
+      <entry>
+       <p>Newlib</p>
+       <p> </p>
+      </entry>
+      <entry>2018.01-01 (Based on 2.5.0)</entry>
+     </row>
+     <row>
+      <entry>Binary utilities</entry>
+      <entry>GNU binary utilities</entry>
+      <entry>
+       <p><codeph>nanomips-elf-as</codeph></p>
+       <p><codeph>nanomips-elf-ld</codeph></p>
+       <p><codeph>nanomips-elf-ld.gold</codeph></p>
+       <p><codeph>nanomips-elf-ar</codeph></p>
+       <p><codeph>nanomips-elf-addr2line</codeph></p>
+       <p><codeph>nanomips-elf-c++filt</codeph></p>
+       <p><codeph>nanomips-elf-elfedit</codeph></p>
+       <p><codeph>nanomips-elf-nm</codeph></p>
+       <p><codeph>nanomips-elf-objcopy</codeph></p>
+       <p><codeph>nanomips-elf-objdump</codeph></p>
+       <p><codeph>nanomips-elf-ranlib</codeph></p>
+       <p><codeph>nanomips-elf-readelf</codeph></p>
+       <p><codeph>nanomips-elf-size</codeph></p>
+       <p><codeph>nanomips-elf-strings</codeph></p>
+       <p><codeph>nanomips-elf-strip</codeph></p>
+      </entry>
+      <entry>2018.01-01 (Based on 2.28)</entry>
+     </row>
+     <row>
+      <entry>GDB</entry>
+      <entry>Command line debugger</entry>
+      <entry>
+       <p><codeph>nanomips-elf-gdb</codeph></p>
+       <p> </p>
+      </entry>
+      <entry>2018.01-01 (Based on 8.0)</entry>
+     </row>
+     <row>
+      <entry>Small C library</entry>
+      <entry>Small C run-time library optimized for size by MIPS</entry>
+      <entry>
+       <p>For each valid multi-lib combination -</p>
+       <p><codeph>libc.a</codeph></p>
+       <p><codeph>libg.a</codeph></p>
+       <p><codeph>libm.a</codeph></p>
+      </entry>
+      <entry>1.0.0</entry>
+     </row>
+     <row>
+      <entry>QEMU</entry>
+      <entry>System emulator</entry>
+      <entry>
+	<p><codeph>qemu-system-nanomips</codeph></p>
+      </entry>
+      <entry>2018.01-01 (Based on 2.5.0)</entry>
+     </row>
+    </tbody>
+   </tgroup>
+  </table>
+ </conbody>
+</concept>

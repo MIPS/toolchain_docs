@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE map PUBLIC "-//OASIS//DTD DITA Map//EN" "map.dtd">
+<map>
+ <title>Choosing a target</title>
+ <topicref href="topics/c_gs_target_intro.dita">
+  <topicref href="topics/c_gs_march_multilib_target.dita"/>
+ </topicref>
+</map>

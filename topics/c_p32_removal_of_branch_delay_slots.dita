@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="c_p32_removal_of_branch_delay_slots">
+ <title>Removal of branch delay slots</title>
+ <conbody>
+  <p>nanoMIPS exclusively uses compact branch and jump instructions meaning there are no delay slots
+   to fill. This is a major difference from MIPS32 although the concept is taken from additions to
+   the MIPS32R6 architecture.</p>
+  <p>MIPS assemblers allow users to either fill the delay slot of a branch explicitly or leave the
+   assembler to fill it using available instructions. The nanoMIPS assembler includes support to
+   help transition from MIPS to nanoMIPS by automatically converting delay slot branches to compact
+   branches. This transformation is only possible when the assembler is allowed to fill the delay
+   slots itself or a user has explicitly filled a delay slot with a NOP. The assembler supports the
+   .set reorder directive where it automatically fills delay slots, or the .set noreorder directive
+   where it assumes the user has filled delay slots.</p>
+  <p>Portable code must be written to work in<codeph> .set reorder</codeph> mode where the assembler
+   fills delay slots. In almost all cases it is possible to do this without losing any delay slot
+   optimisations:</p>
+  <table id="table_nnt_rvf_xcb">
+   <title>Removing branch delay slot examples</title>
+   <tgroup cols="3">
+    <colspec colnum="1" colname="col1" colwidth="1*"/>
+    <colspec colnum="2" colname="col2" colwidth="1*"/>
+    <colspec colnum="3" colname="col3" colwidth="2*"/>
+    <thead>
+     <row>
+      <entry>Non-portable code example</entry>
+      <entry>Portable code example</entry>
+      <entry>Comments</entry>
+     </row>
+    </thead>
+    <tbody>
+     <row>
+      <entry>
+       <codeblock>.set push
+.set noreorder
+bne $t0, $t1, 1f
+nop
+.set pop</codeblock>
+      </entry>
+      <entry>
+       <codeblock>bne $t0, $t1, 1f</codeblock>
+      </entry>
+      <entry>If the instruction in the delay slot is <codeph>nop</codeph>, its usually a case
+       of simply removing the <codeph>nop</codeph>.</entry>
+     </row>
+     <row>
+      <entry>
+       <codeblock>.set push
+.set noreorder
+bne $t0, $t1, 1f
+move $a0, $t1
+.set pop
+</codeblock>
+      </entry>
+      <entry>
+       <codeblock>move $a0, $t1
+bne $t0, $t1, 1f
+</codeblock>
+      </entry>
+      <entry>If the branch condition is independent of the destination register of the instruction
+       in the delay slot, move the delay slot instruction before the branch.<lines/>For
+       MIPS/microMIPS/MIPS16 the assembler will be able to reorder that instruction back into the
+       delay slot avoiding any loss of performance.</entry>
+     </row>
+     <row>
+      <entry>
+       <codeblock>.set push
+.set noreorder
+
+bne $t0, $t1, 1f
+move $t0, $a1
+do_something $t0
+.set pop
+
+
+...
+1:
+move $t0, $a2
+</codeblock>
+      </entry>
+      <entry>
+       <codeblock>#ifndef __nanomips__
+/* allow the move into the delay slot to optimise the fast path */
+.set push
+.set noreorder
+#endif
+bne $t0, $t1, 1f
+move $t0, $a1
+#ifndef __nanomips__
+.set pop
+#endif
+do_something $t0
+
+
+...
+1:
+move $t0, $a2
+ </codeblock>
+      </entry>
+      <entry>If the destination register of the instruction in the delay slot is only useful for the
+       branch-not-taken case, and is in the delay slot to optimise the fast path, then you can
+       safely move the delay slot instruction after the branch, even if the branch condition is
+       dependent on the destination register.<lines/>Consider keeping the <codeph>.set noreorder
+       </codeph>and making it conditional on <codeph>#ifndef __nanomips__ </codeph>so it remains in
+       the delay slot on non-nanoMIPS architectures. That obviously makes the code less
+       understandable as the <codeph>move </codeph>is only in the delay slot on non-nanoMIPS, so
+       consider adding comments and limiting the scope of the <codeph>noreorder </codeph>to the
+       branch and delay slot so it’s hard for a human to miss.<lines/>In this example it is easy to
+       prove since that register (<codeph>$t0</codeph>) is overwritten before use after the branch
+       target, and is used in the branch-not-taken case. Sometimes it is less clear without deeper
+       analysis.</entry>
+     </row>
+     <row>
+      <entry>
+       <codeblock>.set push
+.set noreorder
+bne $t0, $t1, 1f
+move $t0, $a1
+.set pop
+
+
+...
+1:
+do_something $t0
+ </codeblock>
+      </entry>
+      <entry>
+       <codeblock>move $t2, $a1
+bne $t0, $t1, 1f
+
+
+...
+1:
+do_something $t2
+</codeblock>
+      </entry>
+      <entry>If the branch condition is dependent on the destination register of the instruction in
+       the delay slot, the delay slot instruction cannot be simply moved before the branch or it
+       would change the branch
+       condition.<lines>Either rearrange the register allocation to avoid the dependency and move the instruction in the delay slot before the branch as above...</lines>
+      </entry>
+     </row>
+     <row>
+      <entry>
+       <codeblock>.set push
+.set noreorder
+bne $t0, $t1, 1f
+move $t0, $a1
+.set pop
+...
+1:
+do_something $t0
+</codeblock>
+      </entry>
+      <entry>
+       <codeblock>#ifdef __nanomips__
+move $t2, $t0
+move $t0, $a1
+bne $t2, $t1, 1f
+#else
+.set push
+.set noreorder
+bne $t0, $t1, 1f
+move $t0, $a1
+.set pop
+#endif
+...
+1:
+do_something $t0
+ </codeblock>
+      </entry>
+      <entry>If it is difficult to change register allocation across the larger part of the code
+       (for example there aren't many spare temporary registers, other register constraints, or it
+       would unacceptably increase code size in the non-nanoMIPS case) it may be preferable to
+       conditionally rewrite the code using <codeph>__nanomips__</codeph> or <codeph>__mips_isa_rev
+        == 6</codeph>.</entry>
+     </row>
+    </tbody>
+   </tgroup>
+  </table>
+ </conbody>
+</concept>

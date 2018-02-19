@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="concept_xxw_dkp_1cb">
+ <title>Miscellaneous Functions</title>
+ <conbody>
+  <p>The following generic MIPS system support functions are defined in include file
+    <codeph>mips/cpu.h</codeph>.</p>
+  <table frame="all" rowsep="1" colsep="1" id="table_dmv_hkp_1cb">
+   <title>Miscellaneous Functions</title>
+   <tgroup cols="2">
+    <colspec colname="c1" colnum="1"/>
+    <colspec colname="c2" colnum="2"/>
+    <thead>
+     <row>
+      <entry>Function </entry>
+      <entry>Description</entry>
+     </row>
+    </thead>
+    <tbody>
+     <row>
+      <entry><codeph>void _mips_sync (void)</codeph></entry>
+      <entry>This generates a sync instruction.</entry>
+     </row>
+     <row>
+      <entry><codeph>unsigned char mips_get_byte (void *addr,int *err)</codeph><p><codeph>unsigned
+         short mips_get_half (void *addr, int *err)</codeph></p><p><codeph>unsigned int
+         mips_get_word (void *addr, int *err)</codeph></p><codeph> unsigned long long mips_get_dword
+        (void *addr, int *err)</codeph></entry>
+      <entry>Return the byte, half-word, word, or double-word at address addr.</entry>
+     </row>
+     <row>
+      <entry><codeph>mips_put_byte (void *addr, unsigned char val)</codeph><p><codeph>mips_put_half
+         (void *addr, unsigned short val)</codeph></p><p><codeph>mips_put_word (void *addr, unsigned
+         int val)</codeph></p><codeph> mips_put_dword (void *addr, unsigned long long
+       val)</codeph></entry>
+      <entry>Store a byte, half-word, word, or double-word val to arbitrary address addr.</entry>
+     </row>
+    </tbody>
+   </tgroup>
+  </table>
+ </conbody>
+</concept>

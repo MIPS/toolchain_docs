@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="concept_pdw_g2q_fcb">
+ <title>Argument handling</title>
+ <conbody>
+  <p>The HAL has support for argument handling that is compliant with the UHI specification. This
+   interface is implemented by the <codeph>_start</codeph> application entry point. </p>
+  <p>$4 is the control register for determining how arguments are passed.</p>
+  <table id="table_grq_h2q_fcb">
+   <title>$4 control register</title>
+   <tgroup cols="2">
+    <colspec colnum="1" colname="col1"/>
+    <colspec colnum="2" colname="col2"/>
+    <thead>
+     <row>
+      <entry><b>Value</b></entry>
+      <entry><b>Meaning</b></entry>
+     </row>
+    </thead>
+    <tbody>
+     <row>
+      <entry>0</entry>
+      <entry>All other registers are ignored. A null argument vector is created for main with argc
+       == 0, argv[0] == 0 *envp == 0.</entry>
+     </row>
+     <row>
+      <entry>Any non-zero positive value.</entry>
+      <entry>$4 contains argc, $5 contains argv, $6 contains envp. Envp contains a null terminated
+       of char* pointers with each string being in the format key=value.</entry>
+     </row>
+     <row>
+      <entry>-1</entry>
+      <entry>The UHI interface is used to obtain the command line. The memory for the argv array is
+       allocated from the start of the application stack.</entry>
+     </row>
+     <row>
+      <entry>All other negative values</entry>
+      <entry>Unknown interface, the same as $4 == 0.</entry>
+     </row>
+    </tbody>
+   </tgroup>
+  </table>
+ </conbody>
+</concept>

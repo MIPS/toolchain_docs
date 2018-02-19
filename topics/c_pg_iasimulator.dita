@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="concept_g55_blp_1cb">
+ <title>IASimulator</title>
+ <conbody>
+  <p>IASimulator is an instruction-level core simulator for debugging bare-metal applications. It is
+   provided with <ph keyref="var_cdsdk"/>. Simulators for different MIPS cores can be started from
+   within <ph keyref="var_cdebug"/>.</p>
+ </conbody>
+</concept>

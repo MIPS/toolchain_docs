@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="concept_s4g_qjb_fcb">
+ <title>Exceptions</title>
+ <conbody>
+  <p>The toolchain provides a number of facilities for dealing with exceptions, from routines which
+   save the CPU context to default handlers and reporting facilities.</p>
+  <p>The default exception handler can be overridden by defining the function
+    <codeph>_mips_handle_exception</codeph>. This function is passed the CPU context at the point of
+   the exception and an integer describing the type of exception. Its prototype can be found later
+   in this section and in <codeph>mips/hal.h</codeph>.</p>
+  <p>The CPU context captures the register state, error state and relevant CP0 state at the point
+   the exception occurred. When the exception has been serviced then the exception handler will
+   restore the processor state using this structure, reloading registers with the corresponding
+   values where applicable. This structure is defined in <codeph>mips/hal.h</codeph>.</p>
+  <p>The gpctx structure is laid out as follows:</p>
+  <table id="table_vxg_qlb_fcb">
+   <title>gpctx structure</title>
+   <tgroup cols="3">
+    <colspec colnum="1" colname="col1"/>
+    <colspec colnum="2" colname="col2"/>
+    <colspec colnum="3" colname="col3"/>
+    <thead>
+     <row>
+      <entry><b>Structure field</b></entry>
+      <entry><b>Description</b></entry>
+      <entry><b>Read/Write</b></entry>
+     </row>
+    </thead>
+    <tbody>
+     <row>
+      <entry>r[32]</entry>
+      <entry>The value stored in the register (0 to 31) at which point the exception occurred. Index
+       0 is register 0, index 31 is register 31.</entry>
+      <entry>RW</entry>
+     </row>
+     <row>
+      <entry>epc</entry>
+      <entry>The program counter where processing resumes after exception has been serviced.</entry>
+      <entry>RW</entry>
+     </row>
+     <row>
+      <entry>badvaddr</entry>
+      <entry>Records the virtual address that caused a TLB exception or address error.</entry>
+      <entry>R</entry>
+     </row>
+     <row>
+      <entry>link</entry>
+      <entry>Provides access to extended context structures relating to optional architecture
+       state.</entry>
+      <entry>NA</entry>
+     </row>
+     <row>
+      <entry>status</entry>
+      <entry>Contains the operating mode, interrupt enable state and diagnostic states of the
+       processor when the exception occurred.</entry>
+      <entry>R(W)</entry>
+     </row>
+     <row>
+      <entry>cause</entry>
+      <entry>Describes the cause of the exception.</entry>
+      <entry>R</entry>
+     </row>
+     <row>
+      <entry>badinstr</entry>
+      <entry>Records the instruction that caused the exception. This is only valid if the processor
+       implements the CP0 BADINSTR register.</entry>
+      <entry>R</entry>
+     </row>
+    </tbody>
+   </tgroup>
+  </table>
+  <p>Fields in this structure are reloaded back to the CPU when the exception has been serviced and
+   normal execution resumed. Some fields are not reloaded as they correspond to read-only registers.
+   Those fields which are marked RW can be updated and the CPU context when continuing normal
+   execution will reflect those values. Fields marked R which have been written to will not have
+   their value restored.</p>
+  <p>The status field will be restored by the standard exception handler but this is not guaranteed
+   as an RTOS may manage the status register specially when overriding the handlers.</p>
+  <p>Users should consult the <ph conkeyref="c_biblio/mips_arch_ref_volIII"/> or <ph
+    conkeyref="c_biblio/mips_arch_prog_volIII"/> for further details on the <i>status</i>,
+    <i>cause</i>, <i>badvaddr</i>, <i>badinstr</i> and <i>epc</i> values, as per
+   the corresponding co-processor 0 registers.</p>
+  <p> The toolchain provides a facility to report exceptions through UHI semi hosting, giving the
+   CPU context at the point where the exception occurred.</p>
+ </conbody>
+</concept>

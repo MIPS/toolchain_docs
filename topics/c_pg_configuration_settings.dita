@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="concept_ppl_sqc_fcb">
+ <title>Configuration settings</title>
+ <conbody>
+  <p>Several aspects of the standard support code can be configured by setting link time symbols to
+   which the code responds.</p>
+  <table id="table_qmp_5qc_fcb">
+   <title>Link time symbols</title>
+   <tgroup cols="3">
+    <colspec colnum="1" colname="col1"/>
+    <colspec colnum="2" colname="col2"/>
+    <colspec colnum="3" colname="col3"/>
+    <thead>
+     <row>
+      <entry><b>Symbol name</b></entry>
+      <entry><b>Default value</b></entry>
+      <entry><b>Description</b></entry>
+     </row>
+    </thead>
+    <tbody>
+     <row>
+      <entry><codeph>__use_excpt_boot</codeph></entry>
+      <entry>1</entry>
+      <entry>Controls whether UHI operation handling should make use of the exception handler
+       installed by a boot monitor. See below for supported values</entry>
+     </row>
+     <row>
+      <entry><codeph>__flush_to_zero</codeph></entry>
+      <entry>1</entry>
+      <entry>Set if subnormal floating point values should be flushed to zero in hardware for FPU
+       and MSA operations.</entry>
+     </row>
+    </tbody>
+   </tgroup>
+  </table>
+  <p><codeph>__use_excpt_boot</codeph> can have one of three values:</p>
+  <table id="table_rmp_5qc_fcb">
+   <title><codeph>use_excpt_boot</codeph> values</title>
+   <tgroup cols="2">
+    <colspec colnum="1" colname="col1"/>
+    <colspec colnum="2" colname="col2"/>
+    <thead>
+     <row>
+      <entry><b>Value</b></entry>
+      <entry><b>Meaning</b></entry>
+     </row>
+    </thead>
+    <tbody>
+     <row>
+      <entry>0</entry>
+      <entry>Do not use exception handler present in boot.</entry>
+     </row>
+     <row>
+      <entry>1</entry>
+      <entry>Use exception handler present in boot if Status[BEV] is 0 at startup.</entry>
+     </row>
+     <row>
+      <entry>2</entry>
+      <entry>Always use exception handler present in boot.</entry>
+     </row>
+    </tbody>
+   </tgroup>
+  </table>
+ </conbody>
+</concept>

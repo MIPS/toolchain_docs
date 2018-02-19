@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="c_p32_calling_convention">
+ <title>Calling convention</title>
+ <conbody><p>The p32 ABI offers up to eight general-purpose registers, $a0-$a7, that are used to pass
+   arguments to a function and up to 2 general-purpose registers for the return values, $a0 and $a1.
+   A function argument can be a scalar, a union or an aggregate with the size up to 2 register
+   widths i.e. 64-bits for p32 ABI. Larger objects are passed by reference and in a case of a large
+   return value (larger than 64-bits) a pointer is passed as a hidden first argument to a function.
+   Structures and union objects can require padding to meet size and alignment constraints. Please
+   refer to the <ph conkeyref="c_biblio/nanomips_abi"/> for further details.</p> 
+  <p>The stack alignment for p32 must be maintained at a 16-byte alignment at all times. These rules
+   are generally sufficient for writing assembly coded functions and the remaining rules are
+   generally only important for compiled code. To help with porting code between different ABIs
+   there is a header <codeph>mips/asm.h</codeph> that provides several macros that are defined
+   depending on the ABI. For stack alignment ALSZ, ALMASK and LOG2_STACK_ALGN provide constants that
+   help round a stack adjustment up to an appropriate boundary:</p>
+  <codeblock>addiu   $a0, $a0, ALSZ            /* Round to stack alignment */
+and     $a0, $a0, ALMASK
+</codeblock>
+  <p>A more efficient but less intuitive way of  rounding to stack
+   alignment:<codeblock>addiu   $a0, $a0, ALSZ            /* Round to stack alignment */
+ins     $a0, $zero, 0, LOG2_STACK_ALGN
+</codeblock></p></conbody>
+</concept>

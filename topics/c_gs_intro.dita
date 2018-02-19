@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="c_pg_intro">
+ <title>Introduction</title>
+ <conbody>
+    <p>This is a Getting Started guide for the ‘Codescape GNU tools for nanoMIPS’ (henceforth called
+                ‘<ph keyref="var_nanotoolchain"/>’ in this manual). </p>
+        <p>This document is divided up into the following sections:</p>
+        <dl>
+            <dlentry>
+                <dt>Installing the toolchain</dt>
+                <dd>Describes the installation options and how to install the toolchain.</dd>
+            </dlentry>
+            <dlentry>
+                <dt>Choosing a target</dt>
+                <dd>Explains how to target a specific ISA or core when compiling with the
+                    toolchain.</dd>
+            </dlentry>
+            <dlentry>
+                <dt>How to use with IASim</dt>
+                <dd>Describes what type of programs can be run on IASim (Instruction Accurate
+                    Simulator), the build and start options that should be used and the versions of
+                    IASim that are compatible with <ph keyref="var_nanotoolchain"/>.</dd>
+            </dlentry>
+            <dlentry>
+                <dt>How to use with QEMU</dt>
+                <dd>Describes what type of programs can be run on QEMU simulator, the build and
+                    start options that should be used and the versions of QEMU that are compatible
+                    with <ph keyref="var_nanotoolchain"/>.</dd>
+            </dlentry>
+        </dl>
+    
+     
+  
+ </conbody>
+</concept>

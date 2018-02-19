@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="concept_cts_rmc_fcb">
+ <title>Application layout</title>
+ <conbody>
+  <p>A standard set of symbols are defined in the UHI linker scripts that can be used to control and
+   locate various features such as the placement of code and the location of the exception base.</p>
+  <p>The set of symbols is as follows:</p>
+  <table id="table_hr1_smc_fcb">
+   <title>Application layout symbols</title>
+   <tgroup cols="3">
+    <colspec colnum="1" colname="col1"/>
+    <colspec colnum="2" colname="col2"/>
+    <colspec colnum="3" colname="col3"/>
+    <thead>
+     <row>
+      <entry><b>Symbol</b></entry>
+      <entry><b>Default value</b></entry>
+      <entry><b>Description</b></entry>
+     </row>
+    </thead>
+    <tbody>
+     <row>
+      <entry><codeph>__stack</codeph></entry>
+      <entry>0</entry>
+      <entry>Default location of the top of stack. When set to zero the stack will be placed at the
+       end of the memory returned by <codeph>_get_ram_range</codeph></entry>
+     </row>
+     <row>
+      <entry><codeph>__memory_size</codeph></entry>
+      <entry>3M</entry>
+      <entry>Size of memory returned by <codeph>_get_ram_range</codeph>. When set to zero then the
+       UHI <codeph>get_ram_range</codeph> operation is used to locate RAM instead. (The 3M value
+       originates from a historic setting of 1M of memory starting at a base address of
+       0x80200000)</entry>
+     </row>
+     <row>
+      <entry><codeph>__memory_base</codeph></entry>
+      <entry>0x80000000</entry>
+      <entry>Base of memory returned by <codeph>_get_ram_range</codeph>.</entry>
+     </row>
+     <row>
+      <entry><codeph>__app_start</codeph></entry>
+      <entry>0x80200000</entry>
+      <entry>Base address for application code, leaving 2M of space for a bootloader.</entry>
+     </row>
+     <row>
+      <entry><codeph>__bev_override</codeph></entry>
+      <entry>0x9fc00000</entry>
+      <entry>Address to place boot code at. Should be used in conjunction with setting the ELF entry point.</entry>
+     </row>
+     <row>
+      <entry><codeph>__flash_start</codeph></entry>
+      <entry>__app_start</entry>
+      <entry>Base flash address which is automatically set if including boot code. The toolchain
+       will copy application code from flash to RAM at runtime before the application
+       starts.</entry>
+     </row>
+     <row>
+      <entry><codeph>__flash_app_start</codeph></entry>
+      <entry>__flash_start + sizeof (boot code)</entry>
+      <entry>Base flash address for application code. This is automatically set up to tightly pack
+       boot code and application code in flash. To place application code without needing to copy it
+       from ROM to RAM then set<codeph> __flash_app_start</codeph> to the same value as<codeph>
+        __app_start</codeph>.</entry>
+     </row>
+     <row>
+      <entry><codeph>__excpt_ebase</codeph></entry>
+      <entry>__app_start</entry>
+      <entry>Location of the base of exception vectors. This symbol cannot be overridden.</entry>
+     </row>
+     <row>
+      <entry><codeph>__isr_vector_space</codeph></entry>
+      <entry>32 (o32, n32), 64 (n64)</entry>
+      <entry>Default interrupt service routine vector spacing.</entry>
+     </row>
+     <row>
+      <entry><codeph>__isr_vector_count</codeph></entry>
+      <entry>9</entry>
+      <entry>Number of vector entries. 9 are provided, 8 for the interrupt vectors and a 9th as a
+       fallback mechanism. This value can be increased to reserve <codeph>additional
+        __isr_vector_space</codeph> sized slots for interrupt vectors in EIC mode.</entry>
+     </row>
+    </tbody>
+   </tgroup>
+  </table>
+  <p>The HAL includes two functions that interact with the layout of an application in order to
+   provide dynamically allocated memory support:</p>
+  <table id="table_atj_bnc_fcb">
+   <title>Dynamic allocated memory functions</title>
+   <tgroup cols="2">
+    <colspec colnum="1" colname="col1"/>
+    <colspec colnum="2" colname="col2"/>
+    <thead>
+     <row>
+      <entry><b>Function prototype</b></entry>
+      <entry><b>Operation </b></entry>
+     </row>
+    </thead>
+    <tbody>
+     <row>
+      <entry><codeph>void __get_ram_range (void ** base, void ** extent)</codeph></entry>
+      <entry>Gives the base and end of the largest region of RAM. This is used internally in the
+       support code to place the heap and stack. It uses the definition of <codeph>__memory_size
+       </codeph>and <codeph>__memory_base</codeph>. If <codeph>memory_size</codeph> is zero then it
+       will use the <codeph>get_ram_info</codeph> UHI operation. *base is set to the first address
+       of RAM and *extent is set to the last address+1 of RAM.</entry>
+     </row>
+     <row>
+      <entry><codeph>char* sbrk (int nbytes)</codeph></entry>
+      <entry>Allocate memory from RAM. This function is used by C libraries to implement malloc and
+       should not be called directly if C library features are also used. Memory will be allocated
+       within the region reported by <codeph>__get_ram_range</codeph> but will also account for
+       whether the application has been placed within the reported memory. If the application is
+       inside the range then memory will be allocated starting from the end of the application data
+       section as indicated by the <codeph>_end</codeph> symbol.</entry>
+     </row>
+    </tbody>
+   </tgroup>
+  </table>
+ </conbody>
+</concept>

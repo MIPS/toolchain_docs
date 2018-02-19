@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="c_pg_hal_intro">
+ <title>MIPS Hardware Abstraction Layer</title>
+ <conbody>
+    <p>This section describes the HAL in the <ph keyref="var_nanotoolchain"/>. The HAL code forms
+         the MIPS port of the libgloss component which is usually released alongside newlib.</p>
+      <section id="section_d44_p11_fcb">
+         <title>Memory Addresses</title>
+         <p>All addresses referenced in this section relate to a 32-bit address space and are
+            suitable for the p32 ABI.</p>
+      </section>
+     
+  
+ </conbody>
+</concept>

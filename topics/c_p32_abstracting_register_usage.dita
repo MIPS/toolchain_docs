@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="c_p32_abstracting_register_usage">
+ <title>Abstracting register usage</title>
+ <conbody><p>The p32 ABI reassigns the purpose of some historically standard registers. In
+   particular the return registers are no longer v0 and v1 but instead a0 and a1. This means that a
+   function returns values in argument registers rather than other dedicated registers allowing more
+   efficient data passing between nested function calls.</p> 
+  <p>In order to avoid silent bugs when porting code from o32 to p32 the v0/v1 register names are
+   not supported in p32. Instead, new register aliases, <codeph>va0/va1</codeph> and
+    <codeph>vt0/vt1</codeph> are provided in <codeph>regdef.h</codeph> for various use-cases:</p>
+  <dl>
+   <dlentry>
+    <dt><codeph>va0/va1</codeph></dt>
+    <dd>
+     <p>In o32 these names represent the two return registers and their names indicate that they are
+      either 'v' (o32) registers or 'a' (p32) registers. Care must be taken when using them to avoid
+      conflicting use of a0/a1 which alias with them in the p32 ABI. Given that v0/v1 are not
+      accepted in p32 it is not possible to create conflicting uses with v0/v1.</p>
+    </dd>
+   </dlentry>
+   <dlentry>
+    <dt><codeph>vt0/vt1</codeph></dt>
+  <dd>These names represent two temporary registers and their names indicate that they are either
+     'v' (o32) registers or 't' (p32) registers. These should be used when porting code that uses
+     v0/v1 as temporary registers.</dd>
+   </dlentry>
+  </dl>
+  <p>When porting code that uses v0/v1 the following approach is recommended:</p>
+  <ol id="ol_jnw_2sf_xcb">
+   <li>If the final values in v0/v1 are to return from the function then rename the last use of
+    v0/v1 to va0/va1. Check that this does not create a conflict with a0/a1 between the last set of
+    va0/va1 and the return point.</li>
+   <li>Rename the remaining instances of v0/v1 to vt0/vt1.</li>
+   <li>If the code needs to be usable with another MIPS architecture, where a function returns its
+    first argument it is necessary to "<codeph>move va0, a0</codeph>" and/or "<codeph>move va1,
+     a1</codeph>". This will lead to a NOP-like instruction for p32 where argument and return
+    registers are the same but will be a useful instruction for other ABIs.</li>
+  </ol>
+  </conbody>
+</concept>

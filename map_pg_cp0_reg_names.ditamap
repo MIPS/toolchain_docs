@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE map PUBLIC "-//OASIS//DTD DITA Map//EN" "map.dtd">
+<map>
+ <title>CP0 register name macros</title>
+ <topicref href="topics/c_pg_cp0_reg_name_intro.dita"/>
+</map>

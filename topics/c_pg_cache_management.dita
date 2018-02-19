@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="concept_cdq_lrc_fcb">
+ <title>Cache management</title>
+ <conbody>
+  <p>The HAL provides numerous functions for operating on CPU primary, secondary and tertiary level
+   caches. These functions are accessible though the <codeph>mips/cpu.h</codeph> header file. </p>
+  <note>Cache initialization is provided only within the boot code.</note>
+  <table id="table_r2m_4rc_fcb">
+   <tgroup cols="2">
+    <colspec colnum="1" colname="col1"/>
+    <colspec colnum="2" colname="col2"/>
+    <thead>
+     <row>
+      <entry><b>Function prototype</b></entry>
+      <entry><b>Description</b></entry>
+     </row>
+    </thead>
+    <tbody>
+     <row>
+      <entry><codeph>void mips_size_cache ()</codeph></entry>
+      <entry>
+       <p>Sets the following <codeph>uint32_t</codeph> global variables:</p>
+       <p><codeph>mips[ids]cache_siz</codeph>e, the size in bytes of the primary instruction,
+        primary data and secondary cache.</p>
+       <p><codeph>mips[ids]cache_linesize</codeph>, the size in bytes of each line in the primary
+        instruction, primary data and secondary cache.</p>
+       <p><codeph>mips[ids]cache_ways,</codeph> the number of ways of the primary instruction,
+        primary data and secondary cache.</p>
+       <p>This is called automatically by the other cache operations.</p>
+      </entry>
+     </row>
+     <row>
+      <entry><codeph>void mips_sync_icache (vaddr_t va, size_t n)</codeph></entry>
+      <entry>Synchronizes the contents of the instruction cache with the data cache when the
+       instruction stream is modified.</entry>
+     </row>
+     <row>
+      <entry><codeph>void mips_clean_cache (vaddr_t va, size_t n)</codeph></entry>
+      <entry>Write back and invalidate cache entries matching the given address range from all
+       caches.</entry>
+     </row>
+     <row>
+      <entry><codeph>void mips_clean_dcache (vaddr_t va, size_t n)</codeph></entry>
+      <entry>Write back and invalidate cache entries matching the given address range from all data
+       caches, separate instruction caches are unchanged.</entry>
+     </row>
+     <row>
+      <entry><codeph>void mips_clean_icache (vaddr_t va, size_t n)</codeph></entry>
+      <entry>Write back and invalidate cache entries matching the given address range from all
+       instruction and joint caches, separate data caches are unchanged.</entry>
+     </row>
+     <row>
+      <entry><codeph>void mips_clean_dcache_nowrite (vaddr_t va, unsigned int size)</codeph></entry>
+      <entry>Invalidate with no write back a virtual address range in all data caches. Only safe if
+       region is totally cache line aligned.</entry>
+     </row>
+     <row>
+      <entry><codeph>void mips_flush_cache ()</codeph></entry>
+      <entry>Write back and invalidate all cache entries from all caches.</entry>
+     </row>
+     <row>
+      <entry><codeph>void mips_flush_dcache ()</codeph></entry>
+      <entry>Write back and invalidate all cache entries from all data caches.</entry>
+     </row>
+     <row>
+      <entry><codeph>void mips_flush_icache ()</codeph></entry>
+      <entry>Write back and invalidate all cache entries from instruction and joint caches.</entry>
+     </row>
+     <row>
+      <entry><codeph>void mips_lock_icache (vaddr_t va, size_t n)</codeph></entry>
+      <entry>Lock a given range to an instruction cache if supported.</entry>
+     </row>
+     <row>
+      <entry><codeph>void mips_lock_dcache (vaddr_t va, size_t n)</codeph></entry>
+      <entry>Lock a given range to a data cache if supported.</entry>
+     </row>
+     <row>
+      <entry><codeph>void mips_lock_scache (vaddr_t va, size_t n)</codeph></entry>
+      <entry>Lock a given range to a secondary cache if supported.</entry>
+     </row>
+    </tbody>
+   </tgroup>
+  </table>
+  <p>The locks on caches lines will be cleared with the associated flush operations. Self-modifying
+   code will require some variant of<codeph> mips_sync_icache</codeph>,
+    <codeph>mips_clean_icache</codeph>, <codeph>mips_flush_icache</codeph> or
+    <codeph>mips_flush_cache</codeph> to ensure that the instruction stream reflects the changes
+   made.</p>
+ </conbody>
+</concept>

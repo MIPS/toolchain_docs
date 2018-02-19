@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="concept_i45_wf3_1cb">
+ <title>Binary Utilities</title>
+ <conbody>
+  <p>The GNU binary utilities support the ELF object code format commonly used for nanoMIPS embedded
+   development. The tools are described in detail in the GNU manuals. The nanoMIPS ELF object
+   format differs significantly from MIPS objects but this is almost entirely invisible to end
+   users.</p>
+ </conbody>
+</concept>

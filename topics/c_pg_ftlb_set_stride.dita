@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="concept_wyy_3zk_fcb">
+ <title>FTLB set stride</title>
+ <conbody>
+  <p>The FTLB can be efficiently initialized by using the TLBINVF instruction. Invalidating one way
+   in a set will invalidate the entire set. The structure of the FTLB in terms of which index bits
+   represent ways and sets is not architecturally defined so striding across the sets is
+   implementation specific. The code by default is configured to assume that the sets are indexed
+   from the first bit after the VTLB index but if the first bits represent ways instead then a
+   custom stride must be applied. If, for example, there were 4 sets then the stride would be 0x4.
+   The stride is configured using the <codeph>__tlb_stride_length</codeph> linker script symbol.</p>
+ </conbody>
+</concept>

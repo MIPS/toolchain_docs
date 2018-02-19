@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="concept_kpw_mzk_fcb">
+ <title>XPA</title>
+ <conbody>
+  <p>When using this API with XPA on MIPS32, users should take note that the field layouts for
+    <codeph>tlblo64_t </codeph>should conform to the implementation-specified layouts given in
+   MIPS32 and microMIPS32 Privileged Resource Architecture and the relevant processor specific
+   documentation.</p>
+  <p>XPA will not be enabled by default even when it is found to be present. Instead it must be
+   explicitly enabled by defining a linker script <codeph>symbol __enable_xpa</codeph> to 1. This
+   can be done by passing <codeph>ENABLE_XPA=1</codeph> to a makefile using
+    <codeph>mipshal.mk</codeph>.</p>
+ </conbody>
+</concept>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE map PUBLIC "-//OASIS//DTD DITA Map//EN" "map.dtd">
+<map>
+ <title>Key Map</title>
+ 
+ 
+ <!-- IMAGES/FIGURES   
+ <keydef keys="<keyname></keyname>" href="../images/<filename>" format="jpg|png|svg" product="CONFIG0"/>  Note that product is optional and the format should be specified.
+
+
+
+-->
+
+ <keydef keys="int_flow" href="images/int_flow.svg" format="svg"/>
+ <keydef keys="norm_ex_hand" href="images/norm_ex_hand.svg" format="svg"/>
+   
+
+ </map>

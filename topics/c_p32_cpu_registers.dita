@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="c_p32_cpu_registers">
+ <title>CPU registers</title>
+ <conbody>
+  <p>The nanoMIPS ISA specifies 32 general purpose 32-bit registers and a 32-bit program counter
+   register. The general registers have the names <codeph>$r0..$r31</codeph>. Note that the old
+   format <codeph>$0..$31</codeph> is no longer supported by default and an error will be emitted by
+   the assembler. An assembler option,<codeph> -mlegacyregs</codeph>, allows to use MIPS style
+   numeric registers format in nanoMIPS assembly. Users are encouraged to use the new style.</p>
+  <p>The table shows the names provided by <codeph>regdef.h</codeph> header and those (in brackets)
+   supported directly by an assembler.</p>
+ 
+  <table id="table_ay4_xcz_wcb">
+   <title>CPU Register Naming Comparison</title>
+   <tgroup cols="7">
+    <colspec colnum="1" colname="col1"/>
+    <colspec colnum="2" colname="col2"/>
+    <colspec colnum="3" colname="col3"/>
+    <colspec colnum="4" colname="col4"/>
+    <colspec colnum="5" colname="col5"/>
+    <colspec colnum="6" colname="col6"/>
+    <colspec colnum="7" colname="col7"/>
+    <thead>
+     <row>
+      <entry>
+       o32
+       <lines> Reg#</lines>
+      </entry>
+      <entry>o32 Name</entry>
+      <entry>o32 Use <lines>(where different)</lines></entry>
+      <entry>
+       p32
+       <lines> Reg# </lines>
+      </entry>
+      <entry>p32 Name</entry>
+      <entry>p32 Use</entry>
+      <entry>Type</entry>
+     </row>
+    </thead>
+    <tbody>
+     <row>
+      <entry outputclass="resCell"><codeph>$0</codeph></entry>
+      <entry outputclass="resCell"><codeph>zero($zero)</codeph></entry>
+      <entry outputclass="resCell"> </entry>
+      <entry><codeph>$r0</codeph></entry>
+      <entry><codeph>zero($zero)</codeph></entry>
+      <entry>Hardware zero</entry>
+      <entry> </entry>
+     </row>
+     <row>
+      <entry outputclass="resCell"><codeph>$1</codeph></entry>
+      <entry outputclass="resCell"><codeph>AT($at)</codeph></entry>
+      <entry outputclass="resCell"> </entry>
+      <entry><codeph>$r1</codeph></entry>
+      <entry><codeph> AT($at) </codeph><lines>(also linker temp)</lines>
+      </entry>
+      <entry>Assembler temporary</entry>
+      <entry>Caller-saved</entry>
+     </row>
+     <row>
+      <entry outputclass="resCell"><codeph>$2</codeph></entry>
+      <entry outputclass="resCell"><codeph>v0($v0)</codeph></entry>
+      <entry  outputclass="resCell" morerows="1">Function results</entry>
+      <entry><codeph>$r2</codeph></entry>
+      <entry><codeph>t4($t4)</codeph></entry>
+      <entry morerows="1">Temporaries</entry>
+      <entry morerows="1">Caller-saved</entry>
+     </row>
+     <row>
+      <entry outputclass="resCell"><codeph>$3</codeph></entry>
+      <entry outputclass="resCell"><codeph>v1($v1)</codeph></entry>
+      <entry><codeph>$r3</codeph></entry>
+      <entry><codeph>t5($t5)</codeph></entry>
+     </row>
+     <row>
+      <entry outputclass="resCell"><codeph>$4</codeph></entry>
+      <entry outputclass="resCell"><codeph>a0($a0)</codeph></entry>
+      <entry  outputclass="resCell" morerows="3">Function arguments</entry>
+      <entry><codeph>$r4</codeph></entry>
+      <entry><codeph>a0($a0)</codeph></entry>
+      <entry morerows="1">Function arguments / function results / temporary</entry>
+      <entry morerows="1">Caller-saved</entry>
+     </row>
+     <row>
+      <entry outputclass="resCell"><codeph>$5</codeph></entry>
+      <entry outputclass="resCell"><codeph>a1($a1)</codeph></entry>
+      <entry><codeph>$r5</codeph></entry>
+      <entry><codeph>a1($a1)</codeph></entry>
+     </row>
+     <row>
+      <entry outputclass="resCell"><codeph>$6</codeph></entry>
+      <entry outputclass="resCell"><codeph>a2($a2)</codeph></entry>
+      <entry><codeph>$r6</codeph></entry>
+      <entry><codeph>a2($a2)</codeph></entry>
+      <entry morerows="5">Function arguments / temporary</entry>
+      <entry morerows="5">Caller-saved</entry>
+     </row>
+     <row>
+      <entry outputclass="resCell"><codeph>$7</codeph></entry>
+      <entry outputclass="resCell"><codeph>a3($a3)</codeph></entry>
+      <entry><codeph>$r7</codeph></entry>
+      <entry><codeph>a3($a3)</codeph></entry>
+     </row>
+     <row>
+      <entry outputclass="resCell"><codeph>$8</codeph></entry>
+      <entry outputclass="resCell"><codeph>t0($t0)</codeph></entry>
+      <entry  outputclass="resCell" morerows="7">Temporary</entry>
+      <entry><codeph>$r8</codeph></entry>
+      <entry><codeph>a4($a4)</codeph></entry>
+     </row>
+     <row>
+      <entry outputclass="resCell"><codeph>$9</codeph></entry>
+      <entry outputclass="resCell"><codeph>t1($t1)</codeph></entry>
+      <entry><codeph>$r9</codeph></entry>
+      <entry><codeph>a5($a5)</codeph></entry>
+     </row>
+     <row>
+      <entry outputclass="resCell"><codeph>$10</codeph></entry>
+      <entry outputclass="resCell"><codeph>t2($t2)</codeph></entry>
+      <entry><codeph>$r10</codeph></entry>
+      <entry><codeph>a6($a6)</codeph></entry>
+     </row>
+     <row>
+      <entry outputclass="resCell"><codeph>$11</codeph></entry>
+      <entry outputclass="resCell"><codeph>t3($t3)</codeph></entry>
+      <entry><codeph>$r11</codeph></entry>
+      <entry><codeph>a7($a7)</codeph></entry>
+     </row>
+     <row>
+      <entry outputclass="resCell"><codeph>$12</codeph></entry>
+      <entry outputclass="resCell"><codeph>t4($t4)</codeph></entry>
+      <entry><codeph>$r12</codeph></entry>
+      <entry><codeph>t0($t0)</codeph></entry>
+      <entry morerows="3">Temporary</entry>
+      <entry morerows="3">Caller-saved</entry>
+     </row>
+     <row>
+      <entry outputclass="resCell"><codeph>$13</codeph></entry>
+      <entry outputclass="resCell"><codeph>t5($t5)</codeph></entry>
+      <entry><codeph>$r13</codeph></entry>
+      <entry><codeph>t1($t1)</codeph></entry>
+     </row>
+     <row>
+      <entry outputclass="resCell"><codeph>$14</codeph></entry>
+      <entry outputclass="resCell"><codeph>t6($t6)</codeph></entry>
+      <entry><codeph>$r14</codeph></entry>
+      <entry><codeph>t2($t2)</codeph></entry>
+     </row>
+     <row>
+      <entry outputclass="resCell"><codeph>$15</codeph></entry>
+      <entry outputclass="resCell"><codeph>t7($t7)</codeph></entry>
+      <entry><codeph>$r15</codeph></entry>
+      <entry><codeph>t3($t3)</codeph></entry>
+     </row>
+     <row>
+      <entry outputclass="resCell"><codeph>$16-$23</codeph></entry>
+      <entry outputclass="resCell">
+       <codeph>s0-s7 </codeph><lines><codeph> ($s0-$s7)</codeph></lines>
+      </entry>
+      <entry outputclass="resCell"> </entry>
+      <entry><codeph>$r16-$r23</codeph></entry>
+      <entry>
+       <codeph>s0-s7 </codeph><lines><codeph>($s0-$s7)</codeph> </lines>
+      </entry>
+      <entry>Saved temporaries</entry>
+      <entry>Callee-saved</entry>
+     </row>
+     <row>
+      <entry outputclass="resCell"><codeph>$24</codeph></entry>
+      <entry outputclass="resCell"><codeph>t8($t8)</codeph></entry>
+      <entry outputclass="resCell" morerows="1"> </entry>
+      <entry><codeph>$r24</codeph></entry>
+      <entry><codeph>t8($t8)</codeph></entry>
+      <entry morerows="1">Temporary</entry>
+      <entry morerows="1">Caller-saved</entry>
+     </row>
+     <row>
+      <entry outputclass="resCell"><codeph>$25</codeph></entry>
+      <entry outputclass="resCell"><codeph>t9($t9)</codeph></entry>
+      <entry><codeph>$r25</codeph></entry>
+      <entry><codeph>t9($t9)</codeph></entry>
+     </row>
+     <row>
+      <entry outputclass="resCell"><codeph>$26-$27</codeph></entry>
+      <entry outputclass="resCell"><codeph> k0-k1</codeph>
+       <lines> <codeph>($k0-$k1)</codeph></lines>
+      </entry>
+      <entry outputclass="resCell"> </entry>
+      <entry><codeph>$r26-$r27</codeph></entry>
+      <entry><codeph>k0-k1</codeph><lines><codeph>($k0-$k1)</codeph></lines>
+      </entry>
+      <entry>Kernel reserved registers</entry>
+      <entry> </entry>
+     </row>
+     <row>
+      <entry outputclass="resCell"><codeph>$28</codeph></entry>
+      <entry outputclass="resCell"><codeph>gp($gp)</codeph></entry>
+      <entry outputclass="resCell"> </entry>
+      <entry><codeph>$r28</codeph></entry>
+      <entry><codeph>gp($gp)</codeph></entry>
+      <entry>Global pointer</entry>
+      <entry>Callee-saved</entry>
+     </row>
+     <row>
+      <entry outputclass="resCell"><codeph>$29</codeph></entry>
+      <entry outputclass="resCell"><codeph>sp($sp)</codeph></entry>
+      <entry outputclass="resCell"> </entry>
+      <entry><codeph>$r29</codeph></entry>
+      <entry><codeph>sp($sp)</codeph></entry>
+      <entry>Stack pointer</entry>
+      <entry>Callee-saved</entry>
+     </row>
+     <row>
+      <entry outputclass="resCell"><codeph>$30</codeph></entry>
+      <entry outputclass="resCell"><codeph>fp($fp)</codeph></entry>
+      <entry outputclass="resCell"> </entry>
+      <entry><codeph>$r30</codeph></entry>
+      <entry><codeph>fp($fp)</codeph></entry>
+      <entry>Frame pointer / saved temporary</entry>
+      <entry>Callee-saved</entry>
+     </row>
+     <row>
+      <entry outputclass="resCell"><codeph>$31</codeph></entry>
+      <entry outputclass="resCell"><codeph>ra($ra)</codeph></entry>
+      <entry outputclass="resCell"> </entry>
+      <entry><codeph>$r31</codeph></entry>
+      <entry><codeph>ra($ra)</codeph></entry>
+      <entry>Return register</entry>
+      <entry>Callee-saved</entry>
+     </row>
+    </tbody>
+   </tgroup>
+  </table>
+ </conbody>
+</concept>

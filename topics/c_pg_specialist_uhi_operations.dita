@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="concept_cs4_3qc_fcb">
+ <title>Specialist UHI operations</title>
+ <conbody>
+  <p>Some additional UHI specific operations are supported via non-standard support functions. The
+    <codeph>plog</codeph> operation is designed as a very lightweight debug function to report
+   status to a debugger.</p>
+  <table id="table_jj1_kqc_fcb">
+   <title>Specialist UHI functions</title>
+   <tgroup cols="2">
+    <colspec colnum="1" colname="col1"/>
+    <colspec colnum="2" colname="col2"/>
+    <thead>
+     <row>
+      <entry><b>Function prototype</b></entry>
+      <entry><b>Description</b></entry>
+     </row>
+    </thead>
+    <tbody>
+     <row>
+      <entry><codeph>int32_t __plog (int8_t *fmt, int32_t num)</codeph></entry>
+      <entry>Print information with up to 1 integer in the format string using the
+        <codeph>plog</codeph> UHI operation.</entry>
+     </row>
+     <row>
+      <entry><codeph>void __exit (int exitcode)</codeph></entry>
+      <entry>Emergency exit operation. This is a very low level exit that will either simply loop or
+       return to a bootloader if supported.</entry>
+     </row>
+    </tbody>
+   </tgroup>
+  </table>
+ </conbody>
+</concept>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="c_p32_immediates">
+ <title>Immediates</title>
+ <conbody>
+  <p>The nanoMIPS instruction set has changed the width of immediate values supported by many
+   instructions. In general the width has decreased and the previous standard 16-bit immediate field
+   is gone. The porting advice here is designed to achieve functional code on all MIPS architectures
+   but is not necessarily most optimal; for optimal code it will be necessary to create nanoMIPS
+   specific implementations and to reconsider certain design decisions where immediate values are
+   concerned.</p>
+  <p>Many instructions will automatically expand themselves to multi-instruction sequences if an
+   immediate value is out of range. This behaviour requires 'macro' support to be enabled in the
+   assembler which is true by default and also controlled via the <codeph>.set</codeph> macro and
+   .set nomacro directives. </p>
+  <p>In some cases the ISA has both a register form and an immediate form of an instruction (like
+    <codeph>addu</codeph> and <codeph>addiu</codeph>).</p>
+  <p><codeph>addiu</codeph> is an immediate form and requires two register operands and one
+   immediate. When using the immediate form of an instruction the range of the immediate will be
+   checked and an error raised if it is out of range. This is not dependent on .set macro.</p>
+  <p><codeph>addu</codeph> is the register form of the instruction and requires three register
+   operands but will accept an immediate final operand. The register form requires macro expansion
+   support when using an immediate as the final operand. If the final operand is an in-range
+   immediate, the result will be a single instruction that is the immediate form of the same
+   instruction. If the final operand is an out-of-range immediate, the instruction will be expanded
+   using the AT register as a temporary to build the immediate value.</p>
+  <p>For non-performance critical code where the immediate values are out of range then switching to
+   use the register form of an instruction is the best course of action.</p>
+ </conbody>
+</concept>

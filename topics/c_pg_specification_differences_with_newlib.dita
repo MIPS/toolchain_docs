@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="concept_pjh_vjq_fcb">
+ <title>Specification differences with Newlib</title>
+ <conbody>
+  <p>The following sections provide details about specific function behaviour. See <xref
+    href="c_pg_libraries_and_header_files.dita#concept_qk5_fg3_1cb/table_tyq_gg3_1cb"/> for a
+   summary of the differences between newlib and the size-optimized variants.</p>
+ </conbody>
+</concept>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="c_biblio">
+ <title>Biblio</title>
+  
+ <conbody>
+  <p><ph id="mips_baremetal"><i>'Codescape GNU Tools for MIPS IMG Bare Metal'</i>
+   </ph></p>
+  <p><ph id="mips_ninja_gs"><i>'M7000 Processor Getting Started Guide'</i>
+   </ph></p>
+  <p><ph id="mips_ninja_integrate_guide"><i>'M7000 Processor Integrator's Guide'</i>
+   </ph></p>
+  <p><ph id="mips_ninja_prog_guide"><i>'M7000 Processor Programmer's Guide'</i>
+   </ph></p>
+  <p><ph id="mips_ninja_phys_guide"><i>'M7000 Processor Core Family Physical Design Guide'</i>
+   </ph></p>
+  <p><ph id="mips_nano_priv_arch"><i>'nanoMIPS32 Privileged Resource Architecture'</i>
+   </ph></p>
+  <p><ph id="mips_nano_instr_set"><i>'nanoMIPS32 Instruction Set Technical Reference Manual'</i>
+   </ph></p>
+  <p><ph id="mips_nano_prog_guide"><i>'nanoMIPS32 Programmer's Guide'</i>
+  </ph></p>
+  
+  <p><ph id="mips_mdh_guide"><i>'MIPS Debug Hub Technical Reference Manual'</i>
+  </ph></p>
+  <p><ph id="nanomips_gs"><i>'Codescape GNU Tools for nanoMIPS Getting Started Guide'</i>
+  </ph></p>
+  <p><ph id="nanomips_pg"><i>'Codescape GNU Tools for nanoMIPS Programmer's Guide'</i>
+  </ph></p>
+  <p><ph id="nanomips_assembly"><i>'Codescape GNU Tools for nanoMIPS Assembly Syntax Reference'</i>
+  </ph></p>
+  <p><ph id="nanomips_abi"><i>'Codescape GNU Tools for nanoMIPS ELF ABI Supplement Guide'</i>
+  </ph></p>
+  <p><ph id="nanomips_port"><i>'Codescape GNU Tools for nanoMIPS Software Porting Guide'</i>
+  </ph></p>
+  <p><ph id="msa_pg"><i>' MIPS SIMD Architecture (MSA) Programmer’s Guide'</i>
+  </ph></p>
+     <p><ph id="mips_arch_ref_volIII"><i>'MIPS Architecture Reference Manual Vol. III: MIPS64 / microMIPS64 Privileged Resource Architecture'</i>
+   </ph></p>
+   <p><ph id="mips_arch_prog_volIII"><i>'MIPS Architecture For Programmers Volume III: The MIPS32 and microMIPS32 Privileged Resource Architecture'</i>
+   </ph></p>
+  
+  
+ </conbody>
+</concept>

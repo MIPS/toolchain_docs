@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE map PUBLIC "-//OASIS//DTD DITA Map//EN" "map.dtd">
+<map>
+ <title>Common Usage</title>
+ <topicref href="topics/common_usage.dita">
+  <topicref href="topics/c_pg_code_and_data_models.dita">
+   <topicref href="topics/c_pg_choosing_the_right_model.dita"/>
+   <topicref href="topics/c_pg_finding_out_of_range_symbols.dita"/>
+  </topicref>
+  <topicref href="topics/c_pg_managing_the_sdata_section.dita"/>
+  <topicref href="topics/c_pg_linking_small_c.dita"/>
+ </topicref>
+</map>

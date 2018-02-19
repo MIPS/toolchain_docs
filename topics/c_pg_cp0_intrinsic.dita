@@ -1,0 +1,399 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="concept_y1z_4m3_1cb">
+ <title>Coprocessor 0 (CP0) Intrinsic</title>
+ <conbody>
+  <p>The Coprocessor 0 (CP0) is used to control interrupts, exceptions, memory management, caches,
+   etc. The CP0 intrinsics provide access to the CP0 registers. The header file
+    <codeph>mips/cpu.h</codeph> provides the intrinsic shown in table below and described in the
+   following subsections. The “*” symbol represents up to five separate intrinsic.</p>
+  <table id="table_pgb_wm3_1cb">
+   <title>cpu.h Intrinsic</title>
+   <tgroup cols="3">
+    <colspec colnum="1" colname="col1" colwidth="1*"/>
+    <colspec colnum="2" colname="col2" colwidth="1.5*"/>
+    <colspec colnum="3" colname="col3" colwidth="2*"/>
+    <thead>
+     <row>
+      <entry><codeph>*</codeph></entry>
+      <entry>Arguments</entry>
+      <entry>Operation</entry>
+     </row>
+    </thead>
+    <tbody>
+     <row>
+      <entry><codeph>get</codeph></entry>
+      <entry>()</entry>
+      <entry>Returns the register value.</entry>
+     </row>
+     <row>
+      <entry><codeph>set</codeph></entry>
+      <entry>(unsigned val)</entry>
+      <entry>Sets the register to val, and returns void.</entry>
+     </row>
+     <row>
+      <entry><codeph>xch</codeph></entry>
+      <entry>(unsigned val)</entry>
+      <entry>Sets the register to val, and returns the old register value.</entry>
+     </row>
+     <row>
+      <entry><codeph>bis</codeph></entry>
+      <entry>(unsigned set)</entry>
+      <entry>Bit set (reg |= set): returns the old register value. Only defined for registers with
+       bit-fields.</entry>
+     </row>
+     <row>
+      <entry><codeph>bic</codeph></entry>
+      <entry>(unsigned clr)</entry>
+      <entry>Bit clear (reg &amp;= clr): returns the old register value. Only defined for registers
+       with bit-fields.</entry>
+     </row>
+     <row>
+      <entry><codeph>bcs</codeph></entry>
+      <entry>(unsigned clr, unsigned set)</entry>
+      <entry>Bit clear and set (reg = (reg &amp; ˜clr) | set): returns the old register value. Only
+       defined for registers with bit-fields.</entry>
+     </row>
+    </tbody>
+   </tgroup>
+  </table>
+  <table id="table_g5s_xfk_1cb">
+   <title>CP0 Functions</title>
+   <tgroup cols="2">
+    <colspec colnum="1" colname="col1" colwidth="2.7*"/>
+    <colspec colnum="2" colname="col2" colwidth="2*"/>
+    
+    <thead>
+     <row>
+      <entry>Function</entry>
+      <entry>Description</entry>
+     </row>
+    </thead>
+    <tbody>
+    
+     <row>
+      <entry><codeph>mips_*sr</codeph></entry>
+      <entry>Operations on the Status register (CP0 register 12).</entry>
+     </row>
+     <row>
+      <entry><codeph>mips_*cr</codeph></entry>
+      <entry>Operations on the Cause register (CP0 register 13). </entry>
+     </row>
+     <row>
+      <entry><codeph>
+       mips_getcount, mips_setcount </codeph>
+       <p><codeph> mips_getcompare, mips_setcompare </codeph></p>
+      </entry>
+      <entry>Operations on the Count and Compare registers (CP0 registers 9 and 11).</entry>
+     </row>
+     <row>
+      <entry><codeph>mips_getprid</codeph></entry>
+      <entry>Return the read-only PrID register (CP0 register 15). </entry>
+     </row>
+     <row>
+      <entry><codeph>mips_*config</codeph></entry>
+      <entry>Operations on Config register (CP0 register number varies).</entry>
+     </row>
+     <row>
+      <entry><codeph>mips_*ecc</codeph></entry>
+      <entry>Operations on ECC register (CP0 register 26), used for cache error correction on some
+       MIPS III+ CPUs.</entry>
+     </row>
+     <row>
+      <entry><codeph>mips_*context</codeph></entry>
+      <entry>Operations on the Context register (CP0 register 4).</entry>
+     </row>
+     <row>
+      <entry><codeph>mips_*pagemask</codeph></entry>
+      <entry>Operations on the PageMask register (CP0 register 5).</entry>
+     </row>
+     <row>
+      <entry><codeph>mips_*wired</codeph></entry>
+      <entry>Operations on the Wired register (CP0 register 6).</entry>
+     </row>
+     <row>
+      <entry><codeph>mips_*entrylo</codeph></entry>
+      <entry>Operations on the EntryLo register (CP0 register 2).</entry>
+     </row>
+     <row>
+      <entry><codeph>mips_*entryhi</codeph></entry>
+      <entry>Operations on the EntryHi register (CP0 register 10).</entry>
+     </row>
+     <row>
+      <entry><codeph>
+       mips_*taglo</codeph> 
+       <p> <codeph>mips_*taghi</codeph></p>
+      </entry>
+      <entry>Operations on TagLo and TagHi registers (CP0 registers 28 and 29), used for cache
+       testing and maintenance on many MIPS architecture CPUs.</entry>
+     </row>
+     <row>
+      <entry><codeph>
+       mips_*watchlo </codeph>
+       <p><codeph> mips_*watchhi</codeph></p>
+      </entry>
+      <entry>Operations on WatchLo and WatchHi registers (CP0 registers 18 and 19), used for
+       hardware watchpoints on many MIPS III+ CPUs.</entry>
+     </row>
+     <row>
+      <entry><codeph>mips32_*config0</codeph></entry>
+      <entry>Operations on the Config0 register (CP0 register 16, select 0), also available via the
+       generic mips_*config functions described above.</entry>
+     </row>
+     <row>
+      <entry><codeph>mips32_getconfig1</codeph></entry>
+      <entry>Returns the Config1 register (CP0 register 16, select 1).</entry>
+     </row>
+     <row>
+      <entry><codeph>mips32_getconfig2</codeph></entry>
+      <entry>Returns the Config2 register (CP0 register 16, select 2).</entry>
+     </row>
+     <row>
+      <entry><codeph>mips32_getconfig3</codeph></entry>
+      <entry>Returns the Config3 register (CP0 register 16, select 3).</entry>
+     </row>
+     <row>
+      <entry><codeph>mips32_getwatchlo(int sel)</codeph></entry>
+      <entry>Return the WatchLo register numbered sel.</entry>
+     </row>
+     <row>
+      <entry><codeph>mips32_setwatchlo(int sel, unsigned int val)</codeph></entry>
+      <entry>Set the WatchLo register numbered sel to val.</entry>
+     </row>
+     <row>
+      <entry><codeph>mips32_getwatchhi(int sel)</codeph></entry>
+      <entry>Return the WatchHi register numbered sel.</entry>
+     </row>
+     <row>
+      <entry><codeph>mips32_setwatchhi(int sel, unsigned int val)</codeph></entry>
+      <entry>Set the WatchHi register numbered sel to val.</entry>
+     </row>
+     <row>
+      <entry><codeph>mips32_*errctl</codeph></entry>
+      <entry>Operations on the ErrCtl register (CP0 register 26, select 0).</entry>
+     </row>
+     <row>
+      <entry><codeph>mips32_*datalo</codeph></entry>
+      <entry>Operations on the DataLo register (CP0 register 28, select 1).</entry>
+     </row>
+     <row>
+      <entry><codeph>mips32_*pagegrain</codeph></entry>
+      <entry>Operations on the MIPS32 Release 2 PageGrain register (CP0 register 5, select
+       1).</entry>
+     </row>
+     <row>
+      <entry><codeph>mips32_*hwrena</codeph></entry>
+      <entry>Operations on the MIPS32 Release 2 HWREna register (CP0 register 7, select 0).</entry>
+     </row>
+     <row>
+      <entry><codeph>mips32_*intctl</codeph></entry>
+      <entry>Operations on the MIPS32 Release 2 IntCtl register (CP0 register 12, select 1).</entry>
+     </row>
+     <row>
+      <entry><codeph>mips32_*srsctl</codeph></entry>
+      <entry>Operations on the MIPS32 Release 2 SRSCtl register (CP0 register 12, select 2).</entry>
+     </row>
+     <row>
+      <entry><codeph>mips32_*srsmap</codeph></entry>
+      <entry>Operations on the MIPS32 Release 2 SRSMap register (CP0 register 12, select 3).</entry>
+     </row>
+     <row>
+      <entry><codeph>mips32_*ebase</codeph></entry>
+      <entry>Operations on the MIPS32 Release 2 EBase register (CP0 register 15, select 1).</entry>
+     </row>
+     <row>
+      <entry><codeph>uint32_t _mips32r2_xchsrspss(uint32_t set)</codeph></entry>
+      <entry>Sets the PSS field in the SRSCtl register to set, allowing access to that shadow set
+       with the following intrinsics. Returns the old value of the PSS field.</entry>
+     </row>
+     <row>
+      <entry><codeph>uint32_t _mips32r2_rdpgpr(int regno)</codeph></entry>
+      <entry>Returns register number regno from the selected shadow set. The regno argument must be
+       a constant between 0 and 31.</entry>
+     </row>
+     <row>
+      <entry><codeph>void _mips32r2_wrpgpr(int regno, uint32_t val)</codeph></entry>
+      <entry>Sets register number regno in the selected shadow set to val. The regno argument must
+       be a constant between 0 and 31.</entry>
+     </row>
+     <row>
+      <entry><codeph>mips32_*mvpcontrol</codeph></entry>
+      <entry>Operations on the MVPControl Register (CP0 Register 0, Select 1).</entry>
+     </row>
+     <row>
+      <entry><codeph>mips32_*mvpconf0</codeph></entry>
+      <entry>Operations on the MVPConf0 Register (CP0 Register 0, Select 2).</entry>
+     </row>
+     <row>
+      <entry><codeph>mips32_*mvpconf1</codeph></entry>
+      <entry>Operations on the MVPConf1 Register (CP0 Register 0, Select 3).</entry>
+     </row>
+     <row>
+      <entry><codeph>mips32_*vpecontrol</codeph></entry>
+      <entry>Operations on the VPEControl Register (CP0 Register 1, Select 1).</entry>
+     </row>
+     <row>
+      <entry><codeph>mips32_*vpeconf0</codeph></entry>
+      <entry>Operations on the VPEConf0 Register (CP0 Register 1, Select 2).</entry>
+     </row>
+     <row>
+      <entry><codeph>mips32_*vpeconf1</codeph></entry>
+      <entry>Operations on the VPEConf1 Register (CP0 Register 1, Select 3).</entry>
+     </row>
+     <row>
+      <entry><codeph>mips32_*yqmask</codeph></entry>
+      <entry>Operations on the YQMask Register (CP0 Register 1, Select 4).</entry>
+     </row>
+     <row>
+      <entry><codeph>mips32_*vpeschedule</codeph></entry>
+      <entry>Operations on the VPESchedule Register (CP0 Register 1, Select 5).</entry>
+     </row>
+     <row>
+      <entry><codeph>mips32_*vpeschefback</codeph></entry>
+      <entry>Operations on the VPEScheFback Register (CP0 Register 1, Select 7).</entry>
+     </row>
+     <row>
+      <entry><codeph>mips32_*tcstatus</codeph></entry>
+      <entry>Operations on the TCStatus Register (CP0 Register 4, Select 1).</entry>
+     </row>
+     <row>
+      <entry><codeph>mips32_*tcpc</codeph></entry>
+      <entry>Operations on the TCPC Register (CP0 Register 4, Select 2).</entry>
+     </row>
+     <row>
+      <entry><codeph>mips32_*tchalt</codeph></entry>
+      <entry>Operations on the TCHalt Register (CP0 Register 4, Select 3).</entry>
+     </row>
+     <row>
+      <entry><codeph>mips32_*tccontext</codeph></entry>
+      <entry>Operations on the TCContext Register (CP0 Register 4, Select 4).</entry>
+     </row>
+     <row>
+      <entry><codeph>mips32_*tcschedule</codeph></entry>
+      <entry>Operations on the TCSchedule Register (CP0 Register 4, Select 5).</entry>
+     </row>
+     <row>
+      <entry><codeph>mips32_*tcschefback</codeph></entry>
+      <entry>Operations on the TCScheFback Register (CP0 Register 4, Select 6).</entry>
+     </row>
+     <row>
+      <entry><codeph>mips32_*srsconf*</codeph></entry>
+      <entry>Operations on the SRSConf0-4 Registers (CP0 Register 6, Select 1-5)</entry>
+     </row>
+     <row>
+      <entry><codeph>mips32_mt_settarget (int vpe, int tc)</codeph></entry>
+      <entry>Selects the target VPE and TC number for the following access functions.</entry>
+     </row>
+     <row>
+      <entry><codeph>mips32_mt_getc0status()</codeph></entry>
+      <entry>Return the CP0 Status register of the selected TC/VPE.</entry>
+     </row>
+     <row>
+      <entry><codeph>mips32_mt_setc0status(int val)</codeph></entry>
+      <entry>Set the CP0 Status register of the selected TC/VPE.</entry>
+     </row>
+     <row>
+      <entry><codeph>mips32_mt_getc0cause()</codeph></entry>
+      <entry>Return the CP0 Cause register of the selected TC/VPE.</entry>
+     </row>
+     <row>
+      <entry><codeph>mips32_mt_setc0cause(val)</codeph></entry>
+      <entry>Set the CP0 Cause register of the selected TC/VPE.</entry>
+     </row>
+     <row>
+      <entry><codeph>mips32_mt_getc0config()</codeph></entry>
+      <entry>Return the CP0 Config register of the selected TC/VPE.</entry>
+     </row>
+     <row>
+      <entry><codeph>mips32_mt_setc0config(val)</codeph></entry>
+      <entry>Set the CP0 Config register of the selected TC/VPE.</entry>
+     </row>
+     <row>
+      <entry><codeph>mips32_mt_getc0config1()</codeph></entry>
+      <entry>Return the CP0 Config1 register of the selected TC/VPE.</entry>
+     </row>
+     <row>
+      <entry><codeph>mips32_mt_setc0config1(val)</codeph></entry>
+      <entry>Set the CP0 Config1 register of the selected TC/VPE.</entry>
+     </row>
+     <row>
+      <entry><codeph>mips32_mt_getc0ebase()</codeph></entry>
+      <entry>Return the CP0 EBase register of the selected TC/VPE.</entry>
+     </row>
+     <row>
+      <entry><codeph>mips32_mt_setc0ebase(val)</codeph></entry>
+      <entry>Set the CP0 EBase register of the selected TC/VPE.</entry>
+     </row>
+     <row>
+      <entry><codeph>mips32_mt_getsp()</codeph></entry>
+      <entry>Return the stack pointer ($29) of the selected TC/VPE.</entry>
+     </row>
+     <row>
+      <entry><codeph>mips32_mt_setsp(val)</codeph></entry>
+      <entry>Set the stack pointer ($29) of the selected TC/VPE.</entry>
+     </row>
+     <row>
+      <entry><codeph>mips32_mt_getgp()</codeph></entry>
+      <entry>Return the global pointer ($28) of the selected TC/VPE.</entry>
+     </row>
+     <row>
+      <entry><codeph>mips32_mt_setgp(val)</codeph></entry>
+      <entry>Set the global pointer ($28) of the selected TC/VPE.</entry>
+     </row>
+     <row>
+      <entry><codeph>mips32_mt_getvpecontrol()</codeph></entry>
+      <entry>Return the CP0 VPEControl register of the selected TC/VPE.</entry>
+     </row>
+     <row>
+      <entry><codeph>mips32_mt_setvpecontrol(val)</codeph></entry>
+      <entry>Set the CP0 VPEControl register of the selected TC/VPE.</entry>
+     </row>
+     <row>
+      <entry><codeph>mips32_mt_getvpeconf0()</codeph></entry>
+      <entry>Return the CP0 VPEConf0 register of the selected TC/VPE.</entry>
+     </row>
+     <row>
+      <entry><codeph>mips32_mt_setvpeconf0(val)</codeph></entry>
+      <entry>Set the CP0 VPEConf0 register of the selected TC/VPE.</entry>
+     </row>
+     <row>
+      <entry><codeph>mips32_mt_gettcstatus()</codeph></entry>
+      <entry>Return the CP0 TCStatus register of the selected TC/VPE.</entry>
+     </row>
+     <row>
+      <entry><codeph>mips32_mt_settcstatus(val)</codeph></entry>
+      <entry>Set the CP0 TCStatus register of the selected TC/VPE.</entry>
+     </row>
+     <row>
+      <entry><codeph>mips32_mt_gettcbind()</codeph></entry>
+      <entry>Return the CP0 TCBind register of the selected TC/VPE.</entry>
+     </row>
+     <row>
+      <entry><codeph>mips32_mt_settcbind(val)</codeph></entry>
+      <entry>Set the CP0 TCBind register of the selected TC/VPE.</entry>
+     </row>
+     <row>
+      <entry><codeph>mips32_mt_gettcrestart()</codeph></entry>
+      <entry>Return the CP0 TCRestart register of the selected TC/VPE.</entry>
+     </row>
+     <row>
+      <entry><codeph>mips32_mt_settcrestart(val)</codeph></entry>
+      <entry>Set the CP0 TCRestart register of the selected TC/VPE.</entry>
+     </row>
+     <row>
+      <entry><codeph>mips32_mt_settchalt(val)</codeph></entry>
+      <entry>Set the CP0 TCHalt register of the selected TC/VPE.</entry>
+     </row>
+     <row>
+      <entry><codeph>mips32_mt_gettccontext()</codeph></entry>
+      <entry>Return the CP0 TCContext register of the selected TC/VPE.</entry>
+     </row>
+     <row>
+      <entry><codeph>mips32_mt_settccontext(val)</codeph></entry>
+      <entry>Set the CP0 TCContext register of the selected TC/VPE.</entry>
+     </row>
+    </tbody>
+   </tgroup>
+  </table>
+ </conbody>
+</concept>

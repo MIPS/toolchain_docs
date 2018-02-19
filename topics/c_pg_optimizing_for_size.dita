@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="concept_b1n_ycq_fcb">
+ <title>Optimizing for size</title>
+ <conbody>
+  <p>By default the standard linker scripts include and enable all possible features and are as
+   informative as possible about any runtime errors. Many of these features will not be required in
+   production code and may have to be removed in order to meet size constraints.</p>
+  <p>In general it is necessary to create a custom version of the standard linker scripts released
+   with the HAL to fine tune the features and size of the support code. Note that the default linker
+   scripts may be updated with new versions of the HAL so tracking the changes in a derived version
+   will be important.)</p>
+  <p>The HAL provides an example of a bootable application with all optional support code removed.
+   This is achieved through a custom linker script which applies the changes listed in the following
+   sections.</p>
+  <p>See example <codeph>romable_minimal</codeph> in
+    <codeph>$MIPS_ELF_ROOT/share/mips/example/</codeph></p>
+ </conbody>
+</concept>

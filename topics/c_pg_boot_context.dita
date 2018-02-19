@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="concept_gm5_cdq_fcb">
+ <title>Boot context</title>
+ <conbody>
+  <p>The code which enables applications to interact with the boot context (i.e. a boot monitor) is
+   generally only required if running from within a boot monitor such as YAMON or U-boot. This code
+   can be safely removed if such platforms are not important.</p>
+  <p>In a copy of a HAL linker script, update the value of <codeph>__use_excpt_boot</codeph> to be 0
+   instead of 1 and remove the following line:</p>
+  <codeblock>EXTERN (__register_excpt_boot);</codeblock>
+ </conbody>
+</concept>

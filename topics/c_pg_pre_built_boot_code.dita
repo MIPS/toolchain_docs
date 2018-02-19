@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="concept_isc_kbl_fcb">
+ <title>Pre-built boot code</title>
+ <conbody>
+  <p>The pre-built version of the boot code inspects hardware configuration at runtime and
+   initialises any features that are found. It will also try to detect situations where additional
+   core specific support is required for successful initialisation and halt the processor reporting
+   what is missing. This code can be included in a program by including the secondary link script
+    <codeph>bootcode.ld</codeph></p>
+  <p> See example romable in <codeph>$MIPS_ELF_ROOT/share/mips/examples/</codeph></p>
+ </conbody>
+</concept>

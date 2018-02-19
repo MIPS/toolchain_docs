@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="concept_wsp_zb1_fcb">
+ <title>HAL makefile fragment</title>
+ <conbody>
+  <p>A makefile fragment is included in the HAL to provide easy access to common MIPS build variants
+   and HAL features. This can be found in
+    <codeph>$MIPS_ELF_ROOT/share/mips/rules/mipshal.mk</codeph>.</p>
+  <p>The build variants that are accessible through the makefile fragment are listed below.</p>
+  <table id="table_ebq_1c1_fcb">
+   <title>mipshal.mk build variants</title>
+   <tgroup cols="2">
+    <colspec colnum="1" colname="col1" colwidth="1*"/>
+    <colspec colnum="2" colname="col2" colwidth="2.45*"/>
+    <thead>
+     <row>
+      <entry><b>Symbol</b></entry>
+      <entry><b>Description</b></entry>
+     </row>
+    </thead>
+    <tbody>
+     <row>
+      <entry><codeph>ENDIAN</codeph></entry>
+      <entry>Endian-ness of compiled programs.</entry>
+     </row>
+     <row>
+      <entry><codeph>ABI</codeph></entry>
+      <entry>ABI used by the compiler.</entry>
+     </row>
+     <row>
+      <entry><codeph>MIPS_TOOLCHAIN</codeph></entry>
+      <entry>Controls which toolchain is selected.</entry>
+     </row>
+     <row>
+      <entry><codeph>ROMABLE</codeph></entry>
+      <entry>Setting ROMABLE will utilize a secondary link script, “bootcode.ld” which will include
+       all the necessary code to boot a MIPS system.</entry>
+     </row>
+     <row>
+      <entry><codeph>ELF_ENTRY</codeph></entry>
+      <entry>Used to define the entry point to the application. By default this is either _start or
+       0xbfc00000 when ROMABLE is set. This should only be defined by advanced users.</entry>
+     </row>
+    </tbody>
+   </tgroup>
+  </table>
+  <p>Their default options are possible configuration values are as follows:</p>
+  <table id="table_fbq_1c1_fcb">
+   <title>mipshal.mk build variants default values</title>
+   <tgroup cols="3">
+    <colspec colnum="1" colname="col1"/>
+    <colspec colnum="2" colname="col2"/>
+    <colspec colnum="3" colname="col3"/>
+    <thead>
+     <row>
+      <entry><b>Symbol</b></entry>
+      <entry><b>Default Value</b></entry>
+      <entry><b>Supported Values</b></entry>
+     </row>
+    </thead>
+    <tbody>
+     <row>
+      <entry><codeph>ENDIAN</codeph></entry>
+      <entry>Compiler default.</entry>
+      <entry>“EL” (little endian) or “EB” (big endian) </entry>
+     </row>
+     <row>
+      <entry><codeph>ABI</codeph></entry>
+      <entry>Compiler default.</entry>
+      <entry>“32” (o32), “64” (N64), “n32” (N32)</entry>
+     </row>
+     <row>
+      <entry><codeph>MIPS_TOOLCHAIN</codeph></entry>
+      <entry><codeph>nanomips-img-elf</codeph>
+      </entry>
+      <entry>The triplet part of a toolchain</entry>
+     </row>
+     <row>
+      <entry><codeph>ROMABLE</codeph></entry>
+      <entry>None</entry>
+      <entry>1</entry>
+     </row>
+     <row>
+      <entry><codeph>ELF_ENTRY</codeph></entry>
+      <entry>None</entry>
+      <entry>Any linker script expression</entry>
+     </row>
+    </tbody>
+   </tgroup>
+  </table>
+  <p>The <codeph>mipshal.mk</codeph> makefile fragment recognises the following symbols and will
+   emit the required linker flags when these variables are defined.</p>
+  <table id="table_gbq_1c1_fcb">
+   <title>mipshal symbols</title>
+   <tgroup cols="2">
+    <colspec colnum="1" colname="col1"/>
+    <colspec colnum="2" colname="col2"/>
+    <thead>
+     <row>
+      <entry><b>mipshal.mk Symbol</b></entry>
+      <entry><b>Matching linker script symbol</b></entry>
+     </row>
+    </thead>
+    <tbody>
+     <row>
+      <entry><codeph>MEMORY_BASE</codeph></entry>
+      <entry><codeph>__memory_base</codeph></entry>
+     </row>
+     <row>
+      <entry><codeph>MEMORY_SIZE</codeph></entry>
+      <entry><codeph>__memory_size</codeph></entry>
+     </row>
+     <row>
+      <entry><codeph>STACK</codeph></entry>
+      <entry><codeph>__stack</codeph></entry>
+     </row>
+     <row>
+      <entry><codeph>FLUSH_TO_ZERO</codeph></entry>
+      <entry><codeph>__flush_to_zero</codeph></entry>
+     </row>
+     <row>
+      <entry><codeph>BEV_OVERRIDE</codeph></entry>
+      <entry><codeph>__bev_override</codeph></entry>
+     </row>
+     <row>
+      <entry><codeph>FLASH_START</codeph></entry>
+      <entry><codeph>__flash_start</codeph></entry>
+     </row>
+     <row>
+      <entry><codeph>FLASH_APP_START</codeph></entry>
+      <entry><codeph>__flash_app_start</codeph></entry>
+     </row>
+     <row>
+      <entry><codeph>APP_START</codeph></entry>
+      <entry><codeph>__app_start</codeph></entry>
+     </row>
+     <row>
+      <entry><codeph>ISR_VEC_SPACE</codeph></entry>
+      <entry><codeph>__isr_vec_space</codeph></entry>
+     </row>
+     <row>
+      <entry><codeph>ISR_VECTOR_COUNT</codeph></entry>
+      <entry><codeph>__isr_vector_count</codeph></entry>
+     </row>
+     <row>
+      <entry><codeph>ENABLE_XPA</codeph></entry>
+      <entry><codeph>__enable_xpa</codeph></entry>
+     </row>
+    </tbody>
+   </tgroup>
+  </table>
+  <p>A sample makefile to set the memory size to 8M and leaving 1M for the bootloader would look
+   like:</p>
+  <codeblock>
+   # Project name
+   
+   # Project description, etc
+   
+   # Optional specific memory size and start address
+   # MEMORY_SIZE=8M
+   # APP_START=0x80100000
+   
+   include ${MIPS_ELF_ROOT}/share/mips/rules/mipshal.mk
+   
+   # CC, LD are set to the appropriate compiler, linker for MIPS_TOOLCHAIN and
+   # MIPS_ELF_ROOT.  CFLAGS and LDFLAGS now contain the command flags to set
+   # the required ABI and any additional link time symbols to configure the
+   # linker scripts.
+   
+   CFLAGS += ... 	# Project specific compiler options
+   LDFLAGS += ...	# Project specific linker options
+   
+    &lt;makefile targets, etc>
+   
+  </codeblock>
+ </conbody>
+</concept>

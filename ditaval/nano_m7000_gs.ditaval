@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<val>
+	<prop att="audience" val="m7000" action="include"/>
+	<prop att="audience" val="i7200" action="include"/>
+	
+	
+	<prop att="audience" val="msa" action="exclude"/>
+</val>

@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="concept_cfb_3s1_fcb">
+ <title>ELF object file format</title>
+ <conbody>
+  <p>The <ph keyref="var_nanotoolchain"/> uses the ELF object file format with DWARF debug
+   information.</p>
+  <p>ELF files can define multiple sections. Roughly speaking, the output of the assembler is a file
+   containing one or more named sections; when two or more object files are linked, sections with
+   the same name are combined; so the section ‘‘.text’’ is used for machine instructions, and by
+   default all the instructions end up together. The compiler and the assembler generate quite a lot
+   of different sections implicitly, and the default linker scripts built in to the toolchain know
+   which segment (a segment is a chunk of the eventual program image) to put them in. See <xref
+    href="#concept_cfb_3s1_fcb/table_swb_js1_fcb" format="dita" outputclass="noPageNo"/> below.</p>
+  <p>You can also deliberately place code or data in arbitrarily named sections if you want to take
+   control over exactly where different chunks of your program end up in memory.</p>
+  <p>Much of the time you won’t really be aware of all these sections, but when you use one of the
+   binary utility programs in the toolchain (nm, objdump, readelf, ld and so on), you will see those
+   names.</p>
+  <table id="table_swb_js1_fcb">
+   <title>Standard ELF section names</title>
+   <tgroup cols="3">
+    <colspec colnum="1" colname="col1"/>
+    <colspec colnum="2" colname="col2"/>
+    <colspec colnum="3" colname="col3"/>
+    <thead>
+     <row>
+      <entry><b>Section name</b></entry>
+      <entry><b>What generates it</b></entry>
+      <entry><b>Where it ends up</b></entry>
+     </row>
+    </thead>
+    <tbody>
+     <row>
+      <entry><codeph>.text</codeph></entry>
+      <entry>Compiler- or assembler-generated instructions</entry>
+      <entry morerows="7">Executable code segment</entry>
+     </row>
+     <row>
+      <entry><codeph>.text.hot</codeph></entry>
+      <entry>Functions which are called frequently</entry>
+     </row>
+     <row>
+      <entry><codeph>.text.unlikely</codeph></entry>
+      <entry>Functions which are called rarely</entry>
+     </row>
+     <row>
+      <entry><codeph>.text.*</codeph></entry>
+      <entry>Functions when compiled with <codeph>−ffunction−sections</codeph> are output to
+       uniquely named sections of this form</entry>
+     </row>
+     <row>
+      <entry><codeph>−ffunction−sections </codeph>are output to uniquely named sections of this
+       form</entry>
+      <entry> </entry>
+     </row>
+     <row>
+      <entry><codeph>.gnu.linkonce.t.*</codeph></entry>
+      <entry>C++ methods − only one copy of each section with the same name is output to the code
+       segment</entry>
+     </row>
+     <row>
+      <entry><codeph>.init</codeph></entry>
+      <entry>Code to be run before main (e.g. C++ setup)</entry>
+     </row>
+     <row>
+      <entry><codeph>.fini</codeph></entry>
+      <entry>Code to be run after _exit (e.g. C++ teardown)</entry>
+     </row>
+     <row>
+      <entry><codeph>.rodata</codeph></entry>
+      <entry>Strings and C data declared const</entry>
+      <entry morerows="11">Read-only data segment</entry>
+     </row>
+     <row>
+      <entry><codeph>.rodata.*</codeph></entry>
+      <entry>Constant data when compiled with <codeph>−fdata−sections </codeph>are output to
+       uniquely named sections of this form</entry>
+     </row>
+     <row>
+      <entry><codeph>−fdata−sections</codeph> are output to uniquely named sections of this
+       form</entry>
+      <entry> </entry>
+     </row>
+     <row>
+      <entry><codeph>.rodata.strS.A</codeph></entry>
+      <entry>Mergeable strings of size S and alignment A</entry>
+     </row>
+     <row>
+      <entry><codeph>.rodata.cstA</codeph></entry>
+      <entry>Mergeable constant data of alignment A</entry>
+     </row>
+     <row>
+      <entry><codeph>.gnu.linkonce.r.*</codeph></entry>
+      <entry>C++ ‘‘link-once’’ constant data</entry>
+     </row>
+     <row>
+      <entry><codeph>.ctors</codeph></entry>
+      <entry>Pointers to C++ static constructors</entry>
+     </row>
+     <row>
+      <entry><codeph>.dtors</codeph></entry>
+      <entry>Pointers to C++ static destructors</entry>
+     </row>
+     <row>
+      <entry><codeph>.eh_frame_hdr</codeph></entry>
+      <entry> </entry>
+     </row>
+     <row>
+      <entry>C++ exception handling information</entry>
+      <entry> </entry>
+     </row>
+     <row>
+      <entry><codeph>.eh_frame</codeph></entry>
+      <entry> </entry>
+     </row>
+     <row>
+      <entry><codeph>.gcc_except_table</codeph></entry>
+      <entry> </entry>
+     </row>
+     <row>
+      <entry><codeph>.data</codeph></entry>
+      <entry>Variables >n bytes (compiled -Gn) with an initial value</entry>
+      <entry morerows="5">Initialised data segment</entry>
+     </row>
+     <row>
+      <entry><codeph>.data.*</codeph></entry>
+      <entry>
+       <p>Large initialised variables compiled with <codeph>−fdata−sections</codeph>
+       </p>
+      </entry>
+     </row>
+     <row>
+      <entry><codeph>.gnu.linkonce.d.*</codeph></entry>
+      <entry>C++ ‘‘link-once’’ data</entry>
+     </row>
+     <row>
+      <entry><codeph>.sdata</codeph></entry>
+      <entry>Variables &lt;=n bytes (compiled -Gn) with an initial value</entry>
+     </row>
+     <row>
+      <entry><codeph>.sdata.*</codeph></entry>
+      <entry>Small variables compiled with −fdata−sections</entry>
+     </row>
+     <row>
+      <entry><codeph>.gnu.linkonce.s.*</codeph></entry>
+      <entry>C++ ‘‘link-once’’ small data</entry>
+     </row>
+     <row>
+      <entry><codeph>.sbss</codeph></entry>
+      <entry>Uninitialised variables &lt;=n bytes (compiled -Gn)</entry>
+      <entry morerows="3">Small zero-filled segment</entry>
+     </row>
+     <row>
+      <entry><codeph>.sbss.*</codeph></entry>
+      <entry>Small uninitialised variables compiled with <codeph>−fdata−sections</codeph></entry>
+     </row>
+     <row>
+      <entry><codeph>−fdata−sections</codeph></entry>
+      <entry> </entry>
+     </row>
+     <row>
+      <entry><codeph>.gnu.linkonce.sb.*</codeph></entry>
+      <entry>C++ ‘‘link-once’’ small uninitialised data</entry>
+     </row>
+     <row>
+      <entry><codeph>.bss</codeph></entry>
+      <entry>Uninitialised larger variables</entry>
+      <entry morerows="3">Zero-filled segment</entry>
+     </row>
+     <row>
+      <entry><codeph>.bss.*</codeph></entry>
+      <entry>Uninitialised variables compiled with <codeph>−fdata−sections</codeph></entry>
+     </row>
+     <row>
+      <entry><codeph>−fdata−sections.</codeph></entry>
+      <entry> </entry>
+     </row>
+     <row>
+      <entry><codeph>.gnu.linkonce.b.*</codeph></entry>
+      <entry>C++ ‘‘link-once’’ uninitialised data</entry>
+     </row>
+     <row>
+      <entry><codeph>.debug* </codeph></entry>
+      <entry morerows="2">DWARF debug information</entry>
+      <entry morerows="1">Not in load image</entry>
+     </row>
+     <row>
+      <entry><codeph>.line</codeph></entry>
+ 
+     </row>
+     <row>
+      <entry><codeph>.comment</codeph></entry>
+      <entry>#ident/.ident strings</entry>
+     </row>
+    </tbody>
+   </tgroup>
+  </table>
+  <p>Named ELF sections also exist to hold relocation records, symbol tables, etc, but they don’t
+   show up in the final program at all.</p>
+ </conbody>
+</concept>

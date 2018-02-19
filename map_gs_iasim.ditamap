@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE map PUBLIC "-//OASIS//DTD DITA Map//EN" "map.dtd">
+<map>
+ <title>Using <ph keyref="var_ias"/> with <ph keyref="var_nano"/> programs</title>
+ <topicref href="topics/c_gs_iasim_intro.dita">
+  <topicref href="topics/c_toolchain_build_options.dita"/>
+ </topicref>
+</map>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE map PUBLIC "-//OASIS//DTD DITA Map//EN" "map.dtd">
+<map>
+ <title>p32 ABI Overview</title>
+ <topicref href="topics/c_p32_ABI_Overview_intro.dita">
+  <topicref href="topics/c_p32_what_is_p32_abi.dita"/>
+  <topicref href="topics/c_p32_porting_requirements.dita"/>
+  <topicref href="topics/c_p32_abi_comparison.dita"/>
+ </topicref>
+</map>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="concept_dsr_sbl_fcb">
+ <title>Optimized boot code</title>
+ <conbody>
+  <p>The HAL provides a parameterized set of boot code in source form. This version does not inspect
+   the hardware configuration at run time, instead the necessary initialization code is selected and
+   configured at compile time. To do this users supply the values of the various configuration
+   registers when building the custom version. These values can be extracted from a core using a
+   debugger; it does not matter what state a core is in when obtaining the values as only the
+   read-only bits are relevant. The registers include: Config1 to Config5, WatchHI, and the
+   additional watch registers in CP0..</p>
+  <p>The following register values must be defined:</p>
+  <p><codeph>C0_CONFIG1_VALUE, C0_CONFIG2_VALUE, C0_CONFIG3_VALUE</codeph></p>
+  <p>If Config4 or Config5 is implemented then their values are also required:</p>
+  <p><codeph>C0_CONFIG4_VALUE, C0_CONFIG5_VALUE</codeph></p>
+  <p>If watch registers are implemented then all the WatchHI register values must be defined:</p>
+  <p><codeph>C0_WATCHHI_VALUE, C0_WATCHHI1_VALUE …</codeph></p>
+  <p>If a Coherency Manager version 3 is implemented then the CMGCRBase and GCR L2 Config value must
+   be defined:</p>
+  <p><codeph>C0_CMGCRBASE_VALUE, GCR_L2_CONFIG_VALUE</codeph>
+  </p>
+  <p>See <codeph>romable_predef</codeph> in <codeph>$MIPS_ELF_ROOT/share/mips/examples/ </codeph>for
+   an example solution for the I7200 core.</p>
+ </conbody>
+</concept>

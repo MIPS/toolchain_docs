@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="c_p32_compatible_call_sequences">
+ <title>Compatible call sequences</title>
+ <conbody><p>The o32 ABI mandates the use of J or JAL to make a call and the assembler automatically
+   deals with a large number of special addressing modes to ensure these instructions behave
+   according to the current settings.</p> <p>nanoMIPS also supports these instructions as macros solely as a compatibility measure because
+   they do not exist in the ISA itself. For J and JAL to be useful as an abstraction then the
+   assembler must be operating in <codeph>.set</codeph> macro <codeph>.set</codeph> reorder mode.
+   Where code does not need to build with o32 then J should be converted to BC and JAL should be
+   converted to BALC.</p></conbody>
+</concept>

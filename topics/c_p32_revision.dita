@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="c_p32_revision">
+ <title>Revision history</title>
+ <conbody>
+      <table id="table_tws_kpm_xcb">
+         <tgroup cols="3">
+            <colspec colnum="1" colname="col1"/>
+            <colspec colnum="2" colname="col2"/>
+            <colspec colnum="3" colname="col3"/>
+            <thead>
+                <row>
+                  <entry>Revision</entry>
+                  <entry>Date</entry>
+                  <entry>Description</entry>
+               </row>
+            </thead>
+            <tbody>
+              
+               <row>
+                  <entry>00.01</entry>
+                  <entry>29 June 2017</entry>
+                  <entry>Preliminary release.</entry>
+               </row>
+               <row>
+                  <entry>01.00</entry>
+                  <entry>31 January 2018</entry>
+                  <entry>First release.</entry>
+               </row>
+            </tbody>
+         </tgroup>
+      </table>
+   </conbody>
+</concept>

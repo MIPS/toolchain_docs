@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE map PUBLIC "-//OASIS//DTD DITA Map//EN" "map.dtd">
+<map>
+ <title>Key Map</title>
+ 
+ 
+ <!-- variables  
+ <keydef keys="featureName">
+  <topicmeta>
+   <keywords>
+    <keyword product="CONFIG0">DRM Security</keyword>
+    <keyword product="CONFIG1 CONFIG2 CONFIG3">GPU Virtualisation and DRM Security</keyword>
+   </keywords>
+  </topicmeta>
+ </keydef>
+-->
+
+  <keydef keys="var_ninja">
+    <topicmeta>
+      <keywords>
+        <keyword>M7000</keyword>
+      </keywords>
+    </topicmeta>
+  </keydef>
+  <keydef keys="var_mclass">
+    <topicmeta>
+      <keywords>
+        <keyword>M-Class</keyword>
+      </keywords>
+    </topicmeta>
+  </keydef>
+  <keydef keys="var_nanoshort">
+    <topicmeta>
+      <keywords>
+        <keyword>nanoMIPS</keyword>
+      </keywords>
+    </topicmeta>
+  </keydef>
+  <keydef keys="var_nanotoolchain">
+    <topicmeta>
+      <keywords>
+        <keyword>nanoMIPS Toolchain</keyword>
+      </keywords>
+    </topicmeta>
+  </keydef>
+ 
+  <keydef keys="var_nano">
+    <topicmeta>
+      <keywords>
+        <keyword>nanoMIPSR6</keyword>
+      </keywords>
+    </topicmeta>
+  </keydef>
+  <keydef keys="var_pdtrace">
+    <topicmeta>
+      <keywords>
+        <keyword>PDtrace</keyword>
+      </keywords>
+    </topicmeta>
+  </keydef>
+  <keydef keys="var_iflowtrace">
+    <topicmeta>
+      <keywords>
+        <keyword>iFlowtrace</keyword>
+      </keywords>
+    </topicmeta>
+  </keydef>
+  
+   <keydef keys="var_mips32">
+    <topicmeta>
+      <keywords>
+        <keyword>MIPS32®</keyword>
+      </keywords>
+    </topicmeta>
+  </keydef>
+
+<keydef keys="var_imagination">
+  <topicmeta>
+   <keywords>
+      <keyword>MIPS</keyword>
+   </keywords>
+  </topicmeta>
+ </keydef>
+ 
+<keydef keys="var_imagination_fullname">
+  <topicmeta>
+   <keywords>
+     <keyword>MIPS, Inc</keyword>
+   </keywords>
+  </topicmeta>
+ </keydef>
+ 
+<keydef keys="var_cc">
+  <topicmeta>
+   <keywords>
+      <keyword>Codescape Console</keyword>
+   </keywords>
+  </topicmeta>
+ </keydef>
+ 
+<keydef keys="var_cdebug">
+  <topicmeta>
+   <keywords>
+      <keyword>Codescape Debugger</keyword>
+   </keywords>
+  </topicmeta>
+ </keydef>
+ 
+<keydef keys="var_img_toolchain">
+  <topicmeta>
+   <keywords>
+    <keyword>MIPS bare-metal toolchain</keyword>
+   </keywords>
+  </topicmeta>
+ </keydef>
+  <keydef keys="var_nano_toolchain">
+    <topicmeta>
+      <keywords>
+        <keyword>nanomips-img-elf</keyword>
+      </keywords>
+    </topicmeta>
+  </keydef>
+  <keydef keys="var_cdsdk">
+    <topicmeta>
+      <keywords>
+        <keyword>Codescape MIPS SDK</keyword>
+      </keywords>
+    </topicmeta>
+  </keydef>
+ 
+<keydef keys="var_ejtag">
+  <topicmeta>
+   <keywords>
+      <keyword>JTAG</keyword>
+   </keywords>
+  </topicmeta>
+ </keydef>
+ 
+  <keydef keys="var_oci">
+    <topicmeta>
+      <keywords>
+        <keyword>OCI</keyword>
+      </keywords>
+    </topicmeta>
+  </keydef>
+  
+  <keydef keys="var_mdh">
+    <topicmeta>
+      <keywords>
+        <keyword>MIPS Debug Hub</keyword>
+      </keywords>
+    </topicmeta>
+  </keydef>
+  
+  <keydef keys="var_mips">
+    <topicmeta>
+      <keywords>
+        <keyword>MIPS</keyword>
+      </keywords>
+    </topicmeta>
+  </keydef>
+
+  <keydef keys="var_ias">
+    <topicmeta>
+      <keywords>
+        <keyword>IASim</keyword>
+      </keywords>
+    </topicmeta>
+  </keydef>
+  
+  
+
+  
+ </map>

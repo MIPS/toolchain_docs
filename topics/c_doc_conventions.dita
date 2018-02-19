@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="c_doc_conventions">
+ <title>Conventions</title>
+ <conbody>
+  <p>The following conventions are used throughout this document:</p>
+  <simpletable frame="all" relcolwidth="1.0* 2.85*" id="simpletable_h2c_wtq_wcb">
+   <sthead>
+    <stentry>Convention</stentry>
+    <stentry>Meaning</stentry>
+   </sthead>
+   <strow>
+    <stentry><codeph>command</codeph></stentry>
+    <stentry>Denotes literal items such as commands, files, routines, path names, signals, messages,
+     and programming language structures.</stentry>
+   </strow>
+   <strow>
+    <stentry><codeph>&lt;Variable></codeph></stentry>
+    <stentry>Denotes variable entries and words or concepts being defined.</stentry>
+   </strow>
+   <strow>
+    <stentry>[]</stentry>
+    <stentry>Brackets enclose optional portions of a command or directive line.</stentry>
+   </strow>
+   <strow>
+    <stentry>...</stentry>
+    <stentry>Ellipses indicate that a preceding element can be repeated.</stentry>
+   </strow>
+   <strow>
+    <stentry>
+     <codeph>%command</codeph></stentry>
+    <stentry>Indicates that <codeph>command</codeph> is being entered at a command prompt in a
+     terminal. The <codeph>% </codeph>is the command prompt.</stentry>
+   </strow>
+  </simpletable>
+ </conbody>
+</concept>

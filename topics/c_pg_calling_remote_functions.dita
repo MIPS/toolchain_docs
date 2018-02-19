@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="concept_whv_bv1_fcb">
+ <title>Calling remote functions</title>
+ <conbody>
+  <p>Although data in additional sections can be accessed without any special precautions, care must
+   be taken when calling functions in them. The MIPS call (jal) instruction can’t specify a full
+   32-bit target (MIPS instructions are only 32 bits long, and there has to be an opcode field to
+   identify this instruction...); instead, it stores 28 bits of the target address; the high 4 bits
+   of the target address are just those of the jal instruction. The effect is that you can only call
+   a function in the same 256Mbyte ‘‘page’’ of memory; the linker will complain if you attempt to
+   reach further.</p>
+  <p>There are ways around this problem:</p>
+  <section id="section_drk_pgb_fcb">
+   <title>Calling in C</title>
+   <p>In C you can declare the remote function using the longcall or far attribute. For example:</p>
+   <codeblock>extern int far_away () attribute ((longcall));</codeblock>
+   <p>Or</p>
+   <codeblock>extern int far_away () attribute ((far));</codeblock>
+  </section>
+  <section id="section_iqq_5gb_fcb">
+   <title>Calling in assembler</title>
+   <p>In assembler you must explicitly take the address of the function before calling it. For
+    example:</p>
+   <codeblock>la t8,remfunc
+jalr t8 </codeblock>
+  </section>
+  <section id="section_e2v_xgb_fcb">
+   <title>C where code cannot be changed</title>
+   <p>For C code where changing the source is not possible, you can compile with the −mlong−calls
+    option. This forces the compiler to default to performing all function calls using the two-step
+    la/jalr sequence. Note that this incurs a speed and space penalty, as ALL function calls will
+    now require at least three instructions instead of one.</p>
+   <p>To avoid the extra overhead when you know that certain functions can be reached with an
+    absolute 28-bit address, you can mark such functions with the near attribute. For example:</p>
+   <codeblock>extern int close_by () attribute ((near));</codeblock>
+  </section>
+ </conbody>
+</concept>

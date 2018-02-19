@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="concept_pfq_t11_fcb">
+ <title>Linker Scripts and Object Files</title>
+ <conbody>
+  <p>The linker (ld) is always controlled by a script file (.ld file). The toolchain provides linker
+   scripts that pull in appropriate startup code and libraries. These linker scripts can be found in
+   multilib-specific subdirectories. Linker script files are used to control how the input sections
+   are mapped into output sections and to control the memory layout of output sections. Linker
+   command line option -T&lt;file> can be used to supply a linker script to the linker. The GNU
+   Linker manual (ld.pdf) contains full details of the script language.</p>
+  <p>The HAL includes one standard linker script for the p32 nanoMIPS ABI. The HAL is
+   fully compliant to the UHI specification and as such the linker scripts reflect the standard. The
+   script is called <codeph>uhi32.ld</codeph>. </p>
+  <p>The linker scripts will default to using <codeph>_start</codeph> as the entry point for an
+   application. Otherwise, if the symbol <codeph>__reset_vector</codeph> is defined, the linker
+   script will use 0xBFC00000 instead.</p>
+  <p>A secondary linker script, <codeph>bootcode.ld</codeph> is also included and is used to include
+   the object code necessary for a bootable application. It must be used in conjunction with the
+   other UHI linker scripts. </p>
+  <p>Symbols in the linker scripts can be overridden on command line using:</p>
+  <codeblock>-Wl,--defsym,&lt;symbol>=&lt;value></codeblock>
+  <p>The <codeph>mipshal.mk</codeph> makefile fragment discussed in <xref
+    href="c_pg_hal_mk_frag.dita"/> simplifies the use of the bootcode.ld linker script.</p>
+ </conbody>
+</concept>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="concept_k2y_czg_1cb">
+ <title>Download and Installation</title>
+ <conbody>
+  <p>See the <ph conkeyref="c_biblio/nanomips_gs"/> for details of how to install the toolchain.</p>
+ </conbody>
+</concept>

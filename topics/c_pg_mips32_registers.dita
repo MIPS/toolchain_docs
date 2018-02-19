@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="concept_mhn_gtc_fcb">
+ <title>MIPS32 registers</title>
+ <conbody>
+  <p>A general set of functions are provided to access header defined CP0 registers. These functions
+   take a register name to access any co-processor 0 register. The header file
+    <codeph>mips/m32c0.h</codeph> defines these macros and textual names for many of the
+   architectural specified registers, see <xref href="../map_pg_cp0_reg_names.ditamap"
+    format="ditamap"/> for a full list. </p>
+  <table id="table_tnr_htc_fcb">
+   <title>MIPS32 CP0 functions</title>
+   <tgroup cols="2">
+    <colspec colnum="1" colname="col1"/>
+    <colspec colnum="2" colname="col2"/>
+    <thead>
+     <row>
+      <entry><b>Function</b></entry>
+      <entry><b>Description</b></entry>
+     </row>
+    </thead>
+    <tbody>
+     <row>
+      <entry><codeph>mips32_get_c0 (&lt;RegName>)</codeph></entry>
+      <entry>Returns the value of &lt;RegName>.</entry>
+     </row>
+     <row>
+      <entry><codeph>mips32_set_c0(&lt;RegName>, val)</codeph></entry>
+      <entry>Set &lt;RegName>.</entry>
+     </row>
+     <row>
+      <entry><codeph>mips32_xch_c0(&lt;RegName>, val)</codeph></entry>
+      <entry>Exchange the old value of &lt;RegName>with val and return the old value.</entry>
+     </row>
+     <row>
+      <entry><codeph>mips32_bc_c0(&lt;RegName>, clr)</codeph></entry>
+      <entry>Clear the corresponding bits in &lt;RegName> that are set in clr.</entry>
+     </row>
+     <row>
+      <entry><codeph>mips32_bs_c0(&lt;RegName>, set)</codeph></entry>
+      <entry>Set the corresponding bits in &lt;RegName> that are set in set.</entry>
+     </row>
+     <row>
+      <entry><codeph>mips32_bcs_c0(&lt;RegName>, clr, set)</codeph></entry>
+      <entry>Set and clear corresponding bits in &lt;RegName> using set and clr masks. </entry>
+     </row>
+    </tbody>
+   </tgroup>
+  </table>
+  <p>A helper macro <codeph>MIPS_C0_REGNAME</codeph> must be used to specify &lt;RegName> for
+   register and select combinations that are implementation dependant, (for example, Performance
+   Counter 3), for the above functions. </p>
+  <table id="table_unr_htc_fcb">
+   <title>MIPS32 CP0 RegName macro</title>
+   <tgroup cols="2">
+    <colspec colnum="1" colname="col1"/>
+    <colspec colnum="2" colname="col2"/>
+    <thead>
+     <row>
+      <entry><b>Macro prototype</b></entry>
+      <entry><b>Description</b></entry>
+     </row>
+    </thead>
+    <tbody>
+     <row>
+      <entry><codeph>opaque MIPS_C0_REGNAME(int register_number, int select)</codeph></entry>
+      <entry>Returns an implementation defined value for use with mips32_&lt;operation>_c0 and
+       mips64_&lt;operation>_c0 macros.</entry>
+     </row>
+    </tbody>
+   </tgroup>
+  </table>
+  <p>For example:</p>
+  <codeblock>// Read performance counter 3
+count = mips32_get_c0(MIPS_C0_REGNAME(25, 7));
+
+// Alternatively in a header file after the inclusion of &lt;mips/m32c0.h>
+#define C0_PERFCNT3 MIPS_C0_REGNAME(25, 7)</codeblock>
+ </conbody>
+</concept>

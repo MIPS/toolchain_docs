@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="concept_dmg_lsb_fcb">
+ <title>Floating point Extended Context</title>
+ <conbody>
+  <p>The HAL provides support for saving and restoring the floating point register set for both
+   32-bit and 64-bit FPUs as detected by the FR bit in the status register.</p>
+  <p>The two different floating point contexts share a common member, <codeph>struct
+   fpctx</codeph>:</p>
+  <table id="table_iwf_msb_fcb">
+   <title>fpctx structure</title>
+   <tgroup cols="2">
+    <colspec colnum="1" colname="col1"/>
+    <colspec colnum="2" colname="col2"/>
+    <thead>
+     <row>
+      <entry><b>Type and member name</b></entry>
+      <entry><b>Description</b></entry>
+     </row>
+    </thead>
+    <tbody>
+     <row>
+      <entry><codeph>struct linkctx link</codeph></entry>
+      <entry>Type and link to next context.</entry>
+     </row>
+     <row>
+      <entry><codeph>reg_t fcsr</codeph></entry>
+      <entry>Floating point condition and status register</entry>
+     </row>
+     <row>
+      <entry><codeph>reg_t reserved</codeph></entry>
+      <entry>
+       <p>Reserved.</p>
+       <p> </p>
+      </entry>
+     </row>
+    </tbody>
+   </tgroup>
+  </table>
+  <p>The 32-bit floating point context is laid out as follows:</p>
+  <table id="table_jwf_msb_fcb">
+   <title>32-bit Floating point context layout</title>
+   <tgroup cols="2">
+    <colspec colnum="1" colname="col1"/>
+    <colspec colnum="2" colname="col2"/>
+    <thead>
+     <row>
+      <entry><b>Type and member name</b></entry>
+      <entry><b>Description</b></entry>
+     </row>
+    </thead>
+    <tbody>
+     <row>
+      <entry><codeph>struct fpctx fp</codeph></entry>
+      <entry>As described above.</entry>
+     </row>
+     <row>
+      <entry>A union of:<p>
+        <simpletable frame="all" relcolwidth="1.0*" id="simpletable_dw1_htb_fcb">
+         <sthead>
+          <stentry>Type and name</stentry>
+         </sthead>
+         <strow>
+          <stentry>double d[16]</stentry>
+         </strow>
+         <strow>
+          <stentry>float s[32]</stentry>
+         </strow>
+        </simpletable>
+       </p></entry>
+      <entry>Data from the 32 floating point registers. </entry>
+     </row>
+    </tbody>
+   </tgroup>
+  </table>
+  <p>Accessors for the elements are provided for use in C or C++:</p>
+  <table id="table_lwf_msb_fcb">
+   <title>fpctx Element 32-bit accessors</title>
+   <tgroup cols="2">
+    <colspec colnum="1" colname="col1"/>
+    <colspec colnum="2" colname="col2"/>
+    <thead>
+     <row>
+      <entry><b>Name</b></entry>
+      <entry><b>Description</b></entry>
+     </row>
+    </thead>
+    <tbody>
+     <row>
+      <entry><codeph>FP32CTX_DBL(struct fp32actx * ctx, int n)</codeph></entry>
+      <entry>Returns the nth double element.</entry>
+     </row>
+     <row>
+      <entry><codeph>FP32CTX_SGL(struct fp32actx * ctx, int n)</codeph></entry>
+      <entry>Returns the nth float element. </entry>
+     </row>
+    </tbody>
+   </tgroup>
+  </table>
+  <p>The 64-bit floating point context is laid out as follows:</p>
+  <table id="table_mwf_msb_fcb">
+   <title>64-bit Floating point context layout</title>
+   <tgroup cols="2">
+    <colspec colnum="1" colname="col1"/>
+    <colspec colnum="2" colname="col2"/>
+    <thead>
+     <row>
+      <entry><b>Type and member name</b></entry>
+      <entry><b>Description</b></entry>
+     </row>
+    </thead>
+    <tbody>
+     <row>
+      <entry><codeph>struct fpctx fp</codeph></entry>
+      <entry>As described above.</entry>
+     </row>
+     <row>
+      <entry>A union of:<p>
+        <simpletable frame="all" relcolwidth="1.0*" id="simpletable_uvl_mtb_fcb">
+         <sthead>
+          <stentry>Type and name</stentry>
+         </sthead>
+         <strow>
+          <stentry>double d[32]</stentry>
+         </strow>
+         <strow>
+          <stentry>float s[64]</stentry>
+         </strow>
+        </simpletable>
+       </p></entry>
+      <entry>Data from the 32 floating point registers.</entry>
+     </row>
+    </tbody>
+   </tgroup>
+  </table>
+  <p>Accessors for the elements are provided for use in C or C++:</p>
+  <table id="table_owf_msb_fcb">
+   <title>fpctx Element 64-bit accessors</title>
+   <tgroup cols="2">
+    <colspec colnum="1" colname="col1"/>
+    <colspec colnum="2" colname="col2"/>
+    <thead>
+     <row>
+      <entry><b>Name</b></entry>
+      <entry><b>Description</b></entry>
+     </row>
+    </thead>
+    <tbody>
+     <row>
+      <entry><codeph>FP64CTX_DBL(struct fp64actx * ctx, int n)</codeph></entry>
+      <entry>Returns the nth double element.</entry>
+     </row>
+     <row>
+      <entry><codeph>FP64CTX_SGL(struct fp64actx * ctx, int n)</codeph></entry>
+      <entry>Returns the nth float element.</entry>
+     </row>
+    </tbody>
+   </tgroup>
+  </table>
+ </conbody>
+</concept>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="concept_cqd_by5_2cb">
+ <title>Toolchain build options</title>
+ <conbody>
+  <p>The toolchain provides generic and core-specific -march options, listed in the table below
+   (note that table may not be comprehensive).</p>
+  <table frame="all" rowsep="1" colsep="1" id="table_wl2_ly5_2cb">
+   <title>-march options</title>
+   <tgroup cols="2">
+    <colspec colname="c1" colnum="1" colwidth="1*"/>
+    <colspec colname="c2" colnum="2" colwidth="2*"/>
+    <thead>
+     <row>
+      <entry>Option</entry>
+      <entry>Target</entry>
+     </row>
+    </thead>
+    <tbody>
+     <row>
+      <entry><codeph>32r6</codeph></entry>
+      <entry>Generic nanoMIPS 32 bit R6 targets.</entry>
+     </row>
+     <row>
+      <entry><codeph>32r6s</codeph></entry>
+      <entry/>
+     </row>
+     <row>
+      <entry><codeph>i7200</codeph></entry>
+      <entry>Default I7200 core targets. </entry>
+     </row>
+     <row audience="m7000">
+      <entry><codeph>m7000</codeph></entry>
+      <entry>Default M7000 core targets. </entry>
+     </row>
+    </tbody>
+   </tgroup>
+  </table>
+  <p>Code can also be built using multilib options, or the -march defaults modified using multilib
+   options. See 'Multilib configurations' in the <ph conkeyref="c_biblio/nanomips_pg"/> for a full
+   list of multilib options. </p>
+  <p>Example of building with multilib</p>
+  <p>Example of -march with multilib</p>
+ </conbody>
+</concept>

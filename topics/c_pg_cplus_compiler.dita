@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="concept_bzv_cf3_1cb">
+ <title>C++ Compiler</title>
+ <conbody>
+  <p>The <ph keyref="var_nanotoolchain"/> include the GNU C++ compiler
+    (<codeph>nanomips-elf-g++</codeph>). The <codeph>nanomips-elf-g++</codeph> compiler supports
+   modern C++ features, and benefits from all <ph keyref="var_imagination"/>’ enhancements and
+   optimizations to the common back-end of GCC. Use of C++ exceptions and/or run-time type
+   identification incurs a significant size overhead. If these features are not required by your
+   code, then they can be switched off individually using the <codeph>−fno−exceptions</codeph> and
+    <codeph>−fno−rtti </codeph>options respectively.</p>
+ </conbody>
+</concept>

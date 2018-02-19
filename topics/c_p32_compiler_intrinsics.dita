@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="c_p32_compiler_intrinsics">
+ <title>Compiler intrinsics</title>
+ <conbody>
+  <p>There are no changes to the intrinsics in nanoMIPS. Built-ins <codeph>__builtin_mips_*</codeph>
+   still apply depending on the availability as before.</p>
+ </conbody>
+</concept>

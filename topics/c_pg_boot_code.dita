@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="concept_i3k_cbl_fcb">
+ <title>Boot Code</title>
+ <conbody>
+  <p>Two variations of MIPS Boot code are included; one is intended to work on all possible
+   implementations and one is tuneable to reduce code size and increase performance when preparing
+   production code. Some aspects of boot time initialisation can’t be done without core specific
+   information, where this can be detected then an error will be reported unless appropriate code
+   has been provided. Boot code makes use of two special sections:</p>
+  <dl>
+   <dlentry>
+    <dt>reset</dt>
+    <dd>Only one object in the entire link should contain a .reset section and it must implement the
+     reset vector. It is recommended to place a non-weak symbol called __reset_vector at the start
+     of the module so that the linker will detect if multiple such modules are included.</dd>
+   </dlentry>
+   <dlentry>
+    <dt>boot</dt>
+    <dd>Used for any other boot-time code referenced from the reset vector. This code is placed
+     immediately after the .reset section and this memory should be usable from cold boot.</dd>
+   </dlentry>
+  </dl>
+ </conbody>
+</concept>

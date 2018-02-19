@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="c_p32_elf_sections">
+ <title>ELF sections</title>
+ <conbody>
+  <p>The p32 ABI no longer places read-only data in .rdata section. Instead, the read-only data is
+   placed to the standardised .rodata section.</p>
+  <p> Constructors and destructors e.g. when using GCC’s<codeph>
+    __attribute__((constructor))/__attribute__((destructor))</codeph> are now placed in
+   .init_array/.fini_array sections in place of <codeph>.ctors/.dtors</codeph>, respectively. The
+   same applies to constructors/destructors with priorities, these are placed<codeph> in
+    .init_array.NNNNN </codeph>and <codeph>.fini_array.NNNNN </codeph>sections where NNNNN is the
+   priority. Users may need to update their custom linker scripts to account for these changes.</p>
+ </conbody>
+</concept>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="concept_acz_44p_1cb">
+ <title>Choosing the right model</title>
+ <conbody>
+   <p>The automatic model is appropriate in most cases and is set as the default model in GCC.
+    However, it can become inconvenient if the linker performs too many transformations and the
+    user wants to have a small difference between the total size of the intermediate objects and
+    the size of the fully linked object (e.g. to simplify code size analysis) or if they want to
+    have fine-grained control over the size of the fully linked object (e.g. to have a stable
+    final code size across source code changes). Moreover, the automatic model is unusable if
+    the linker does not support the relaxations and expansions required by it. In all of these
+    cases, the user should use either the medium or large model instead of the automatic model.</p>
+   <p>If the user has decided not to use the automatic model and their application is of average
+    size, they should use the medium model. To qualify for this model, an application must fulfil
+    the following size restrictions:</p>
+   <ul id="ul_rs3_nl3_1cb">
+    <li>no more than 256KiB worth of char and short variables and 2MiB worth of word-addressable
+     data in the small data section</li>
+    <li>no more than 2MiB worth of addresses in its GOT</li>
+    <li>call sites and destinations must be within 32MiB; this is trivially met by applications
+     which are less than 32MiB in size and have a single code segment</li>
+   </ul>
+   <p>The size limits on the small data section can be avoided by disabling its use with the
+    <codeph>-mno-gpopt</codeph> command-line option.  If the application is too big for the medium
+    model, the user should choose the large model. To avoid unnecessarily increasing the code
+    size, the user can choose the medium model as the default and use the large model only for
+    symbols which are out of range. This can be achieved in source code by using the
+    <codeph>cmodel</codeph> attribute:</p>
+   <codeblock>     __attribute__ ((cmodel("large")))
+     static int
+     example_func()
+     {
+       return 1;
+     }
+     static int example_var __attribute__ ((cmodel("large"))) = 1;</codeblock>
+   <p>The <codeph>cmodel</codeph> attribute forces the compiler to use the model provided through
+    it, instead of the default model or the model set by the <codeph>-mcmodel</codeph>
+    command-line option, for the marked symbol. Note that, in the case of functions, the
+    <codeph>long_call/far/near</codeph> attributes and the <codeph>-mlong-calls</codeph>
+    command-line option will override both the <codeph>cmodel</codeph> attribute and the
+    <codeph>-mcmodel</codeph> command-line option.</p>
+ </conbody>
+</concept>

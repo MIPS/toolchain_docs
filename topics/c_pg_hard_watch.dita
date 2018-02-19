@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="concept_xfj_4dx_2cb">
+ <title><?oxy_comment_start author="alastair.dent" timestamp="20171214T232012+0000" comment="Topic is tagged as internal in word doc so leave it out"?>Hardware
+  Watchpoints<?oxy_comment_end?></title>
+ <conbody>
+  <p>Some MIPS architecture CPUs provide one or more hardware watchpoint registers in Coprocessor 0
+   (these are separate from any EJTAG hardware breakpoint registers). The watchpoint registers
+   generate a CPU exception when software loads or stores data, or executes instructions, within a
+   programmable address range. Different MIPS-Based CPUs implement very different watchpoint
+   controls (number of watchpoints, type of access, physical/virtual address, address masking, and
+   so on). To make this manageable and portable between different CPUS we have developed a generic
+   API which is documented here. These facilities are used by the MIPS Toolchain remote debug stub
+   to support <i>gdb</i>'s watchpoint facility; but you could also use them to implement profiling
+   or debugging facilities within your own software.</p>
+  <p>To use the watchpoint API described here, include the file &lt;<i>mips/watchpoint.h</i>>.</p>
+  <table frame="all" rowsep="1" colsep="1" id="table_i5l_tdx_2cb">
+   <title>Hardware watchpoint functions</title>
+   <tgroup cols="2">
+    <colspec colname="c1" colnum="1" colwidth="1.0*"/>
+    <colspec colname="c2" colnum="2" colwidth="1.0*"/>
+    <thead>
+     <row>
+      <entry>Function</entry>
+      <entry>Description</entry>
+     </row>
+    </thead>
+    <tbody>
+     <row>
+      <entry><codeph>int _mips_watchpoint_howmany (void)</codeph></entry>
+      <entry>Just returns the number of hardware watchpoints, without re-initializing the
+       sub-system.</entry>
+     </row>
+     <row>
+      <entry><codeph>int _mips_watchpoint_capabilities (int wpnum)</codeph></entry>
+      <entry>Returns the capability of watchpoint number wpnum (0 to n). Usually called after
+        <codeph>_mips_watchpoint_init() </codeph>to collect and cache each watchpoint's capability.
+       The capability is the bitwise OR of some or all of the values shown</entry>
+     </row>
+     <row>
+      <entry>int _mips_watchpoint_set (int type, int asid, vaddr_t va, paddr_t pa, size_t
+       size)</entry>
+      <entry/>
+     </row>
+     <row>
+      <entry>int _mips_watchpoint_clear (int type, int asid, vaddr_t va, size_t size)</entry>
+      <entry/>
+     </row>
+     <row>
+      <entry>int _mips_watchpoint_set_callback (int asid, vaddr_t va, size_t len)</entry>
+      <entry/>
+     </row>
+     <row>
+      <entry>int _mips_watchpoint_hit (const struct xcptcontext *xcp, vaddr_t *vap, size_t
+       *sizep)</entry>
+      <entry/>
+     </row>
+     <row>
+      <entry/>
+      <entry/>
+     </row>
+    </tbody>
+   </tgroup>
+  </table>
+ </conbody>
+</concept>

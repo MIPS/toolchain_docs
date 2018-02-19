@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="concept_cjd_h3q_fcb">
+ <title>Non-conforming</title>
+ <conbody>
+  <p>This version, referred to as the tiny-variant, omits some ISO features in order to achieve
+   higher code density as compared to the compliant version. Following sections describe differences
+   between ISO conforming and non-conforming versions.</p>
+  <dl>
+   <dlentry>
+    <dt>File and standard IO</dt>
+    <dd>The file and standard IO functions provided by this version operate only on standard streams
+     (stdin, stdout and stderr). All the supported streams are un-buffered.</dd>
+   </dlentry>
+   <dlentry>
+    <dt>Locales</dt>
+    <dd>Locale support in this version is limited to UTF-8 encoding only, which allows direct code
+     paths and better performance. The only locale supported by this version is the default C.UTF-8
+     locale.</dd>
+   </dlentry>
+   <dlentry>
+    <dt>Floating point</dt>
+    <dd>The floating point support in this version differs from IEEE 754 standard in the following
+      ways,<ul id="ul_bwj_n3q_fcb">
+      <li>NaN, INF and de-normal input values are not handled. Operations involving such inputs
+       generate unpredictable results. </li>
+      <li>Sign of zero is ignored</li>
+      <li>No IEEE exceptions are flagged</li>
+     </ul></dd>
+   </dlentry>
+   <dlentry>
+    <dt>Reentrancy</dt>
+    <dd>This version of SmallCLib does not support reentrancy.</dd>
+   </dlentry>
+  </dl>
+ </conbody>
+</concept>

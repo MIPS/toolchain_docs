@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="concept_rwm_gkq_fcb">
+ <title>Math functions</title>
+ <conbody>
+  <p>Changes in the small-variant of the library are oriented towards better compliance with the ISO
+   C standard in places where Newlib implementation differs from the standard. Key differences
+   relate to the setting of <i>errno</i> and correct generation of floating point exceptions. In
+   general, the small-variant tries to do the minimum as required by the ISO C standard – behaviour
+   that is not required or optional under the ISO standard is curtailed to favour a smaller code
+   size.</p>
+  <p>The tiny-variant departs from IEEE 754 and ISO C99 standards by removing support for special
+   values such as de-normalized numbers, infinity and NaN inputs. Special values are correctly
+   supported only by the predicate functions necessary to detect them, so code that uses the
+   math-library can catch these input conditions before invoking library functions. Error-handling
+   based on errno is kept true to the standard, subject to the exclusion of special values,
+   mentioned earlier. Exception generation is entirely disregarded – the library may or may not
+   generate exceptions in any given operation – the only predictable mode of use is with all
+   floating-point exceptions disabled.</p>
+  <p>For elementary trigonometric functions(sin/cos/tan), the tiny-variant differs from Newlib in
+   terms of arithmetic correctness – it is accurate only for a limited range of inputs. See details
+   below.</p>
+  <dl>
+   <dlentry>
+    <dt>expm1 – exponential minus 1</dt>
+    <dd>
+     <codeblock>#include &lt;math.h>
+double expm1 (double x);
+float expm1 (float x);
+</codeblock>
+     <dl>
+      <dlentry>
+       <dt>Error-handling for large x</dt>
+       <dd>ISO standard requires double-precision expm1 to signal a range-error for large values of
+        x. Newlib does not set the errno, whereas both small and tiny variants of the C-library set
+        errno to ERANGE.</dd>
+      </dlentry>
+     </dl>
+    </dd>
+   </dlentry>
+   <dlentry>
+    <dt>fma – fused multiply add</dt>
+    <dd>
+     <codeblock>#include &lt;math.h>
+double fma(double x, double y, double z);
+float fmaf(float x, float y, float z);
+</codeblock>
+     <dl>
+      <dlentry>
+       <dt>Arithmetic accuracy</dt>
+       <dd>Double precision variant provided by Newlib performs a non-fused multiply-add. Both small
+        and tiny variants of the C library provide the accuracy of fused operation by performing the
+        intermediate multiplication in parts. Resultant accuracy is close to 80-bit extended
+        precision operation, with very few ULP errors.<p>The single precision function behaves the
+         same way for all library variants, by approximating fused operation using non-fused
+         operation in double precision.</p></dd>
+      </dlentry>
+     </dl>
+    </dd>
+   </dlentry>
+   <dlentry>
+    <dt>remquo, remquof -- remainder and quotient</dt>
+    <dd><i>Synopsis</i><codeblock>#include &lt;math.h>
+double remquo(double x, double y, int *quo);
+float remquof(float x, float y, int *quo);
+</codeblock><p><i>Boundary
+       condition: y=0</i></p><p>The implementation may either set errno to signal a domain error or
+      return 0.0 for this condition, as per Section 7.12.10.3 of ISO C99. Newlib implementation
+      returns NaN and does not set errno. Both small and tiny variants of the C library set errno to
+      EDOM and return NaN.</p></dd>
+   </dlentry>
+   
+   <dlentry>
+    <dt>sin, cos, sinf, cosf  	-- sine or cosine</dt>
+    <dd><i>Synopsis</i><codeblock>#include &lt;math.h>
+     double sin (double x);
+     double cos (double x);
+     float sinf (float x);
+     float cosf (float x);     
+    </codeblock><p><i>Arithmetic
+       accuracy (only for tiny variant)</i></p><p>The tiny variant uses an alternate range-reduction
+      strategy which limits accuracy for large arguments. For the double precision function,
+      accuracy varies with absolute input range as follows:</p><ul id="ul_pmj_3lq_fcb">
+      <li>For |x| &lt; 253 : equal to or better than newlib implementation</li>
+      <li>For 253 &lt;= |x| &lt; 264 : occasionally worse than newlib, but relatively correct.</li>
+      <li>For |x| > 264 : completely unreliable</li>
+     </ul><p>For single precision function, accuracy varies with absolute input range as
+      follows:</p><ul id="ul_qmj_3lq_fcb">
+      <li>For |x| &lt; 223 : equal to or better than newlib implementation</li>
+      <li>For 223 &lt;= |x| &lt; 232 : occasionally worse than newlib, but relatively correct.</li>
+      <li>For |x| > 232 : completely unreliable</li>
+     </ul><p>This variant is significantly smaller and faster than both the small variant and the
+      default newlib implementation.</p><p><i>Inexact exception for small x (&lt;
+       2<sup>-28</sup>)</i></p><lines>Newlib implementation generates an inexact exception for small values of x. Both small and tiny variants of the C library do not generate this exception. It is implementation defined as per Appendix F.9, point 8 of ISO C99.</lines></dd>
+   </dlentry>
+   
+   <dlentry>
+    <dt>tan, tanf 	-- tangent</dt>
+    <dd><i>Synopsis</i>
+     <codeblock>#include &lt;math.h>
+      double tan (double x);
+      float tanf (float x);   </codeblock>
+     <p><i>Arithmetic accuracy (only for tiny variant)</i></p>
+     <lines>Same as sin/cos </lines>
+     <p><i>Inexact exception for small x ( &lt; 2<sup>-28</sup>)</i></p>
+     <lines>Same as sin/cos </lines></dd>
+   </dlentry>
+   <dlentry>
+    <dt>nextafter, nextafterf</dt>
+    <dd><i>Synopsis</i><codeblock>#include &lt;math.h>
+double nextafter(double x, double y);
+float nextafterf(float x, float y);
+</codeblock><p><i>Arithmetic
+       accuracy</i></p><lines>The nextafter functions return y if x equals y, as per Section 7.12.11.3 of ISO C99 standard.  Newlib implementation returns x.  Both small and tiny variants of the C library return y.</lines></dd>
+   </dlentry>
+  </dl>
+ </conbody>
+</concept>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="concept_ef1_t1c_fcb">
+ <title>Interrupts</title>
+ <conbody>
+  <p>The HAL supplies basic interrupt setup and handling facilities. These include initial setup of
+   the exception base, interrupt vector spacing and interrupt mode. By default the toolchain will
+   enable vectored interrupt mode with unique vector entry points.</p>
+  <note>Interrupts are not enabled if there is an external interrupt controller (EIC) present or if
+   vector spacing is set to non-zero and VINT in Config3 is false. </note>
+  <p> Interrupt entry points are designed to only clobber the value held in register K1. This leaves
+   register K0 usable for persistent data within system level code. </p>
+ </conbody>
+</concept>

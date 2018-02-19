@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="concept_y3b_pk3_1cb">
+ <title>CPU Management</title>
+ <conbody>
+  <p>Along with the standard C run-time libraries, <ph keyref="var_nanotoolchain"/> run-time
+   libraries provide a set of support functions. These functions can be used to maintain processor’s
+   caches, TLB and coprocessor registers. These functions are provided as libhal.a library and a set
+   of header files under include/mips folder. The library can be linked using -lhal linker command
+   line option and is automatically linked in when using the UHI link scripts.</p>
+  <table frame="all" rowsep="1" colsep="1" id="table_xl2_jl3_1cb">
+   <title>Cache Support Functions</title>
+   <tgroup cols="2">
+    <colspec colname="c1" colnum="1" colwidth="2.7*"/>
+    <colspec colname="c2" colnum="2" colwidth="2*"/>
+    <thead>
+     <row>
+      <entry>Function</entry>
+      <entry>Description</entry>
+     </row>
+    </thead>
+    <tbody>
+     <row>
+      <entry><codeph>void mips_size_cache (void)</codeph></entry>
+      <entry>Size caches without reinitialising and losing dirty cache lines. Sizes are returned in
+       following global variables:<p>Primary instruction cache</p><ul id="ul_rs3_nl3_1cb">
+        <li>mips_icache_size: Size of cache</li>
+        <li>mips_icache_linesize: Size of each cache line</li>
+        <li>mips_icache_ways: The number of ways of set associativity</li>
+       </ul>
+       <p>Primary instruction data</p><ul id="ul_ss3_nl3_1cb">
+        <li>mips_dcache_size: Size of cache</li>
+        <li>mips_dcache_linesize: Size of each cache line </li>
+        <li>mips_dcache_ways: The number of ways of set associativity</li>
+       </ul><p>Secondary cache</p><ul id="ul_ts3_nl3_1cb">
+        <li>mips_scache_size: Size of cache</li>
+        <li>mips_scache_linesize: Size of each cache line</li>
+        <li>mips_scache_ways: The number of ways of set associativity</li>
+       </ul></entry>
+     </row>
+     <row>
+      <entry><codeph>void mips_sync_icache (vaddr_t va, size_t n)</codeph></entry>
+      <entry>Synchronise icache and dcache for virtual address range.</entry>
+     </row>
+     <row>
+      <entry><codeph>void mips_clean_cache (vaddr_t va, size_t n)</codeph></entry>
+      <entry>Writeback and invalidate address range in all caches</entry>
+     </row>
+     <row>
+      <entry><codeph>void mips_clean_dcache (vaddr_t va, size_t n)</codeph></entry>
+      <entry>Writeback and invalidate address range in data caches</entry>
+     </row>
+     <row>
+      <entry><codeph>void mips_clean_icache (vaddr_t va, size_t n)</codeph></entry>
+      <entry>Writeback and invalidate address range in instruction caches</entry>
+     </row>
+     <row>
+      <entry><codeph>void mips_flush_cache (void)</codeph></entry>
+      <entry>Writeback and invalidate all caches</entry>
+     </row>
+     <row>
+      <entry><codeph>void mips_flush_dcache (void)</codeph></entry>
+      <entry>Writeback and invalidate data caches only</entry>
+     </row>
+     <row>
+      <entry><codeph>void mips_flush_icache (void)</codeph></entry>
+      <entry>Writeback and invalidate instruction cache only</entry>
+     </row>
+     <row>
+      <entry><codeph>void mips_lock_icache (vaddr_t va, size_t n)</codeph></entry>
+      <entry>Load and lock a block of instructions into the instruction cache</entry>
+     </row>
+     <row>
+      <entry><codeph>void mips_lock_dcache (vaddr_t va, size_t n)</codeph></entry>
+      <entry>Load and lock a block of date into the data cache</entry>
+     </row>
+     <row>
+      <entry><codeph>void mips_lock_scache (vaddr_t va, size_t n)</codeph></entry>
+      <entry>Load and lock a block of instruction/data into the secondary cache</entry>
+     </row>
+    </tbody>
+   </tgroup>
+  </table>
+  <p>Cache support function prototypes are supplied by including <codeph>mips/cpu.h</codeph>. </p>
+ </conbody>
+</concept>

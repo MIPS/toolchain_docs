@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="concept_a34_13q_fcb">
+ <title>SmallCLib</title>
+ <conbody>
+  <p>The goal of SmallCLib is to provide as much functionality as possible in a small amount of
+   space, and it is intended primarily for embedded use. The standalone library containing size
+   optimized versions of functions is usable from the nanoMIPS bare metal toolchain.</p>
+  <p>The SmallCLib comes in two variants:<ul id="ul_h2t_c3q_fcb">
+    <li>ISO conforming</li>
+    <li>Non-conforming</li>
+   </ul></p>
+ </conbody>
+</concept>

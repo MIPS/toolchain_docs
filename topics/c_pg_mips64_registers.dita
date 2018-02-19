@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="concept_b3j_nlk_fcb">
+ <title>MIPS64 registers</title>
+ <conbody>
+  <p>The MIPS64 architecture changes the width of some of the registers that are used in the macros
+   described in <xref href="c_pg_mips32_registers.dita"/>. To support their usage on MIPS64,
+   additional macros are supplied in <codeph>mips/m64c0.h</codeph>.</p>
+  <p> </p>
+  <table id="table_av2_4lk_fcb">
+   <title>MIPS64 CP0 functions</title>
+   <tgroup cols="2">
+    <colspec colnum="1" colname="col1"/>
+    <colspec colnum="2" colname="col2"/>
+    <thead>
+     <row>
+      <entry><b>Function</b></entry>
+      <entry><b>Description</b></entry>
+     </row>
+    </thead>
+    <tbody>
+     <row>
+      <entry><codeph>mips64_get_c0 (&lt;RegName>)</codeph></entry>
+      <entry>Returns the value of &lt;register></entry>
+     </row>
+     <row>
+      <entry><codeph>mips64_set_c0(&lt;RegName>, val)</codeph></entry>
+      <entry>Set &lt;register></entry>
+     </row>
+     <row>
+      <entry><codeph>mips64_xch_c0(&lt;RegName>, val)</codeph></entry>
+      <entry>Exchange the old value of &lt;register>with the parameter and return the old
+       value</entry>
+     </row>
+     <row>
+      <entry><codeph>mips64_bc_c0(&lt;RegName>, clr)</codeph></entry>
+      <entry>Clear the corresponding bits in &lt;register> that are set in clr.</entry>
+     </row>
+     <row>
+      <entry><codeph>mips64_bs_c0(&lt;RegName>, set)</codeph></entry>
+      <entry>Set the corresponding bits in &lt;register> that are set in set</entry>
+     </row>
+     <row>
+      <entry><codeph>mips64_bcs_c0(&lt;RegName>, clr, set)</codeph></entry>
+      <entry>Set and clear corresponding bits in &lt;register> using set and clr masks.</entry>
+     </row>
+    </tbody>
+   </tgroup>
+  </table>
+  <p>The header file <codeph>mips/m64c0.h</codeph> defines these macros and the helper macro<codeph>
+    MIPS_C0_REGNAME</codeph>.</p>
+ </conbody>
+</concept>

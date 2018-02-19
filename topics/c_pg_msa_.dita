@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="concept_pcg_14p_1cb">
+ <title>MIPS SIMD Architecture (MSA)</title>
+ <conbody>
+  <p>MSA extensions can be enabled by providing the following command-line option to the C
+   compiler:</p>
+  <codeblock>&lt;prefix>-gcc -mmsa … </codeblock>
+  <p>MSA instructions and vector registers are available directly for hand-written assembly. The
+   compiler also provides C-style built-in functions for all MSA instructions in conjunction with
+   vector-type data structures to target vector registers. The preferred coding style is to use
+   regular C arithmetic operators on vector data types and fall back to built-ins for complicated
+   MSA instructions which the compiler is unable to relate to vectorized C code.</p>
+  <p>Examples are provided in <ph conkeyref="c_biblio/msa_pg"/> and also on the <ph
+    keyref="var_cdsdk"/>.</p>
+ </conbody>
+</concept>

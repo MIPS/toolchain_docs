@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="concept_rgj_gnp_1cb">
+ <title>Overview of <ph keyref="var_nanotoolchain"/></title>
+ <conbody>
+  <p>This section provides a quick overview of the major components of the <ph
+        keyref="var_nanotoolchain"/>. nanoMIPS bare metal toolchains are based on FSF GCC 6.3.0.</p>
+ </conbody>
+</concept>

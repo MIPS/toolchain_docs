@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="concept_l3d_scx_2cb">
+ <title>Floating Point Coprocessor (CP1)</title>
+ <conbody>
+  <p>The FPU is automatically enabled in the CRT for any hard-float application and there is
+   therefore no need for libraries to enable or disable FP functionality. </p>
+  <p>There is no FPU emulator in the toolchain.</p>
+ </conbody>
+</concept>

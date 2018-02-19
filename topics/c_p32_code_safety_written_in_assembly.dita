@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="c_p32_code_safety_written_in_assembly">
+ <title>Code safety written in assembly</title>
+ <conbody>
+  <p>Avoiding hard-coded PC-relative offsets is trivially achieved by always branching, jumping and
+   calling to symbols instead of writing absolute offsets. An example of unsafe and safe use of a
+   pc-relative branch is below:</p>
+  <table id="table_nzc_2hg_xcb">
+   <tgroup cols="2">
+    <colspec colnum="1" colname="col1"/>
+    <colspec colnum="2" colname="col2"/>
+   <thead>
+    <row>
+     <entry>Unsafe code</entry>
+     <entry>Safe code</entry>
+    </row>
+   </thead> <tbody>
+     
+     
+     <row>
+      <entry>
+       <codeblock>bc 8
+lw $a0, %gp_rel(data)($gp)
+andi $a0, $a0, 20</codeblock>
+      </entry>
+      <entry>
+       <codeblock>bc 1f
+lw $a0, %gp_rel(data)($gp)
+andi $a0, $a0, 20
+1:</codeblock>
+       
+      </entry>
+     </row>
+    </tbody>
+   </tgroup>
+  </table>
+ </conbody>
+</concept>

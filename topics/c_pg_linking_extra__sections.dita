@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="concept_lnc_fv1_fcb">
+ <title>Linking Extra  Sections</title>
+ <conbody>
+  <p>When using non-standard sections you’ll have to create your own linker script. For the ISRAM
+   example discussed above you might expect to add something like the following lines to the default
+   script:</p>
+  <codeblock>   .isram 0x0 :
+   { *(.isram) }</codeblock>
+  
+  <p>These lines merge all the .isram input sections into the .isram output section, located at
+   virtual address 0x0. The resulting executable module could then be converted into ASCII and
+   downloaded by the board’s PROM monitor.</p>
+  <p>However, when creating a romable program, your program will have to contain code to copy
+    the<codeph> .isram</codeph> section from ROM to ISRAM itself. In this case your linker script
+   might contain the following:</p>
+  <codeblock>   OVERLAY 0x0 : AT (0xbfc3c000)
+   {
+   .isram { *(.isram) }
+   }
+  </codeblock>
+  
+  <p>The AT directive specifies that although the ‘‘overlay’’ is linked to be run at virtual address
+   0x0, it will be positioned at address 0xbfc3c000 in the load image (the load address). The load
+   address in this case is the top</p>
+  <p>4KB of a 256KB boot PROM (base address 0xbfc00000). Your startup code must then copy the code
+   from this known address into the ISRAM. For example:</p>
+  <codeblock>   extern char  load_start_isram[];
+   extern char  load_stop_isram[];
+   /* copy from load address to run address */
+   isram_write (0x0,  load_start_isram,
+   load_stop_isram -  load_start_isram);
+  </codeblock>
+  
+  <p>If you have a number of C modules which contain code only intended for ISRAM (as described in
+   the previous section), then you can name them explicitly in the script here:</p>
+  <codeblock>   extern char  load_start_isram[];
+   extern char  load_stop_isram[];
+   /* copy from load address to run address */
+   isram_write (0x0,  load_start_isram,
+   load_stop_isram -  load_start_isram);
+  </codeblock>
+  
+  <p>This example will include the .text section (i.e. code) from files <codeph>c_isram1.o</codeph>
+    and<codeph> c_isram2.o</codeph>, and merge them into the output <codeph>.isram</codeph> section.
+   The .text sections from all other object files listed on the linker command line will be handled
+   in the normal way.</p>
+ </conbody>
+</concept>

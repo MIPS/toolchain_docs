@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="concept_ift_gdq_fcb">
+ <title>Dynamic argument handling</title>
+ <conbody>
+  <p>The code to support UHI compliant argument passing where argc has value -1 is all contained
+   within the <codeph>__getargs</codeph> function. This can safely be removed and the CRT code will
+   create a null argument array instead.</p>
+  <p>In a copy of a HAL linker script, remove the following line:</p>
+  <codeblock>EXTERN (__getargs);</codeblock>
+ </conbody>
+</concept>

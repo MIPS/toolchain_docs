@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="concept_ewc_3jq_fcb">
+ <title>Linking with and using the small C Library</title>
+ <conbody>
+  <p>Selection of standard C library is controlled by a new command-line option to the compiler
+    driver</p><codeblock>gcc -mclib=[newlib|small|tiny] ...</codeblock><p>If no
+     <codeph>-mclib</codeph> option is specified, the default newlib implementation will be used. At
+    compilation stage, mclib option automatically defines macros necessary for correct linkage. At
+    the link stage, this option controls the library search path so that the desired version of the
+    standard C library gets linked against. If specified, this option must be consistent across both
+    compile and link stages.</p><note>If <codeph>mclib=[small|tiny]</codeph> is specified in
+    conjunction with an unsupported combination of other multi-lib options, the compiler will link
+    with the default C library(newlib), unless an alternate library search path is explicitly
+    supplied.</note>
+ </conbody>
+</concept>

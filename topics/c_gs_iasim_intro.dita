@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="c_gs_iasim_intro">
+ <title>Using <ph keyref="var_ias"/> with <ph keyref="var_nano"/> programs</title>
+ <conbody>
+    <p>This section explains how to build, run and debug a program using the <ph
+            keyref="var_nanotoolchain"/> on <ph keyref="var_ias"/>. <ph keyref="var_ias"/> is the
+         Instruction Accurate Simulator for MIPS programs. </p>
+    
+     
+  
+ </conbody>
+</concept>

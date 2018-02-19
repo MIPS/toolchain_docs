@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="concept_qf1_wfc_fcb">
+ <title>Compiler support for interrupt handlers</title>
+ <conbody>
+  <div>
+   <p>GCC can be used to write interrupt handlers using the function attribute “interrupt”. Further
+    attributes are available to give better control over how GCC sets the behaviour of the interrupt
+    handler:</p>
+   <dl>
+    <dlentry>
+     <dt><codeph>interrupt</codeph></dt>
+     <dd>An optional argument is supported for the interrupt attribute which allows the interrupt
+      mode to be described. By default GCC assumes the external interrupt controller (EIC) mode is
+      in use, this can be explicitly set using the argument eic. When interrupts are non-masked then
+      the requested IPL is copied to the current IPL which has the effect of only enabling higher
+      priority interrupts. To use vectored interrupt mode use the argument
+      vector=[sw0|sw1|hw0|hw1|hw2|hw3|hw4|hw5], this will change the behaviour of the non-masked
+      interrupt support and GCC will arrange to mask all interrupts from sw0 up to and including the
+      specified interrupt vector.</dd>
+    </dlentry>
+    <dlentry>
+     <dt><codeph>use_shadow_register_set</codeph></dt>
+     <dd>Assume that the handler uses a shadow register set, instead of the main general-purpose
+      registers. An optional argument intstack is supported to indicate that the shadow register set
+      contains a valid stack pointer.</dd>
+    </dlentry>
+    <dlentry>
+     <dt><codeph>keep_interrupts_masked</codeph></dt>
+     <dd>Keep interrupts masked for the whole function. Without this attribute, GCC tries to
+      re-enable interrupts for as much of the function as it can.</dd>
+    </dlentry>
+    <dlentry>
+     <dt><codeph>use_debug_exception_return</codeph></dt>
+     <dd>Return using the deret instruction. Interrupt handlers that don’t have this attribute
+      return using eret instead.<p>You can use any combination of these attributes, as shown
+       below:</p><codeblock>void __attribute__ ((interrupt)) v0 ();
+void __attribute__ ((interrupt, use_shadow_register_set)) v1 ();
+void __attribute__ ((interrupt, keep_interrupts_masked)) v2 ();
+void __attribute__ ((interrupt, use_debug_exception_return)) v3 ();
+void __attribute__ ((interrupt, use_shadow_register_set, keep_interrupts_masked)) v4 ();
+void __attribute__ ((interrupt, use_shadow_register_set, use_debug_exception_return)) v5 ();
+void __attribute__ ((interrupt, keep_interrupts_masked, use_debug_exception_return)) v6 ();
+void __attribute__ ((interrupt, use_shadow_register_set, keep_interrupts_masked,
+                                use_debug_exception_return)) v7 ();
+void __attribute__ ((interrupt("eic"))) v8 ();
+void __attribute__ ((interrupt("vector=hw3"))) v9 ();
+</codeblock></dd>
+    </dlentry>
+   </dl>
+   <p>An example implementing <codeph>_mips_isr_sw0</codeph> and <codeph>_mips_interrupt</codeph>
+    via compiler generated handlers can be found in<codeph>
+     $MIPS_ELF_ROOT/share/mips/examples/interrupt_handler </codeph></p>
+   <p> A further example under <codeph>isr_vector_space </codeph>shows this in combination with a
+    custom interrupt vector and an assembly coded handler.</p>
+  </div>
+ </conbody>
+</concept>

@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="concept_qk5_fg3_1cb">
+ <title>Libraries and Header Files</title>
+ <conbody>
+  <p>The <ph keyref="var_nanotoolchain"/> provides pre-compiled C runtime and Math libraries for a
+   range of different nanoMIPS ISA options; the version you need is picked automatically according to
+   the flags you give the compiler - see <xref href="c_pg_supported_configurations.dita"/>. The C
+   libraries and associated header files follow the ISO C Standard (ISO 9899:1990[1992]), also known
+   as ISO C90, and formerly the ANSI X3J11 committee’s standard for the C programming language
+   (called the ANSI C standard in this manual). This has been validated using the Plum Hall
+   Validation Suite.</p>
+  <p>The following additional libraries are provided for bare-metal environments. These libraries
+   are available as both sources and binary components:</p>
+  <ul id="ul_ryq_gg3_1cb">
+   <li>Small C Library: size optimized standard C and Math libraries conforming to the ISO C
+    standard (C99). <p>SmallCLib has been specially tuned for embedded environment, where code size
+     and run-time memory requirements are critical. SmallCLib aims to provide as much functionality
+     as possible in the smallest amount of space. It is implemented in C with selective use of
+     extended assembly and comes in two flavours: </p></li>
+    <li>A small flavour which is ISO C Standard (ISO 9899:1999) compliant and functionally
+     identical to Newlib 2.5. Space saving is achieved by refactoring code to eliminate redundancy,
+     occasionally at the expense of speed. In versions tuned for the latest nanoMIPS ISA, new
+     instructions are used aggressively, thereby reducing code size and in some cases improving
+     performance. This variant is validated using the Plum Hall Validation suite.</li>
+    <li>A tiny flavour which diverges from both the ISO standard and Newlib behaviour in select
+     areas. This variant is aggressively optimized for code size, in lieu of performance and
+     features are reduced to the minimum set expected of a space-contrained embedded platform.</li>
+  </ul>
+  <p>Both flavours are available as multiple pre-built configurations, where a small footprint
+   library is deemed to be most relevant. However, the libraries can be built for any configuration
+   by following the instructions provided with the SmallClib source release package. Small &amp; Tiny C
+   libraries share a common source base, derived from Newlib. </p>
+  <table id="table_tyq_gg3_1cb">
+   <title>Feature comparison between libraries</title>
+   <tgroup cols="4">
+    <colspec colnum="1" colname="col1"/>
+    <colspec colnum="2" colname="col2"/>
+    <colspec colnum="3" colname="col3"/>
+    <colspec colnum="4" colname="col4"/>
+    <thead>
+     <row>
+      <entry/>
+      <entry><b>Newlib</b></entry>
+      <entry><b>SmallClib</b></entry>
+      <entry><b>TinyClib</b></entry>
+     </row>
+    </thead>
+    <tbody>
+     <row>
+      <entry>Complex arithmetic</entry>
+      <entry>Yes</entry>
+      <entry>No</entry>
+      <entry>No</entry>
+     </row>
+     <row>
+      <entry>Character handling and localization</entry>
+      <entry>Full locale support</entry>
+      <entry>Full locale support</entry>
+      <entry>Only 7-bit ASCII (default C) locale support</entry>
+     </row>
+     <row>
+      <entry>Math</entry>
+      <entry>
+       <p>IEEE 754 compliant.</p>
+       <p>ISO C99 compliant.</p>
+       <p>Additional error handling and exceptions not required by standards.</p>
+       <p>Key string handling functions are tuned using hand-coded MIPS assembly.</p>
+      </entry>
+      <entry>
+       <p>IEEE 754 compliant.</p>
+       <p>ISO C99 compliant.</p>
+       <p>Provides minimum error handling and exceptions as per standards.</p>
+       <p>Tuned throughout using hand-coded MIPS assembly.</p>
+      </entry>
+      <entry>
+       <p>No support for denormals, infinity or NaN arguments.</p>
+       <p>Minimum error handling required subject to above exclusions. Correct exceptions may not be
+        generated.</p>
+       <p>Tuned throughout using hand-coded MIPS assembly.</p>
+      </entry>
+     </row>
+     <row>
+      <entry>Re-entrancy</entry>
+      <entry>Yes</entry>
+      <entry>Not supported</entry>
+      <entry>Not supported</entry>
+     </row>
+    </tbody>
+   </tgroup>
+  </table>
+ </conbody>
+</concept>

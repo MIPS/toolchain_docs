@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="concept_nbw_xlk_fcb">
+ <title>TLB Support</title>
+ <conbody>
+  <p>The HAL provides support for the initialization and maintenance of the CPU’s memory management
+   Translation Lookaside Buffer (TLB). For 32-bit TLBs, the memory management functions are supplied
+   by including <codeph>mips/m32tlb.h</codeph>. For 64-bit TLBs found on either MIPS64 or MIPS32
+   with XPA support enabled, the functions are supplied by including
+   <codeph>mips/m64tlb.h</codeph>.</p>
+  <p>Users should consult relevant Privileged Resource Architecture document and the Programmer's
+   Guide for their processor when using the TLB as some aspects of TLB operation are implementation
+   specific.</p>
+ </conbody>
+</concept>

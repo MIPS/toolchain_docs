@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="concept_yg5_2kq_fcb">
+ <title>Character handling and localization</title>
+ <conbody>
+  <p>Newlib and the small variant support the default “C”, “POSIX”, “C-JIS", "C-SJIS", "C-EUCJP" and
+   “C-KOI8-R” locales with full wide and multi-byte functionality. The support for locale in tiny
+   variant is limited to default C locale only.</p>
+ </conbody>
+</concept>

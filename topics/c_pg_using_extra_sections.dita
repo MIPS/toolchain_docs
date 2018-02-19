@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="concept_ytx_ht1_fcb">
+ <title>Using extra sections</title>
+ <conbody>
+  <p>The compiler and assembler already generate a multitude of different object file sections which
+   get linked together into (typically) three large output segments: read-only code &amp; data,
+   initialised data, and uninitialised (zero) data − as shown in <xref
+    href="c_elf_object_file_format.dita#concept_cfb_3s1_fcb/table_swb_js1_fcb"/>.</p>
+  <p>In some applications it may be necessary to define additional object code sections and segments
+   which can be located at disjoint areas within the CPU’s address map. We’ll take as an example an
+   M4K CPU core. This core has no cache, but a high-speed on-chip ISRAM (Instruction SRAM) at a
+   fixed virtual address, say 0x0. With a CPU like this you would want to locate certain critical
+   functions within the SPRAM region, but you would have to blow them into a PROM at a different
+   address, which would then be copied to the ISRAM at run-time.</p>
+ </conbody>
+</concept>

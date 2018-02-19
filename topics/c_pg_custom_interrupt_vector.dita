@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="concept_qpc_sfc_fcb">
+ <title>Custom interrupt vector</title>
+ <conbody>
+  <p>The HAL also supports users who wish to minimize code by supplying their own interrupt vector
+   entry points and potentially implementing handlers directly in the vector. To create custom
+   interrupt entry points create a module derived from <codeph>mips_excpt_isr.S</codeph> and include
+   it in your link. If you require wider than default vector spacing then you must also set the
+   vector spacing in the link script using the <codeph>__isr_vec_space</codeph> symbol. It is
+   important that the module uses function sections and defines the whole vector as one function
+   called <codeph>__isr_vec</codeph> this will allow the module to be correctly placed via the
+   standard linker scripts.</p>
+  <p>An example demonstrating alternate vector spacing can be found in
+    <codeph>$MIPS_ELF_ROOT/share/mips/examples/isr_vector_space</codeph></p>
+ </conbody>
+</concept>

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="concept_lrv_fmc_fcb">
+ <title>Custom semi-hosting handlers</title>
+ <conbody>
+  <p>Semi-hosting operations are normally forwarded to a debugger via SDBBP instructions or to a
+   Boot Monitor if it has support for UHI. They can also be handled directly in user software if
+   there is an application specific device or software structure for storing the data read or
+   written by an application. To support this, all UHI semi-hosting operations will pass through the
+     <codeph><i>_mips_handle</i>_exception</codeph> function and can be hooked.</p>
+  <p>The sequence of operators to handle the 'write' function is given below as an example:</p>
+  <p><codeph>call write -> SYSCALL 1 -> -_mips_handle_exception -> __exception_handle ->
+    __uhi_indirect -> SDBBP 1</codeph></p>
+  <p>A custom handler must therefore intercept a SYSCALL exception and handle a subset of UHI
+   operations instead of forwarding them to<codeph> __exception_handle</codeph> as above. The
+   SYSCALL instruction may be used for multiple purposes but UHI guarantees that the operand to
+   SYSCALL will be ‘1’ for UHI operations and also that $2 (v0) will be set to ‘1’. It is
+   recommended that any other usage of SYSCALL also sets $2 to a unique value excluding ‘1’ to make
+   disambiguation in the handler easier. Reading the instruction that caused an exception is
+   possible and depending on hardware support then it may be stored in the badinstr field of the
+   CTX; note that code must check for CP0 BADINSTR support before relying on this field. </p>
+  <p>The code below relies on $2 being able to distinguish UHI SYSCALLs from any other SYSCALLs:</p>
+  <codeblock>#include &lt;mips/hal.h>
+#include &lt;mips/uhi_syscalls.h>
+
+void _mips_handle_exception (struct gpctx *ctx, int exception)
+{
+  if (exception == EXC_SYS
+      &amp;&amp; ctx->v[0] == 1)
+  {
+    switch (ctx->t[9])
+    {
+    case __MIPS_UHI_WRITE:
+      /* ctx->a[0] contains the file descriptor (1==stdout, 2==stderr, other=whatever)
+         ctx->a[1] contains a char* buffer
+         ctx->a[2] contains the size of the buffer */
+      if (ctx->a[0] == 1)
+      {
+        &lt;handle it>
+        ctx->v[0] = &lt;number of bytes written or -1 for error>;
+        ctx->v[1] = &lt;errno value on error>;
+        return;
+      }
+      break;
+    }
+  }
+
+  __exception_handle (ctx, exception);
+  return;
+}
+</codeblock>
+  <p>When hooking semi-hosting operations care must be taken to hook related operations to ensure
+   consistent handling. For example the hook above for <codeph>write</codeph> using the
+    <codeph>stdout</codeph> file descriptor should also include <codeph>open</codeph>,
+    <codeph>close</codeph>, <codeph>fstat</codeph> to indicate that stdout is available otherwise
+   the other operations will be sent to a debugger and may well be reported as unsupported. With
+   sufficient UHI operations hooked it is possible to become a self-hosted application and never
+   make requests to a debugger and therefore not require a JTAG connection. As a minimum this means
+   that stdin, stdout and stderr file descriptors must be hooked for all file operations as the C
+   library initialisation code will call things like <codeph>fstat</codeph> automatically.</p>
+ </conbody>
+</concept>

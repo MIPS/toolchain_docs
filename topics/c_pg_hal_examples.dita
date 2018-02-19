@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="c_pg_hal_examples">
+ <title>HAL examples</title>
+ <conbody>
+  <p>The tool chain provides a number of examples of bootable code, interrupt handling code and code
+   which makes use of various compiler and linker facilities. </p>
+  <p>These examples and their documentation are installed in
+    <codeph>$MIPS_ELF_ROOT/share/mips/examples</codeph>. </p>
+  <table id="table_ftx_h2w_fcb">
+   <title>HAL examples</title>
+   <tgroup cols="2">
+    <colspec colnum="1" colname="col1"/>
+    <colspec colnum="2" colname="col2"/>
+    <thead>
+     <row>
+      <entry><b>Example</b></entry>
+      <entry><b>Description</b></entry>
+     </row>
+    </thead>
+    <tbody>
+     <row>
+      <entry><codeph>custom_excpt</codeph></entry>
+      <entry>An example of using<codeph> _mips_handle_exception</codeph> that stores and recovers
+       a secret via use of two different TRAP instructions.</entry>
+     </row>
+     <row>
+      <entry><codeph>fault_recovery</codeph></entry>
+      <entry>Another example of<codeph> _mips_handle_exception</codeph> that shows how the struct
+       gpctx can be manipulated.</entry>
+     </row>
+     <row>
+      <entry><codeph>interrupt_handler</codeph></entry>
+      <entry>An example showing the usage of interrupt attributes and <codeph>mips_isr_sw0
+       </codeph>to provide a handler for the software 0 interrupt.</entry>
+     </row>
+     <row>
+      <entry><codeph>isr_vector_space</codeph></entry>
+      <entry>An example showing the usage of <codeph>ISR_VEC_SPACE</codeph> to provide larger inline
+       interrupt handlers. </entry>
+     </row>
+     <row>
+      <entry><codeph>romable</codeph></entry>
+      <entry>A basic bootable example suitable for placing in ROM, It includes copying application
+       code to RAM during boot. This particular example will link in the generic library boot
+       code.</entry>
+     </row>
+     <row>
+      <entry><codeph>romable_minimal</codeph></entry>
+      <entry>Similar to the romable example, this example instead focuses on producing a very small
+       but generic bootable elf.</entry>
+     </row>
+     <row>
+      <entry><codeph>romable_predef</codeph></entry>
+      <entry>A more complex example which uses macros and the read only contents of configuration
+       registers to produce a romable program that includes only the necessary code for that system.
+       Two cores are supported: the I7200 and a configuration to match the default core in QEMU.
+      </entry>
+     </row>
+     <row>
+      <entry><codeph>romable_predef_xip</codeph></entry>
+      <entry>Similar to romable_predef except that the application code is not copied from the ROM
+       image to RAM but instead just the data section leaving code to execute directly from ROM.
+      </entry> 
+     </row>
+    </tbody>
+   </tgroup>
+  </table>
+ </conbody>
+</concept>

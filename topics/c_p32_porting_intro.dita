@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="c_p32_porting_intro">
+ <title>Porting Notes</title>
+ <conbody>
+      <p>This section contains notes to assist making the transition to the nanoMIPS architecture
+         and porting code from o32 ABI to p32 ABI so that foreseeable problems can be
+         pre-empted.</p>
+     
+  
+ </conbody>
+</concept>

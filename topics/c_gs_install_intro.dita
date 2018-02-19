@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="c_gs_iasim_intro">
+ <title>Toolchain installation</title>
+ <conbody>
+    <p>This section explains:</p>
+      <ul id="ul_yhf_gm5_2cb">
+         <li> How to install the toolchain</li>
+         <li>Types of installation available</li>
+      </ul>
+    
+     
+  
+ </conbody>
+</concept>

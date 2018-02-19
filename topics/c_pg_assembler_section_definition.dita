@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="concept_g2h_mt1_fcb">
+ <title>Assembler section definition</title>
+ <conbody>
+  <p>New sections are introduced to the assembler by the following directive:</p>
+  <codeblock>.section name,"flags",@progbits[,align]</codeblock>
+  <p>The section name can be any symbol, but by convention begins with a dot. The flags are a string
+   of 0 to 4 characters selected from:</p>
+  <table id="table_m4y_mt1_fcb">
+   <title>Section attribute flags</title>
+   <tgroup cols="2">
+    <colspec colnum="1" colname="col1"/>
+    <colspec colnum="2" colname="col2"/>
+    <thead>
+     <row>
+      <entry><b>Flag</b></entry>
+      <entry><b> Meaning</b></entry>
+     </row>
+    </thead>
+    <tbody>
+     <row>
+      <entry><codeph>a</codeph></entry>
+      <entry>allocate address space</entry>
+     </row>
+     <row>
+      <entry><codeph>w</codeph></entry>
+      <entry>contains writable data</entry>
+     </row>
+     <row>
+      <entry><codeph>x</codeph></entry>
+      <entry>contains executable instructions</entry>
+     </row>
+     <row>
+      <entry><codeph>g</codeph></entry>
+      <entry>contains gp-accessible data</entry>
+     </row>
+    </tbody>
+   </tgroup>
+  </table>
+  <p>The optional final align parameter specifies the required section alignment, as a power-of-two.
+   So, to introduce a code section intended for on-chip SRAM we could use the following:</p>
+  <codeblock>.section .isram, "ax", @progbits, 2</codeblock>
+  <p>After this initial definition has been seen by the assembler, you can then omit all but the
+   section name, for example:</p>
+  <codeblock>‘‘.section .isram’’.</codeblock>
+  <p>The assembler remembers the previous section (beware, it’s only a one-level stack!), and you
+   can return to it using.previous directive.</p>
+ </conbody>
+</concept>

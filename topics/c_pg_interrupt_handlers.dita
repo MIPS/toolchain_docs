@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="concept_dx2_w1c_fcb">
+ <title>Interrupt handlers</title>
+ <conbody>
+  <p>The HAL provides several layers of customization for handling interrupts. The first and
+    simplest is a set of specific symbols which users can define to provide their own handling code
+    without needing to worry about the setup or layout of the interrupt vector
+    itself.</p><p>Interrupt handlers can be implemented by overriding the definition of _mips_interrupt for a
+   general interrupt entry or <codeph>_mips_isr_&lt;interrupt></codeph> to handle a specific
+   interrupt. </p><p>The HAL interrupt service routine will attempt to branch the corresponding<codeph>
+    _mips_isr_&lt;interrupt></codeph> function. If those symbols are undefined, then the interrupt
+   service routine will branch <codeph>_mips_interrupt</codeph> instead. If
+    <codeph>_mips_interrupt</codeph> is not defined then the interrupt will infinitely loop. This
+   code is located in <codeph>mips_excpt_isr.S</codeph>.</p>
+  <table id="table_uv3_x1c_fcb">
+   <title>Functions for interrupt servicing</title>
+    <tgroup cols="2">
+     <colspec colnum="1" colname="col1"/>
+     <colspec colnum="2" colname="col2"/>
+     <thead>
+      <row>
+       <entry><b>Function name</b></entry>
+       <entry><b>Description</b></entry>
+      </row>
+     </thead>
+     <tbody>
+      <row>
+       <entry><codeph>void _mips_interrupt ()</codeph></entry>
+       <entry>Fallback handler when a specific handler is missing.</entry>
+      </row>
+      <row>
+       <entry>
+        <p><codeph>void _mips_isr_sw[0-1] ()</codeph></p>
+        <p><codeph>void _mips_isr_hw[0-5] ()</codeph></p>
+       </entry>
+       <entry>Handlers for specific interrupts.</entry>
+      </row>
+     </tbody>
+    </tgroup>
+   </table>
+  <fig id="fig_tm5_kfc_fcb">
+   <title>Interrupt flow through software stack</title>
+   <image keyref="int_flow" id="image_um5_kfc_fcb" scale="75"/>
+  </fig>
+ </conbody>
+</concept>

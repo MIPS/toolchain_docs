@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="concept_pnn_mf3_1cb">
+ <title>nanoMIPS Assembler</title>
+ <conbody>
+  <p>The <ph keyref="var_nanotoolchain"/> version of the GNU assembler
+        (<codeph>nanomips-elf-as</codeph>) supports a similar syntax to
+	the ‘‘standard’’ nanoMIPS assembler syntax. Most code can be adapted to
+	work with both variants. The tools are described in detail in the GNU
+      manual [as].</p>
+ </conbody>
+</concept>

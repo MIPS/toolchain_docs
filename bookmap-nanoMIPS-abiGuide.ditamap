@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE bookmap PUBLIC "-//OASIS//DTD DITA BookMap//EN" "bookmap.dtd">
+<bookmap>
+    
+    <booktitle>
+        <mainbooktitle> Codescape GNU tools for nanoMIPS </mainbooktitle>
+	<booktitlealt>ELF ABI Supplement</booktitlealt>
+    </booktitle>	
+    <!-- These two titles form the titles on the front cover -->
+    <bookmeta>
+    	<author>MIPS Tech, LLC</author>
+    	<keywords>
+    		<keyword>MIPS</keyword>
+    		<keyword>nanoMIPS</keyword>
+    		<keyword>MIPS32</keyword>
+    	</keywords>
+		<prodinfo>
+			<prodname>MIPS</prodname> <!-- This must be the division name. It is used to determine which logo to display. Valid options are MIPS PvR-->
+			
+			<vrmlist>
+				<vrm version="1.0"/> <!-- This is the version of the book being output. It is not automatically incremented. -->
+				
+				
+			</vrmlist>
+		
+		</prodinfo>
+		
+    	<othermeta name="document-title" content="Codescape GNU tools for nanoMIPS"/>
+    	<othermeta name="core" content="nanoMIPS"/>
+	<!--<othermeta name="documentID" content="MIPS_ID_blah"/> -  This is for the Document ID for the QMS. It will be displayed on the 2nd page. -->
+    	
+		<bookrights>
+			<bookowner>
+				<organization>MIPS Tech, LLC</organization> 
+				
+			</bookowner>
+				
+			<bookrestriction value="Public"/> <!-- The bookrestriction is very important. Valid values are "Public" "Confidential" "Internal" "Strictly Confidential" The string entered here controls the legal statement placed on the book flyleaf. -->
+			
+		</bookrights>
+    	
+		
+	</bookmeta>
+	
+	
+
+    <frontmatter>
+    	<mapref processing-role="resource-only" href="imgmap_progGuide.ditamap"/> <!-- This is the image map referenced by any images used in the book -->
+    	<mapref processing-role="resource-only" href="keymap_nanoMIPS-root.ditamap"/> <!-- This is the keymap referenced by variables used in the book -->
+    	<keydef processing-role="resource-only" keys="c_biblio" href="topics/c_biblio.dita"/>
+    	
+    	
+        <booklists>
+            <toc/>
+	    <figurelist/> <!-- If lists of figures or tables are not wanted, the references here can just be deleted. -->
+	    <tablelist/>
+        </booklists>
+	
+	
+	
+    </frontmatter>
+        
+		
+	<chapter href="map_abiSupp_intro.ditamap" format="ditamap"/>
+	<chapter href="abi_supplement_reference.ditamap" format="ditamap"/>
+	
+	
+	
+
+</bookmap>

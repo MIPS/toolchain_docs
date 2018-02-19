@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="concept_wlx_t23_1cb">
+ <title>C Compiler</title>
+ <conbody>
+  <p>The following command-line options have been added to the compiler driver to enable new
+   features:</p>
+  <table id="table_ud5_523_1cb">
+   <tgroup cols="2">
+    <colspec colnum="1" colname="col1"/>
+    <colspec colnum="2" colname="col2"/>
+    <thead>
+     <row>
+      <entry><b>Option</b></entry>
+      <entry><b>Description</b></entry>
+     </row>
+    </thead>
+    <tbody>
+     <row>
+      <entry><codeph>-mclib=[newlib|small|tiny]</codeph></entry>
+      <entry>Select a C-library variant, defaults to newlib</entry>
+     </row>
+    </tbody>
+   </tgroup>
+  </table>
+ </conbody>
+</concept>

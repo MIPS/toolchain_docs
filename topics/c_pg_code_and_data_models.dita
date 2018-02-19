@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="concept_acz_44p_1cb">
+ <title>Using the code and data models</title>
+ <conbody>
+   <p>This section gives a brief description of the code and data models and shows how they can
+    be used effectively.</p>
+   <p>The models give the user a way to control the code size of references and accesses to various
+    kinds of symbols. There are 3 models, each designed for a different need.</p>
+   <p>The <b>automatic model</b> (<codeph>-mcmodel=auto</codeph>) produces the most compact code
+    possible by relying on the linker to do further size optimizations on the compiler-generated
+    code. The linker will also expand the code when symbols end up being out of range. This model
+    has been designed to keep the size difference between the intermediate objects and the fully
+    linked object as small as possible, although having the linker perform too many expansions
+    will widen that gap. It can be used only with a linker which is capable of performing
+    relaxations and expansions.</p>
+   <p>The <b>medium model</b> (<codeph>-mcmodel=medium</codeph>) is somewhat similar to the
+    automatic model in terms of the range and size of the generated code, but it does not rely on
+    linker relaxations and expansions. This lack of linker transformations makes the size of the
+    fully linked object more predictable, even though it squanders some opportunities for further
+    size optimization and it introduces inherent limitations in the fully linked code.</p>
+   <p>The <b>large model</b> (<codeph>-mcmodel=large</codeph>) produces code which has an unlimited
+    range by only using instructions which cover the entire address space. Because these
+    instructions tend to be bigger, this model sacrifices code size in order to guarantee that code
+    sequences will work regardless of where the symbol is placed in memory. The large model also
+    does not rely on linker relaxations and expansions.</p>
+ </conbody>
+</concept>

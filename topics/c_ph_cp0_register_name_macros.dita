@@ -1,0 +1,421 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="concept_bzs_fdk_fcb">
+ <title>CP0 register name macros</title>
+ <conbody>
+  <table id="table_fwx_gdk_fcb">
+   <title>CP0 register name macros</title>
+   <tgroup cols="3">
+    <colspec colnum="1" colname="col1"/>
+    <colspec colnum="2" colname="col2"/>
+    <colspec colnum="3" colname="col3"/>
+    <thead>
+     <row>
+      <entry><b>Macro</b></entry>
+      <entry><b>Register name</b></entry>
+      <entry><b>Description</b></entry>
+     </row>
+    </thead>
+    <tbody>
+     <row>
+      <entry><codeph>C0_INDEX</codeph></entry>
+      <entry>Index register</entry>
+      <entry>Index into the TLB array</entry>
+     </row>
+     <row>
+      <entry><codeph>C0_RANDOM</codeph></entry>
+      <entry>Random Register</entry>
+      <entry>Randomly generated index into the TLB array</entry>
+     </row>
+     <row>
+      <entry><codeph>C0_ENTRYLO0</codeph></entry>
+      <entry>EntryLo0</entry>
+      <entry>Low-order portion of the TLB entry for even-numbered virtual pages</entry>
+     </row>
+     <row>
+      <entry><codeph>C0_ENTRYLO1</codeph></entry>
+      <entry>EntryLo1</entry>
+      <entry>Low-order portion of the TLB entry for odd-numbered virtual pages</entry>
+     </row>
+     <row>
+      <entry><codeph>C0_GLOBAL</codeph></entry>
+      <entry>Global</entry>
+      <entry>Global number register</entry>
+     </row>
+     <row>
+      <entry><codeph>C0_CONTEXT</codeph></entry>
+      <entry>Context</entry>
+      <entry>Pointer to page table entry in memory</entry>
+     </row>
+     <row>
+      <entry><codeph>C0_CONTEXTCONF</codeph></entry>
+      <entry>ContextConfig</entry>
+      <entry>Context register configuration</entry>
+     </row>
+     <row>
+      <entry><codeph>C0_USERLOCAL</codeph></entry>
+      <entry>UserLocal</entry>
+      <entry>User information that can be written by privileged software and read via RDHWR register
+       29. If the processor implements the MIPS® MT Module, this is a per-TC register.</entry>
+     </row>
+     <row>
+      <entry><codeph>C0_XCONTEXTCONF</codeph></entry>
+      <entry>XContextConfig</entry>
+      <entry>XContext register configuration</entry>
+     </row>
+     <row>
+      <entry><codeph>C0_PAGEMASK</codeph></entry>
+      <entry>PageMask</entry>
+      <entry>Control for variable page size in TLB entries</entry>
+     </row>
+     <row>
+      <entry><codeph>C0_PAGEGRAIN</codeph></entry>
+      <entry>PageGrain</entry>
+      <entry>Control for small page support</entry>
+     </row>
+     <row>
+      <entry><codeph>C0_SEGCTL0</codeph></entry>
+      <entry>SegCtl0</entry>
+      <entry>Programmable Control for Segments 0 &amp; 1</entry>
+     </row>
+     <row>
+      <entry><codeph>C0_SEGCTL1</codeph></entry>
+      <entry>SegCtl1</entry>
+      <entry>Programmable Control for Segments 2 &amp; 3</entry>
+     </row>
+     <row>
+      <entry><codeph>C0_SEGCTL2</codeph></entry>
+      <entry>SegCtl2</entry>
+      <entry>Programmable Control for Segments 4 &amp; 5</entry>
+     </row>
+     <row>
+      <entry><codeph>C0_PWBASE</codeph></entry>
+      <entry>PWBase</entry>
+      <entry>Page Table Base Address for Hardware Page Walker</entry>
+     </row>
+     <row>
+      <entry><codeph>C0_PWFIELD</codeph></entry>
+      <entry>PWField</entry>
+      <entry>Bit indices of pointers for Hardware Page Walker</entry>
+     </row>
+     <row>
+      <entry><codeph>C0_PWSIZE</codeph></entry>
+      <entry>PWSize</entry>
+      <entry>Size of pointers for Hardware Page Walker</entry>
+     </row>
+     <row>
+      <entry><codeph>C0_WIRED</codeph></entry>
+      <entry>Wired</entry>
+      <entry>Controls the number of fixed (“wired”) TLB entries</entry>
+     </row>
+     <row>
+      <entry><codeph>C0_PWCTL</codeph></entry>
+      <entry>PWCtl</entry>
+      <entry>HW Page Walker Control</entry>
+     </row>
+     <row>
+      <entry><codeph>C0_HWRENA</codeph></entry>
+      <entry>HWREna</entry>
+      <entry>Enables access via the RDHWR instruction to selected hardware registers</entry>
+     </row>
+     <row>
+      <entry><codeph>C0_BADVADDR</codeph></entry>
+      <entry>BadVAddr</entry>
+      <entry>Reports the address for the most recent address-related exception</entry>
+     </row>
+     <row>
+      <entry><codeph>C0_BADINSTR</codeph></entry>
+      <entry>BadInstr</entry>
+      <entry>BadInstr Reports the instruction which caused the most recent exception.</entry>
+     </row>
+     <row>
+      <entry><codeph>C0_BADINSTRP</codeph></entry>
+      <entry>BadInstrP</entry>
+      <entry>Reports the branch instruction if a delay slot caused the most recent
+       exception.</entry>
+     </row>
+     <row>
+      <entry><codeph>C0_COUNT</codeph></entry>
+      <entry>Count</entry>
+      <entry>Processor cycle count</entry>
+     </row>
+     <row>
+      <entry><codeph>C0_ENTRYHI</codeph></entry>
+      <entry>EntryHi</entry>
+      <entry>High-order portion of the TLB entry.</entry>
+     </row>
+     <row>
+      <entry><codeph>C0_COMPARE</codeph></entry>
+      <entry>Compare</entry>
+      <entry>Timer interrupt control.</entry>
+     </row>
+     <row>
+      <entry><codeph>C0_STATUS</codeph></entry>
+      <entry>Status</entry>
+      <entry>Processor status and control</entry>
+     </row>
+     <row>
+      <entry><codeph>C0_INTCTL</codeph></entry>
+      <entry>IntCtl</entry>
+      <entry>Interrupt system status and control</entry>
+     </row>
+     <row>
+      <entry><codeph>C0_SRSCTL</codeph></entry>
+      <entry>SRSCtl</entry>
+      <entry>Shadow register set status and control</entry>
+     </row>
+     <row>
+      <entry><codeph>C0_SRSMAP</codeph></entry>
+      <entry>SRSMap</entry>
+      <entry>Shadow set IPL mapping</entry>
+     </row>
+     <row>
+      <entry><codeph>C0_CAUSE</codeph></entry>
+      <entry>Cause</entry>
+      <entry>Cause of last general exception</entry>
+     </row>
+     <row>
+      <entry><codeph>C0_NESTEDEXC</codeph></entry>
+      <entry>NestedExc</entry>
+      <entry>Nested exception Support - EXL, ERL values at current exception</entry>
+     </row>
+     <row>
+      <entry><codeph>C0_EPC</codeph></entry>
+      <entry>EPC</entry>
+      <entry>Program counter at last exception</entry>
+     </row>
+     <row>
+      <entry><codeph>C0_NEPC</codeph></entry>
+      <entry>NestedEPC</entry>
+      <entry>Nested exception Support - Program Counter at current exception</entry>
+     </row>
+     <row>
+      <entry><codeph>C0_PRID</codeph></entry>
+      <entry>PRId</entry>
+      <entry>Processor identification and revision</entry>
+     </row>
+     <row>
+      <entry><codeph>C0_EBASE</codeph></entry>
+      <entry>EBase</entry>
+      <entry>EBase Exception vector base register</entry>
+     </row>
+     <row>
+      <entry><codeph>C0_CDMMBASE</codeph></entry>
+      <entry>CDMMBase</entry>
+      <entry>Common Device Memory Map Base Register.</entry>
+     </row>
+     <row>
+      <entry><codeph>C0_CMGCRBASE</codeph></entry>
+      <entry>CMGCRBase</entry>
+      <entry>Coherency Manager Global Control Register Base register</entry>
+     </row>
+     <row>
+      <entry><codeph>C0_CONFIG</codeph></entry>
+      <entry>Config</entry>
+      <entry>This maps to Config0</entry>
+     </row>
+     <row>
+      <entry><codeph>C0_CONFIG0</codeph></entry>
+      <entry>Config</entry>
+      <entry>Configuration register</entry>
+     </row>
+     <row>
+      <entry><codeph>C0_CONFIG1</codeph></entry>
+      <entry>Config1</entry>
+      <entry>Configuration register 1</entry>
+     </row>
+     <row>
+      <entry><codeph>C0_CONFIG2</codeph></entry>
+      <entry>Config2</entry>
+      <entry>Configuration register 2</entry>
+     </row>
+     <row>
+      <entry><codeph>C0_CONFIG3</codeph></entry>
+      <entry>Config3</entry>
+      <entry>Configuration register 3</entry>
+     </row>
+     <row>
+      <entry><codeph>C0_CONFIG4</codeph></entry>
+      <entry>Config4</entry>
+      <entry>Configuration register 4</entry>
+     </row>
+     <row>
+      <entry><codeph>C0_CONFIG5</codeph></entry>
+      <entry>Config5</entry>
+      <entry>Configuration register 5</entry>
+     </row>
+     <row>
+      <entry><codeph>C0_LLADDR</codeph></entry>
+      <entry>LLAddr</entry>
+      <entry>Load linked address</entry>
+     </row>
+     <row>
+      <entry><codeph>C0_MAAR</codeph></entry>
+      <entry>MAAR</entry>
+      <entry>Memory accessibility attribute register</entry>
+     </row>
+     <row>
+      <entry><codeph>C0_MAARI</codeph></entry>
+      <entry>MAARI</entry>
+      <entry>Memory accessibility attribute register index</entry>
+     </row>
+     <row>
+      <entry><codeph>C0_WATCHLO</codeph></entry>
+      <entry>WatchLo</entry>
+      <entry>Watchpoint address</entry>
+     </row>
+     <row>
+      <entry><codeph>C0_WATCHHI</codeph></entry>
+      <entry>WatchHi</entry>
+      <entry>Watchpoint control</entry>
+     </row>
+     <row>
+      <entry><codeph>C0_XCONTEXT</codeph></entry>
+      <entry>XContext</entry>
+      <entry>Extended Addressing Page Table Context</entry>
+     </row>
+     <row>
+      <entry><codeph>C0_DEBUG</codeph></entry>
+      <entry>Debug</entry>
+      <entry>EJTAG Debug register</entry>
+     </row>
+     <row>
+      <entry><codeph>C0_DEBUG2</codeph></entry>
+      <entry>Debug2</entry>
+      <entry>EJTAG Debug2 register</entry>
+     </row>
+     <row>
+      <entry><codeph>C0_DEPC</codeph></entry>
+      <entry>DEPC</entry>
+      <entry>Program counter at last EJTAG debug exception</entry>
+     </row>
+     <row>
+      <entry><codeph>C0_PERFCNT</codeph></entry>
+      <entry>PerfCnt</entry>
+      <entry>Performance counter interface</entry>
+     </row>
+     <row>
+      <entry><codeph>C0_ERRCTL</codeph></entry>
+      <entry>ErrCtl</entry>
+      <entry>Parity/ECC error control and status</entry>
+     </row>
+     <row>
+      <entry><codeph>C0_CACHEERR</codeph></entry>
+      <entry>CacheErr</entry>
+      <entry>Cache parity error control and status</entry>
+     </row>
+     <row>
+      <entry><codeph>C0_TAGLO</codeph></entry>
+      <entry>TagLo</entry>
+      <entry>Low-order portion of cache tag interface</entry>
+     </row>
+     <row>
+      <entry><codeph>C0_ITAGLO</codeph></entry>
+      <entry> </entry>
+      <entry>Cache-tag interface, implementation specific (instruction low).</entry>
+     </row>
+     <row>
+      <entry><codeph>C0_DTAGLO</codeph></entry>
+      <entry> </entry>
+      <entry>Cache-tag interface, implementation specific (data low).</entry>
+     </row>
+     <row>
+      <entry><codeph>C0_TAGLO2</codeph></entry>
+      <entry> </entry>
+      <entry>Cache-tag interface, implementation specific </entry>
+     </row>
+     <row>
+      <entry><codeph>C0_DATALO</codeph></entry>
+      <entry> </entry>
+      <entry>Cache-tag interface, implementation specific (data low).</entry>
+     </row>
+     <row>
+      <entry><codeph>C0_IDATALO</codeph></entry>
+      <entry> </entry>
+      <entry>Cache-tag interface, implementation specific (data low).</entry>
+     </row>
+     <row>
+      <entry><codeph>C0_DDATALO</codeph></entry>
+      <entry> </entry>
+      <entry>Cache-tag interface, implementation specific (data low).</entry>
+     </row>
+     <row>
+      <entry><codeph>C0_DATALO2</codeph></entry>
+      <entry> </entry>
+      <entry>Cache-tag interface, implementation specific (data low).</entry>
+     </row>
+     <row>
+      <entry><codeph>C0_TAGHI</codeph></entry>
+      <entry>TagHi</entry>
+      <entry>High-order portion of cache tag interface</entry>
+     </row>
+     <row>
+      <entry><codeph>C0_ITAGHI</codeph></entry>
+      <entry> </entry>
+      <entry>Cache-tag interface, implementation specific (instruction high).</entry>
+     </row>
+     <row>
+      <entry><codeph>C0_DTAGHI</codeph></entry>
+      <entry> </entry>
+      <entry>Cache-tag interface, implementation specific (data high).</entry>
+     </row>
+     <row>
+      <entry><codeph>C0_DATAHI</codeph></entry>
+      <entry> </entry>
+      <entry>Cache-tag interface, implementation specific.</entry>
+     </row>
+     <row>
+      <entry><codeph>C0_IDATAHI</codeph></entry>
+      <entry> </entry>
+      <entry>Cache-tag interface, implementation specific.</entry>
+     </row>
+     <row>
+      <entry><codeph>C0_DDATAHI</codeph></entry>
+      <entry> </entry>
+      <entry>Cache-tag interface, implementation specific (data high).</entry>
+     </row>
+     <row>
+      <entry><codeph>C0_ERRPC</codeph></entry>
+      <entry>ErrorEPC</entry>
+      <entry>Program counter at last error</entry>
+     </row>
+     <row>
+      <entry><codeph>C0_DESAVE</codeph></entry>
+      <entry>DESAVE</entry>
+      <entry>EJTAG debug exception save register</entry>
+     </row>
+     <row>
+      <entry><codeph>C0_KSCRATCH1</codeph></entry>
+      <entry>KScratch1</entry>
+      <entry>Scratch Registers for Kernel Mode</entry>
+     </row>
+     <row>
+      <entry><codeph>C0_KSCRATCH2</codeph></entry>
+      <entry>KScratch2</entry>
+      <entry>Scratch Registers for Kernel Mode</entry>
+     </row>
+     <row>
+      <entry><codeph>C0_KSCRATCH3</codeph></entry>
+      <entry>KScratch3</entry>
+      <entry>Scratch Registers for Kernel Mode</entry>
+     </row>
+     <row>
+      <entry><codeph>C0_KSCRATCH4</codeph></entry>
+      <entry>KScratch4</entry>
+      <entry>Scratch Registers for Kernel Mode</entry>
+     </row>
+     <row>
+      <entry><codeph>C0_KSCRATCH5</codeph></entry>
+      <entry>KScratch5</entry>
+      <entry>Scratch Registers for Kernel Mode</entry>
+     </row>
+     <row>
+      <entry><codeph>C0_KSCRATCH6</codeph></entry>
+      <entry>KScratch6</entry>
+      <entry>Scratch Registers for Kernel Mode</entry>
+     </row>
+    </tbody>
+   </tgroup>
+  </table>
+ </conbody>
+</concept>

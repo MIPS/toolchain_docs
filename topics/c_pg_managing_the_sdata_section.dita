@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="concept_acz_44p_1cb">
+ <title>Managing the .sdata section</title>
+ <conbody>
+  <p>The .sdata section stores data which is accessed using the GP-relative addressing mode.
+   Using this mode helps decrease the code size, but it also gives the user the possibility
+   of having position-independent data, as the .sdata section can be relocated independently
+   of the code.</p>
+  <p>Because this section is so closely tied to the GP-relative addressing mode, it is
+   created only when this mode is enabled. In GCC, the <codeph>-mgpopt</codeph> command-line
+   option enables GP-relative addressing and subsequently causes the creation of the
+   <codeph>.sdata</codeph> section. Conversely, passing <codeph>-mno-gpopt</codeph> disables
+   GP-relative addressing and prevents the creation of the <codeph>.sdata</codeph> section.</p>
+  <p>GCC has another useful option, <codeph>-G num</codeph>, which is used to set the size
+   threshold under which all symbols will be placed in the <codeph>.sdata</codeph> section.
+   The user can have fine-grained control over which data symbols are placed in
+   <codeph>.sdata</codeph> by using <codeph>-mgpopt</codeph> and <codeph>-G0</codeph>, and
+   marking variables with the "section" attribute in the source code, like this:</p>
+  <codeblock>static int example_manual_sdata_var __attribute__ ((section(".sdata"))) = 1;</codeblock>
+  <p>This will have the effect of populating the <codeph>.sdata</codeph> section only with
+   the variables which were explicitly marked by the user.</p>
+  <p>When using a non-zero value for <codeph>-G num</codeph>, the "section" attribute can
+   be used to prevent a symbol from being placed in the <codeph>.sdata</codeph> section, by
+   forcing it into a different section.</p>
+  <p>Users can also restrict usage of the <codeph>.sdata</codeph> section by separating
+   their code into different modules and compiling them with different options, such that
+   GP-relative addressing is limited to a subset of the codebase.</p>
+ </conbody>
+</concept>

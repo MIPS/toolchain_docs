@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="concept_ekn_bsc_fcb">
+ <title>CM3 - L2 cache</title>
+ <conbody>
+  <p>The HAL provides support for the L2 cache provided by Coherency Manager Version 3. As the CM3
+   is an optional feature the code to support this is not included by default. Attempts to use the
+   default cache management code or boot code when L2 cache is external to the core will cause a UHI
+   boot exception (L2 configuration is external to the core).</p>
+  <p> The HAL code for the CM3 is part of the supplied <codeph>libcm3.a</codeph> library, add this
+   to the link using -lcm3 when targeting a core with CM3.</p>
+ </conbody>
+</concept>

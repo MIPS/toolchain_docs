@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="c_p32_detecting_the_target_api_and_isa">
+ <title>Detecting the target API and ISA</title>
+ <conbody>
+  <p>The pre-processor provides macros to enable users to detect what the target architecture is and
+   the software configuration in use. An example of various macros is below:</p>
+  <codeblock>#ifdef __mips__
+// This is only enabled for MIPS, microMIPS or MIPS16 architectures
+#endif
+#ifdef __nanomips__
+// This is only enabled for nanoMIPS
+#endif
+#ifdef __mips
+// Strictly this is not a test for architecture but instead a
+// feature of an architecture. __mips is set for all MIPS architecture
+// variations and will have a value of 32 for nanoMIPS to represent nanoMIPS32
+#endif
+#if __mips_isa_rev == 6
+// This shows that the release of the architecture is version 6 and is set for
+// all MIPS architectures. It is guaranteed to be a minimum of 6 for nanoMIPS
+#endif
+#if _MIPS_SIM == _ABIO32
+// This shows that the ABI in use is o32. It is not possible to use o32 with
+// nanoMIPS
+#endif
+#if _MIPS_SIM == _ABIP32
+// This shows that the ABI in use is p32. This is the only possibility for
+// nanoMIPS32
+#endif
+  </codeblock>
+ </conbody>
+</concept>

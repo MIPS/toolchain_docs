@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="c_p32_isa_mode">
+ <title>ISA mode</title>
+ <conbody>
+  <p>The nanoMIPS architecture does not include the concept of an ISA mode. Unlike microMIPS and
+   MIPS16 there is no meaning applied to the least significant bit of a code address and it is
+   interpreted as part of the target address and will trigger an address exception if set.</p>
+ </conbody>
+</concept>

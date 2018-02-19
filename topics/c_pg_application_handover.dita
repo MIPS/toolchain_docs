@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="concept_kk3_fcl_fcb">
+ <title>Application handover</title>
+ <conbody>
+  <p>The boot code includes support for copying application code and data out of ROM into its
+   runtime address. This is performed immediately after the <codeph>__boot_init_hook</codeph>
+   function is called. See <xref href="c_pg_custom_exception_handlers.dita"/> for details of how to
+   control placement. After copying code and data the boot code sets up the exception return address
+   (EPC) to point at the <codeph>_start</codeph> symbol and performs an ERET to begin execution. The
+   code at<codeph> _start </codeph>is responsible for setting up the stack pointer, global pointer
+   (if required), and any CP0 settings required by the application.</p>
+ </conbody>
+</concept>

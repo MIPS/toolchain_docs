@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE map PUBLIC "-//OASIS//DTD DITA Map//EN" "map.dtd">
+<map>
+ <title>Overview of <ph keyref="var_nanotoolchain"/></title>
+ <topicref href="topics/c_pg_overview_introduction.dita">
+  <topicref href="topics/c_pg_components.dita"/>
+  <topicref href="topics/c_pg_c_compiler.dita"/>
+  <topicref href="topics/c_pg_cplus_compiler.dita"/>
+  <topicref href="topics/c_pg_nanomips_assembler.dita"/>
+  <topicref href="topics/c_pg_binary_utilities.dita"/>
+  <topicref href="topics/c_pg_libraries_and_header_files.dita"/>
+  <topicref href="topics/c_pg_supported_configurations.dita"/>
+  <topicref href="topics/c_pg_cpu_management.dita">
+   <topicref href="topics/c_pg_cp0_intrinsic.dita"/>
+   <topicref href="topics/c_pg_miscellaneous_functions.dita"/>
+   <topicref href="topics/c_pg_misc_sys.dita"/>
+   <topicref href="topics/c_pg_fpu.dita"/>
+  </topicref>
+  <topicref href="topics/c_pg_qemu_simulator.dita"/>
+  <topicref href="topics/c_pg_iasimulator.dita"/>
+ </topicref>
+</map>

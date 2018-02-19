@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="c_p32_compiler_and_command_line_options">
+ <title>Compiler and command line options</title>
+ <conbody>
+  <p>The nanoMIPS toolchain introduces a new triplet in the format of
+   <codeph>nanomips-elf</codeph>.</p>
+  <p>The command line options for nanoMIPS have undergone changes and some are incompatible between
+   MIPS and nanoMIPS. The most commonly used command line options are listed in the following table,
+   shaded cells indicate the change:</p>
+  
+  <table id="table_dh5_qdz_wcb">
+   <title>Command-line options comparison</title>
+   <tgroup cols="3">
+    <colspec colnum="1" colname="col1"/>
+    <colspec colnum="2" colname="col2"/>
+    <colspec colnum="3" colname="col3"/>
+    <thead>
+     <row>
+      <entry>Option</entry>
+      <entry>o32</entry>
+      <entry>p32</entry>
+     </row>
+    </thead>
+    <tbody>
+     <row>
+      <entry>ABI selection</entry>
+      <entry>-mabi=o32</entry>
+      <entry>-m32</entry>
+     </row>
+     <row>
+      <entry>Generate code for ISA level N </entry>
+      <entry>-mips*</entry>
+      <entry>Not supported </entry>
+     </row>
+     <row>
+      <entry>Generate for for the given ISA</entry>
+      <entry>-march=ISA </entry>
+      <entry>-march=ISA</entry>
+     </row>
+     <row>
+      <entry>Endianness selection</entry>
+      <entry>-EL/-EB/-mel/-meb</entry>
+      <entry>-EL/-EB/-mel/-meb</entry>
+     </row>
+     <row>
+      <entry>Hardware floating-point ABI</entry>
+      <entry>-mhard-float</entry>
+      <entry>-mhard-float</entry>
+     </row>
+     <row>
+      <entry>Prevent use of hardware floating-point instructions</entry>
+      <entry>-msoft-float</entry>
+      <entry>-msoft-float</entry>
+     </row>
+    </tbody>
+   </tgroup>
+  </table>
+ </conbody>
+</concept>

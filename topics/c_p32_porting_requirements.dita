@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="c_p32_porting_requirements">
+ <title>p32 porting requirements</title>
+ <conbody>
+  <p>In order to implement p32, <ph keyref="var_mips"/> provides the following:</p>
+  <ul id="ul_h1j_czy_wcb">
+   <li>A compiler that supports p32.
+    <?oxy_comment_start author="alastair.dent" timestamp="20180217T135221+0000" comment="version number should be added"?></li>
+   <?oxy_comment_end?>
+   <li>p32 versions of each library.
+    <?oxy_comment_start author="alastair.dent" timestamp="20180217T135229+0000" comment="A kernel that supports p32. version number required"?></li>
+   <?oxy_comment_end?>
+  </ul>
+  <p> </p>
+  <p>To take advantage of the p32 ABI, customers must:</p>
+  <ul id="ul_i1j_czy_wcb">
+   <li>Install a p32 OS, compiler, and all p32 libraries.</li>
+   <li>Rewrite Assembly code to conform to p32 guidelines.</li>
+   <li>Recompile all the code with the compiler that supports p32; this will require makefile
+    modifications due to changes in command line options but default settings of a nanoMIPS compiler
+    will automatically target p32 ABI.</li>
+  </ul>
+ </conbody>
+</concept>

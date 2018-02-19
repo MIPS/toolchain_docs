@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="concept_ypd_ntv_2cb">
+ <title>Semihosting - Unified Hosting Interface (UHI)</title>
+ <conbody>
+  <p>A hosting interface provides a mechanism for user-mode applications to request services that
+   require complex processing or knowledge of the current hardware. Such requests are either
+   processed on the same target by a higher level OS (self-hosting or fully hosted) or offloaded to
+   a remote host (semi-hosted).</p>
+  <p>The MIPS Unified Hosting Interface (UHI) aims to support both scenarios of self-hosting and
+   semi-hosting without the need to neither modify the software when switching between the two nor
+   require any special knowledge of the current hardware. The interface is layered to allow requests
+   to propagate upwards through software stacks, boot monitors and debuggers.</p>
+  <p>MIPS UHI is based around the SYSCALL and SDBBP instructions along with a custom ABI and a
+   reserved SYSCALL/SDBBP number. The SYSCALL instruction is used wherever there may be a higher
+   level of software handling, the SDBBP instruction is used when a debugger is the only remaining
+   option.Unified Hosting Interface libraries are included by referencing ‘uhi’ in the linker
+   script. For example, your linker script could contain a GROUP statement like: </p>
+  <codeblock> GROUP(-lc –luhi –lgcc) </codeblock>
+  <p>The<codeph> uhi*.ld</codeph> scripts are example linker scripts which use UHI.</p>
+ </conbody>
+</concept>

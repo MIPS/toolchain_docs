@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="concept_yn2_xyk_fcb">
+ <title>TLB- 64-bit physical memory</title>
+ <conbody>
+  <p>The 64-bit API is described below:</p>
+  <table id="table_n3k_yyk_fcb">
+   <title>TLB - 64-bit Physical Memory functions</title>
+   <tgroup cols="2">
+    <colspec colnum="1" colname="col1"/>
+    <colspec colnum="2" colname="col2"/>
+    <thead>
+     <row>
+      <entry><b>Function prototype</b></entry>
+      <entry><b>Description</b></entry>
+     </row>
+    </thead>
+    <tbody>
+     <row>
+      <entry><codeph>unsigned int m64_tlb_size (void)</codeph></entry>
+      <entry>Returns the number of entries in the TLB.</entry>
+     </row>
+     <row>
+      <entry><codeph>void m64_tlbinval (tlbhi64_r hi)</codeph></entry>
+      <entry>Probes the TLB for an entry matchinghi,and if present invalidates it.</entry>
+     </row>
+     <row>
+      <entry><codeph>void m64_tlbinvalall (void)</codeph></entry>
+      <entry>Invalidate the whole TLB.</entry>
+     </row>
+     <row>
+      <entry><codeph>void m64_tlbri2 (tlbhi64_t *phi, tlblo64_t *plo0, tlblo64_t *plo1, unsigned
+        long long *pmsk,int index)</codeph></entry>
+      <entry>Reads the TLB entry with specified by index, and returns the EntryHi, EntryLo0,
+       EntryLo1 and PageMask parts In *phi, *plo0, *plo1 and *pmsk respectively.</entry>
+     </row>
+     <row>
+      <entry><codeph>void m64_tlbwi2 (tlbhi64_t hi, tlblo64_t lo0, tlblo64_t lo1, unsigned long long
+        pmsk, int index)</codeph></entry>
+      <entry>Writes hi, lo0, lo1 and msk into the TLB entry specified by index.</entry>
+     </row>
+     <row>
+      <entry><codeph>void m64_tlbwr2 (tlbhi64_t hi, tlblo64_t lo0, tlblo64_t lo1, unsigned long long
+        pmsk)</codeph></entry>
+      <entry>Writes hi, lo0, lo1 and msk into the TLB entry specified by the Random
+       register.</entry>
+     </row>
+     <row>
+      <entry><codeph>int m64_tlbprobe2 (tlbhi64_t hi, tlblo64_t *plo0, tlblo64_t *plo1, unsigned
+        long long *pmsk)</codeph></entry>
+      <entry>Probes the TLB for an entry matching hi and returns its index, or -1 if not found. If
+       found, then the EntryLo0, EntryLo1 and PageMask parts of the entry are also returned in
+       *plo0, *plo1 and *pmsk respectively.</entry>
+     </row>
+     <row>
+      <entry><codeph>int m64_tlbrwr2 (tlbhi64_t hi, tlblo64_t lo0, tlblo64_t lo1, unsigned long long
+        pmsk)</codeph></entry>
+      <entry>Probes the TLB for an entry matching hi and if present rewrites that entry, otherwise
+       updates a random entry.<lines>A safe way to update the TLB.</lines>
+      </entry>
+     </row>
+    </tbody>
+   </tgroup>
+  </table>
+  <p>tlbhi64_t, tlblo64_t and pmsk (pagemask) are 64-bits wide and their usage with EntryHi,
+   EntryLo0 and EntryLo1 and PageMask fields should be consulted in the <ph
+    conkeyref="c_biblio/mips_arch_ref_volIII"/> and the <ph
+    conkeyref="c_biblio/mips_arch_prog_volIII"/> for using this API with XPA. </p>
+  <p>Users will also need to implement the xTLB, TLB refill exception handlers and general exception
+   handlers for TLB refill events if they make use of virtual memory management features.</p>
+ </conbody>
+</concept>

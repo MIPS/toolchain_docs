@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="c_p32_intro">
+ <title>Introduction</title>
+ <conbody>
+      <p>This publication provides an introduction to the p32 High Performance 32-bit Application
+         Binary Interface (ABI).</p>
+      <note>This document is a preliminary release and as such is incomplete and contains information
+         that is subject to change although every effort has been made to ensure the contents are
+         accurate at the time of writing. Future versions of this document will provide more
+         comprehensive information.</note>
+      <section id="section_zdr_bsq_wcb">
+         <title>Related publications</title>
+         <p>The following documents contain information that may be useful to read in conjunction
+            with this document:</p>
+         <ul id="ul_ylg_5sq_wcb">
+            <li><ph conkeyref="c_biblio/mips_nano_instr_set"/></li>
+            <li><ph conkeyref="c_biblio/mips_nano_prog_guide"/></li>
+            <li><ph conkeyref="c_biblio/mips_nano_priv_arch"/></li>
+         </ul>
+      </section>
+      <section id="section_pc4_pvq_wcb">
+         <title>Obtaining publications</title>
+         <p>You can obtain <ph keyref="var_mips"/> documentation in the following ways:</p>
+         <ul id="ul_m3y_svq_wcb">
+            <li><xref href="https://www.mips.com/develop/" format="html" scope="external"
+                  >https://www.mips.com/develop/</xref></li>
+            <li>You can also view release notes by typing either <codeph>grelnotes</codeph> or
+                  <codeph>relnotes</codeph> on a command line.</li>
+            <li>You can also view man pages by typing <codeph>man title</codeph> on a command
+               line.</li>
+         </ul>
+      </section>
+     
+  
+ </conbody>
+</concept>

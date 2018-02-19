@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="concept_nkg_kdq_fcb">
+ <title>Quieter exception handling</title>
+ <conbody>
+  <p>The textual output from the default exception handler occupies 1KB of data space as well as
+   over 1KB of code. This verbose output can be removed and instead any runtime exception will only
+   be reported via the UHI exception operation which, if unhandled by software, will be reported to
+   a debugger.</p>
+  <p>In order to use the quieter exception reporting take a copy of a HAL linker script and replace
+   the following line:</p>
+  <codeblock><line-through>EXTERN (__exception_handle_verbose);</line-through></codeblock>
+  <p>with</p>
+  <codeblock>EXTERN (__exception_handle_quiet);</codeblock>
+ </conbody>
+</concept>

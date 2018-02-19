@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="c_gs_target_intro">
+ <title>Choosing a target</title>
+ <conbody>
+    <p>This section explains how to target a specific ISA or core when building using the toolchain. </p>
+      <p>The toolchain offers the choice of building by specifying an -march option, multilibs or a
+         combination of both. </p>
+      <p>Details of all available -march options and multilibs can be found in the <ph
+            conkeyref="c_biblio/nanomips_pg"/></p>
+    
+     
+  
+ </conbody>
+</concept>

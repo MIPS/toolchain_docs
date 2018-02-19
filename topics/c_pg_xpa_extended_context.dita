@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="concept_g1d_1sb_fcb">
+ <title>XPA Extended Context</title>
+ <conbody>
+  <p>When a MIPS32 core is operating with extended physical addressing enabled, the control register
+   BadVAddr is extended by up to 32-bits. The default exception handler will not capture the upper
+   32-bits of BadVAddr. The <codeph>_xpa_save</codeph> function can be used to obtain the full
+   value.</p>
+  <table id="table_f45_1sb_fcb">
+   <title>_xpa_save function</title>
+   <tgroup cols="2">
+    <colspec colnum="1" colname="col1"/>
+    <colspec colnum="2" colname="col2"/>
+    <thead>
+     <row>
+      <entry><b>Function prototype</b></entry>
+      <entry><b>Description</b></entry>
+     </row>
+    </thead>
+    <tbody>
+     <row>
+      <entry>reg_t _xpa_save (struct xpactx *ptr)</entry>
+      <entry>Saves the XPA related context. Note: unlike the other extend context functions, no
+       corresponding _xpa_load is provided as BadVAddr is a read-only register. </entry>
+     </row>
+    </tbody>
+   </tgroup>
+  </table>
+  <p>As the BadVAddr is a read only register, there is no corresponding load function.</p>
+  <p><codeph>struct xpactx</codeph> is laid out as follows:</p>
+  <table id="table_g45_1sb_fcb">
+   <title>xpactx structure</title>
+   <tgroup cols="2">
+    <colspec colnum="1" colname="col1"/>
+    <colspec colnum="2" colname="col2"/>
+    <thead>
+     <row>
+      <entry><b>Type and member name</b></entry>
+      <entry><b>Description</b></entry>
+     </row>
+    </thead>
+    <tbody>
+     <row>
+      <entry><codeph>struct linkctx link</codeph></entry>
+      <entry>Type and link to next context.</entry>
+     </row>
+     <row>
+      <entry><codeph>reg64_t badvaddr</codeph></entry>
+      <entry>Records the virtual address that caused a TLB exception or address error.</entry>
+     </row>
+    </tbody>
+   </tgroup>
+  </table>
+  <p> </p>
+ </conbody>
+</concept>

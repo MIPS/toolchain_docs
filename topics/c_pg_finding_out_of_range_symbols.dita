@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="concept_acz_44p_1cb">
+ <title>Finding out-of-range symbols when using the GOLD linker</title>
+ <conbody>
+  <p>The user can find out what transformations the linker has performed by passing it the
+   <codeph>--debug=target</codeph> option. The resulting output will look like this:</p>
+  <codeblock>ld.gold: example.o(.text+0x4000016): lapc is transformed into lapc[48] for local symbol 'pcrel_static_int' with index 7
+   ld.gold: example.o(.text+0x4000020): lbu[gp] is transformed into addiugp[48], lbu for local symbol '.sdata+0x0' with index 8
+   ld.gold: example.o(.text+0x400002e): lhu[gp] is transformed into addiugp[48], lhu for local symbol '.sdata+0x2' with index 8
+   ld.gold: example.o(.text+0x400003c): lw[gp] is transformed into addiugp[48], lw for local symbol '.sdata+0x4' with index 8
+   ld.gold: example.o(.text+0x400004a): balc is transformed into lapc[48], jalrc[16] for local symbol 'pcrel_static_func' with index 6</codeblock>
+  <p>From this output we can tell that:</p>
+  <ul id="ul_rs3_nl3_1cb">
+   <li>the first transformation is of a PC-relative address calculation for
+    <codeph>pcrel_static_int</codeph>, because the affected instructions are all LAPCs, which
+    are used for loading addresses by anchoring against the PC</li>
+   <li>the next three transformations are of GP-relative accesses because the affected
+    instructions are loads, they use the $gp register, and the symbols involved reside in the
+    .sdata section</li>
+   <li>the last transformation is of a call to the local function
+     <codeph>pcrel_static_func</codeph>, because the affected instruction is a BALC</li>
+  </ul>
+  <p>We can tell that these are expansions because the number and size of the instructions
+   increases. To find out the names of the <codeph>.sdata</codeph> symbols, we need to examine
+   the symbol table of example.o, their object file of origin. Here is the symbol table as
+   printed by <codeph>nanomips-elf-objdump -t</codeph>:</p>
+  <codeblock>00000000 l    df *ABS*  00000000 cm.c
+    00000000 l    d  .text  00000000 .text
+    00000000 l    d  .data  00000000 .data
+    00000000 l    d  .bss   00000000 .bss
+    00000001 l       *ABS*  00000000 __reloc_align_^B_1
+    00000000 l     F .text  00000010 pcrel_static_func
+    00000000 l     O .data  00000004 pcrel_static_int
+    00000000 l    d  .sdata 00000000 .sdata
+    00000000 l     O .sdata 00000001 gprel_static_char
+    00000002 l     O .sdata 00000002 gprel_static_short
+    00000004 l     O .sdata 00000004 gprel_static_int
+    00000001 l       *ABS*  00000000 __reloc_align_^B_2
+    00000000 l    d  .nanoMIPS.abiflags     00000000 .nanoMIPS.abiflags
+    00000000 l    d  .comment       00000000 .comment
+    04000010 g     F .text  00000034 main</codeblock>
+  <p>From this, we can see that:</p>
+  <ul >
+   <li><codeph>.sdata+0x0</codeph> is actually <codeph>gprel_static_char</codeph></li>
+   <li><codeph>.sdata+0x2</codeph> is actually <codeph>gprel_static_short</codeph></li>
+   <li><codeph>.sdata+0x4</codeph> is actually <codeph>gprel_static_int</codeph></li>
+  </ul>
+  <p>Now that we know the names of all the symbols, we can mark their corresponding variables
+   and functions with the <codeph>cmodel("large")</codeph> attribute in the source code. This
+   will prevent the linker expansions we saw above, while keeping the rest of the code in the
+   medium model. The same process can be followed when linking multiple object files, but we
+   would have to do it for every file name printed in the output of the
+   <codeph>--debug=target</codeph> option.</p>
+ </conbody>
+</concept>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="concept_dc4_cnp_1cb">
+ <title>Common Usage</title>
+ <conbody>
+  <p>This section gives pointers to the usage of common components or architectural features with
+   the <ph keyref="var_nanotoolchain"/>.</p>
+ </conbody>
+</concept>

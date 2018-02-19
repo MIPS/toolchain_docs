@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="concept_dz5_kgc_fcb">
+ <title>Custom Exception Handlers</title>
+ <conbody>
+  <p>In order to implement custom exception handling an implementation of
+    <codeph>_mips_handle_exception </codeph>should be provided by an application. This function
+   should be written in C with the following prototype:</p>
+  <codeblock>void _mips_handle_exception (struct gpctx *ctx, int exception) </codeblock>
+  <p> The exception argument will be one of the exception codes listed in <xref
+        href="c_pg_exp_type_intro.dita"/> Extreme care must be taken in this function to avoid
+      unintended nested exceptions especially those caused by UHI semi-hosting operations. In
+      particular, if application code does not need to process any custom SYSCALL operations then
+      the function should begin with:</p>
+    <codeblock>void _mips_handle_exception (struct gpctx *ctx, int exception)
+{
+  if (exception == EXC_SYS)
+  {
+    /* Forward UHI SYSCALL operations to the standard handlers */
+    __exception_handle (ctx, exception);
+    return;
+  }
+
+  if (exception == ...)
+  {
+   &lt;custom handlers>
+    return;
+  }
+
+  __exception_handle (ctx, exception);
+  return;
+}
+</codeblock>
+    <p>Debugging information can be placed in the handler but must only use the low level UHI
+      semi-hosting functions like <codeph>write</codeph> and <codeph>plog</codeph> to output
+      messages. Use of <codeph>printf</codeph> or other C library functions will result in corrupt
+      application state depending on where the original exception occurred.</p>
+    <p> Register context at the point of the original exception can be found in the CTX structure
+      and can be modified in place. This structure will be used to restore context on return from
+      exception. The status field should not normally be changed and may not be restored if running
+      inside an RTOS, consult your RTOS documentation if you need to modify the CP0 Status register
+      during exception handling. The default configuration of the HAL will mean that no interrupts
+      will be routed to the<codeph> _&lt;mips_handle>_exception</codeph> function. An RTOS will hook
+      the exception handling chain above<codeph> _&lt;mips_handle>_exception</codeph> so some
+      exceptions may never be seen by user code when run within an RTOS, again consult your RTOS
+      documentation for details.</p>
+    <fig id="fig_xhm_cmc_fcb">
+      <title>Normal exception handling</title>
+      <image keyref="norm_ex_hand" scale="75" id="image_yhm_cmc_fcb"/>
+    </fig>
+ </conbody>
+</concept>

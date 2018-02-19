@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="concept_jx4_lnc_fcb">
+ <title>Semihosting functions</title>
+ <conbody>
+  <p>The following standard semi-hosting functions are provided for users and are implemented using
+   the MIPS Unified Hosting Interface.</p>
+  <table id="table_zkf_4nc_fcb">
+   <title>Standard semi-hosting functions</title>
+   <tgroup cols="2">
+    <colspec colnum="1" colname="col1"/>
+    <colspec colnum="2" colname="col2"/>
+    <thead>
+     <row>
+      <entry><b>Function prototype</b></entry>
+      <entry><b>Description</b></entry>
+     </row>
+    </thead>
+    <tbody>
+     <row>
+      <entry><codeph>int close (int fd)</codeph></entry>
+      <entry>Close a file descriptor, -1 on error, 0 on success.</entry>
+     </row>
+     <row>
+      <entry><codeph>int fstat (int32_t file, struct stat *sbuf)</codeph></entry>
+      <entry>Get file statistics for an already opened file descriptor.</entry>
+     </row>
+     <row>
+      <entry><codeph>int link (const char *oldname, const char *newname)</codeph></entry>
+      <entry>Rename a file, returns 0 on success or -1 on failure.</entry>
+     </row>
+     <row>
+      <entry><codeph>off_t lseek (int fd, off_t offset, int whence)</codeph></entry>
+      <entry>Seek with an open file handle.</entry>
+     </row>
+     <row>
+      <entry><codeph>int open (const char* filename, int flags, mode_t mode)</codeph></entry>
+      <entry>Open a file descriptor, -1 on error. Positive on success.</entry>
+     </row>
+     <row>
+      <entry><codeph>ssize_t pread (int fd, void *buf, size_t count, off_t offset)</codeph></entry>
+      <entry>File read from a given offset, returns number of bytes read or -1 on error.</entry>
+     </row>
+     <row>
+      <entry><codeph>ssize_t pwrite (int fd, const void *buf, size_t count, off_t
+       offset)</codeph></entry>
+      <entry>Write to a file at a given offset.</entry>
+     </row>
+     <row>
+      <entry><codeph>int read (int fd, void *buffer, size_t len)</codeph></entry>
+      <entry>Read from an open file descriptor, returns number of bytes read or -1 on an
+       error.</entry>
+     </row>
+     <row>
+      <entry><codeph>int stat (const char *filename, struct stat *buf)</codeph></entry>
+      <entry>Get file statistics.</entry>
+     </row>
+     <row>
+      <entry><codeph>int unlink (const char *file)</codeph></entry>
+      <entry>Unlink a file.</entry>
+     </row>
+     <row>
+      <entry><codeph>int write (int fd, const void *buf, size_t count)</codeph></entry>
+      <entry>Write to an open file descriptor, returns number of bytes read or -1 on error.</entry>
+     </row>
+    </tbody>
+   </tgroup>
+  </table>
+ </conbody>
+</concept>

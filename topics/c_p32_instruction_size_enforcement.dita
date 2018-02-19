@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="c_p32_instruction_size_enforcement">
+ <title>Instruction size enforcement</title>
+ <conbody>
+  <p>When it is necessary to guarantee either the use of a specific instruction or force the size of
+   an instruction then this can be achieved using a suffix on the instruction name. To force the use
+   of a specific size instruction add 16, 32 or 48 to force the assembler to use that size
+   instruction and ensure the linker does not change it. However, this may result in an assembler or
+   linker error if the instruction is either unavailable or unable to support a relocation applied
+   at final link.</p>
+  <p>Forcing the use of a specific instruction variant is not currently finalized and will be
+   documented at a later stage. Using an instruction without a specific size leaves the assembler to
+   choose the most efficient instruction in terms of code size; this may not always mean a 16-bit
+   instruction is chosen even when it is available as the presence of a relocation is a strong
+   indicator a wider instruction will be required at link time. The assembler therefore selects
+   instructions to be as representative as possible with respect to what will happen during final
+   link.</p>
+  <p>For example, here are <codeph>nop</codeph> instructions with and without valid suffixes:</p>
+  <codeblock>nop // This will be a 16-bit NOP
+nop16 // This is guaranteed to be a 16-bit NOP
+nop32 // This is guaranteed to be a 32-bit NOP
+</codeblock>
+ </conbody>
+</concept>

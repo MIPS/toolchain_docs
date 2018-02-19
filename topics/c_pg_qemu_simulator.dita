@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="concept_s21_vkp_1cb">
+ <title>QEMU Simulator</title>
+ <conbody>
+  <p>QEMU simulator is supplied as a binary, compiled to simulate nanoMIPS targets. This can be used to
+   run code compiled for most nanoMIPS instruction sets.</p>
+ </conbody>
+</concept>

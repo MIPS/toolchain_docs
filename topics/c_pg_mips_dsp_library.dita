@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="concept_l1x_q33_1cb">
+ <title>MIPS DSP Library</title>
+ <conbody>
+  <p>This library provides DSP and vector functionality relevant for multimedia applications.
+   Library variants are optimized for various cores and leverage extensions like DSP-ASE and MSA to
+   improve performance where possible. DSP Library sources are distributed under the MIPS Free To
+   Use license. Refer to the MIPS DSP Library Reference and API manuals provided with the SDK for
+   details.</p>
+ </conbody>
+</concept>

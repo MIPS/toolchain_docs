@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="concept_tzf_f3q_fcb">
+ <title>ISO conforming</title>
+ <conbody>
+  <p>The ISO C99 conforming version of SmallCLib, referred to as the small variant, does not omit
+   functionality that's required by the standards in order to achieve a smaller library. Most of the
+   space saving in this version comes from aggressive refactoring of the code to eliminate
+   redundancy and some of the space saving comes at the cost of performance. This version provides
+   an IEEE 754 compliant software floating point Math library.</p>
+ </conbody>
+</concept>

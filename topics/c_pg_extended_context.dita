@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="concept_dbv_kpb_fcb">
+ <title>Extended Context</title>
+ <conbody>
+  <p>The basic exception handler saves only the general purpose CPU registers and some control
+   registers when an exception occurs. For most exception handlers this is sufficient. In some cases
+   it may be necessary or desirable to save and restore the contents of the floating point and MSA
+   registers. Systems using XPA require additional support as the BadVAddr register (CP0 Register 8,
+   Select 0) is wider than the provided exception hander expects.</p>
+  <p>The following table describes <codeph>struct linkctx</codeph> which is common to all extended
+   context structures:</p>
+  <table id="table_bn5_lpb_fcb">
+   <title>linkctx structure</title>
+   <tgroup cols="2">
+    <colspec colnum="1" colname="col1"/>
+    <colspec colnum="2" colname="col2"/>
+    <thead>
+     <row>
+      <entry><b>Field</b></entry>
+      <entry><b>Description</b></entry>
+     </row>
+    </thead>
+    <tbody>
+     <row>
+      <entry><codeph>reg_t id</codeph></entry>
+      <entry>Records the type of extended context saved. Currently used types are described
+       below.</entry>
+     </row>
+     <row>
+      <entry><codeph>struct linkctx * next</codeph></entry>
+      <entry>The next context field or NULL if the last in the chain.</entry>
+     </row>
+    </tbody>
+   </tgroup>
+  </table>
+  <p>The values currently supported for the id field are defined in
+    <codeph>$MIPS_ELF_ROOT/include/mips/hal.h </codeph>and share the common prefix LINKCTX_TYPE_.
+   For reference:</p>
+  <table id="table_cn5_lpb_fcb">
+   <title>reg_t id field values</title>
+   <tgroup cols="2">
+    <colspec colnum="1" colname="col1"/>
+    <colspec colnum="2" colname="col2"/>
+    <thead>
+     <row>
+      <entry><b>Context type</b></entry>
+      <entry><b>Description</b></entry>
+     </row>
+    </thead>
+    <tbody>
+     <row>
+      <entry><codeph>LINKCTX_TYPE_MSA</codeph></entry>
+      <entry>Context for MSA.</entry>
+     </row>
+     <row>
+      <entry><codeph>LINKCTX_TYPE_FMSA</codeph></entry>
+      <entry>Context for MSA with the floating point condition and status register.</entry>
+     </row>
+     <row>
+      <entry><codeph>LINKCTX_TYPE_FP32</codeph></entry>
+      <entry>Context for 32-bit floating point.</entry>
+     </row>
+     <row>
+      <entry><codeph>LINKCTX_TYPE_FP64</codeph></entry>
+      <entry>Context for 64-bit floating point.</entry>
+     </row>
+     <row>
+      <entry><codeph>LINKCTX_TYPE_XPA</codeph></entry>
+      <entry>Context for XPA. </entry>
+     </row>
+    </tbody>
+   </tgroup>
+  </table>
+  <p>To help manage multiple extended contexts, <codeph>struct gpctx</codeph> has a link field
+   allowing the various contexts to be linked together. Additionally the following function is
+   provided to simplify linking contexts together:</p>
+  <table id="table_dn5_lpb_fcb">
+   <title>Linking context function</title>
+   <tgroup cols="2">
+    <colspec colnum="1" colname="col1"/>
+    <colspec colnum="2" colname="col2"/>
+    <thead>
+     <row>
+      <entry><b>Function prototype</b></entry>
+      <entry><b>Description</b></entry>
+     </row>
+    </thead>
+    <tbody>
+     <row>
+      <entry><codeph>void _linkctx_append (struct gpctx *gp, struct linkctx *new)</codeph></entry>
+      <entry>Appends new onto the end of the gp’s list of context structures. </entry>
+     </row>
+    </tbody>
+   </tgroup>
+  </table>
+  <p>The following functions are provided for saving and restoring these register sets.</p>
+  <table id="table_en5_lpb_fcb">
+   <title>Save and restore functions</title>
+   <tgroup cols="2">
+    <colspec colnum="1" colname="col1"/>
+    <colspec colnum="2" colname="col2"/>
+    <thead>
+     <row>
+      <entry><b>Function prototype</b></entry>
+      <entry><b>Description</b></entry>
+     </row>
+    </thead>
+    <tbody>
+     <row>
+      <entry><codeph>reg_t _xpa_save (struct xpactx *ptr)</codeph></entry>
+      <entry>Saves the XPA related context. Note: unlike the other extend context functions, no
+       corresponding _xpa_load is provided as BadVAddr is a read-only register.</entry>
+     </row>
+     <row>
+      <entry><codeph>reg_t _fpctx_save (struct fpctx *ptr)</codeph></entry>
+      <entry>Saves the floating point context to ptr. </entry>
+     </row>
+     <row>
+      <entry><codeph>reg_t _fpctx_load (struct fpctx *ptr)</codeph></entry>
+      <entry>Restores the floating point context from ptr.</entry>
+     </row>
+     <row>
+      <entry><codeph>reg_t _msactx_save (struct msactx *ptr)</codeph></entry>
+      <entry>Saves the MSA context to ptr. </entry>
+     </row>
+     <row>
+      <entry><codeph>reg_t _msactx_load (struct msactx *ptr)</codeph></entry>
+      <entry>Restores the MSA context from ptr.</entry>
+     </row>
+     <row>
+      <entry><codeph>reg_t _dspctx_save (struct dspctx *ptr)</codeph></entry>
+      <entry>Saves the DSP context to ptr. </entry>
+     </row>
+     <row>
+      <entry><codeph>reg_t _dspctx_load (struct dspctx *ptr)</codeph></entry>
+      <entry>Restores the DSP context from ptr.</entry>
+     </row>
+    </tbody>
+   </tgroup>
+  </table>
+  <p>The various save functions return the address of the context when no error occurs or zero if an
+   error occurs. The load functions return the address given to them when the state is reloaded
+   successfully or zero if an error occurs.</p>
+ </conbody>
+</concept>

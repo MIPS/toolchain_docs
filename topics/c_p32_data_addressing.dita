@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="c_p32_data_addressing">
+ <title>Data addressing</title>
+ <conbody>
+  <p>The p32 ABI is not designed to place data in the text section to achieve either performance or
+   code density. The MIPS16 concept of a literal/constant pool in the text section is not
+   supported.</p>
+  <p> Instead of using a literal pool, nanoMIPS uses a combination of a 48-bit load immediate
+   instruction that can materialize a 32-bit value or address in a single instruction and a
+   significantly larger optimized data area. The optimized global data area is increased in size
+   from 64KB to 2MB allowing simpler controls to select what is placed in that region.
+   MIPS/microMIPS/MIPS16 would normally recommend only placing data items up to 8-bytes in size in
+   the optimized data area, whereas nanoMIPS can generally cope with data items up to 64-bytes and
+   beyond without exceeding the size limit for an average application</p>
+ </conbody>
+</concept>

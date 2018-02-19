@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="concept_px2_t51_fcb">
+ <title>C/C++ Section Definition</title>
+ <conbody>
+  <p>Segment switching in C or C++ is quite different; the compiler already has to keep track of
+   sections and emits section directives as necessary. If you want to steer some particular piece of
+   data or code into a particular named section, then GNU C provides an ‘‘attribute()’’ extension
+   mechanism, for example:</p>
+  <codeblock>
+   /* put variable foo into section .xdata */
+   attribute  ((section (".xdata"))) int foo;
+   
+   /* put function bar into section .isram */
+   attribute  ((section (".isram")))
+   int bar ()
+   {
+   return 1;
+   }
+  </codeblock>
+  <p>But often what you want to do is collect a group of functions (or a group of data) into some
+   special fixed area of the CPU memory map, so it may be more convenient to be able to decide which
+   functions to group together at link time instead of compile time.</p>
+  <p>One way to do this is to give each function its own unique section name, and then generate a
+   linker script which combines only the ones which we want into the hardware-significant segment.
+   The compiler’s <codeph>−ffunction−sections</codeph> option outputs each function into a section
+   whose name is straightforwardly based on the function’s name (e.g. <codeph>.text.fnname</codeph>)
+   − you can then manipulate the individual function sections at link time, and functions not
+   assigned to a specific output segment will simply be merged into the global .text section.</p>
+  <p>If the functions that you move in this way end up out of reach of the normal balc instruction
+   (which is restricted to operating in a 64Mbyte window of memory), then the linker will normally
+   expand the call sequence to use an indirect call.</p>
+ </conbody>
+</concept>

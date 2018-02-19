@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="c_p32_fpu_registers">
+ <title>FPU registers</title>
+ <conbody>
+  <p><?oxy_comment_start author="alastair.dent" timestamp="20180217T142409+0000" comment="This might need excluding - left in for now.
+If it is for future development only, remove by deleting from bookmap (or it can be &apos;excluded&apos; by filtering). Don&apos;t delete file from Perforce"?>An<?oxy_comment_end?>
+   FPU adds 32 32-bit floating-point general registers and a 32-bit control/status register. Each
+   even/odd pair of the 32 floating-point general registers can be used as either a 32-bit
+   single-precision floating-point register or as a 64-bit double-precision floating-point register. </p>
+  <p>For single-precision values, the even-numbered floating-point register holds the value. For
+   double-precision values, the even-numbered floating-point register holds the least significant 32
+   bits of the value and the odd-numbered floating-point register holds the most significant 32 bits
+   of the value. This is always true, regardless of the byte ordering conventions in use (big endian
+   or little endian).</p>
+  <p>Floating-point data representation is that specified in IEEE Standard for Binary Floating-Point
+   Arithmetic, ANSI/IEEE Standard 754-1985.</p>
+ 
+  <table id="table_spm_2dz_wcb">
+   <title>FPU Register Naming Comparison</title>
+   <tgroup cols="5">
+    <colspec colnum="1" colname="col1"/>
+    <colspec colnum="2" colname="col2"/>
+    <colspec colnum="3" colname="col3"/>
+    <colspec colnum="4" colname="col4"/>
+    <colspec colnum="5" colname="col5"/>
+    <thead>
+     <row>
+      <entry>o32 Name</entry>
+      <entry>o32 Use</entry>
+      <entry>p32 Name</entry>
+      <entry>p32 Use</entry>
+      <entry>Type</entry>
+     </row>
+    </thead>
+    <tbody>
+     <row>
+      <entry outputclass="resCell"><codeph>$f0..$f2</codeph></entry>
+      <entry outputclass="resCell">Floating point results</entry>
+      <entry><codeph>$fa0..$fa1 </codeph></entry>
+      <entry>Floating point arguments / results</entry>
+      <entry>Caller-saved</entry>
+     </row>
+     <row>
+      <entry outputclass="resCell"><codeph>$f4..$f10 </codeph></entry>
+      <entry outputclass="resCell">Temporaries</entry>
+      <entry><codeph>$fa2..$fa7 </codeph></entry>
+      <entry>Floating point arguments</entry>
+      <entry>Caller-saved</entry>
+     </row>
+     <row>
+      <entry outputclass="resCell"><codeph>$f12..$f14</codeph></entry>
+      <entry outputclass="resCell">Floating point arguments</entry>
+      <entry><codeph>$fs0..$fs7</codeph></entry>
+      <entry>Floating point saved temporaries</entry>
+      <entry>Callee-saved</entry>
+     </row>
+     <row>
+      <entry outputclass="resCell"> </entry>
+      <entry outputclass="resCell"> </entry>
+      <entry><codeph>$ft0..$ft15</codeph></entry>
+      <entry>Floating point temporaries</entry>
+      <entry>Caller-saved</entry>
+     </row>
+    </tbody>
+   </tgroup>
+  </table>
+ </conbody>
+</concept>

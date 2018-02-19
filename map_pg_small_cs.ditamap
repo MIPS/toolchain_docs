@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE map PUBLIC "-//OASIS//DTD DITA Map//EN" "map.dtd">
+<map>
+ <title>Small C library Reference</title>
+ <topicref href="topics/c_pg_small_c_intro.dita">
+    <topicref href="topics/c_pg_linking_small_c.dita"/>
+      <topicref href="topics/c_pg_smallclib.dita">
+         <topicref href="topics/c_pg_iso_conforming.dita"/>
+         <topicref href="topics/c_pg_non_conforming.dita"/>
+         <topicref href="topics/c_pg_integration_with_gcc.dita"/>
+         <topicref href="topics/c_pg_linking_using_small_c.dita"/>
+      </topicref>
+      <topicref href="topics/c_pg_specification_differences_with_newlib.dita">
+         <topicref href="topics/c_pg_character_handling_and_localization.dita"/>
+         <topicref href="topics/c_pg_math_functions.dita"/>
+         <topicref href="topics/c_pg_formatted_io_functions.dita"/>
+      </topicref>
+ </topicref>
+</map>

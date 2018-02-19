@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE map PUBLIC "-//OASIS//DTD DITA Map//EN" "map.dtd">
+<map>
+ <title>MIPS Hardware Abstraction Layer</title>
+ <topicref href="topics/c_pg_hal_intro.dita">
+      <topicref href="topics/c_pg_linker_scripts.dita">
+         <topicref href="topics/c_symbols_in_linker_script.dita"/>
+         <topicref href="topics/c_elf_object_file_format.dita"/>
+         <topicref href="topics/c_pg_using_extra_sections.dita">
+            <topicref href="topics/c_pg_assembler_section_definition.dita"/>
+            <topicref href="topics/c_pg_section_definition.dita"/>
+            <topicref href="topics/c_pg_linking_extra__sections.dita"/>
+            <topicref href="topics/c_pg_linker_garbage_collection.dita"/>
+         </topicref>
+      </topicref>
+      <topicref href="topics/c_pg_hal_mk_frag.dita"/>
+      <topicref href="topics/c_pg_exceptions.dita">
+         <topicref href="topics/c_pg_extended_context.dita">
+            <topicref href="topics/c_pg_xpa_extended_context.dita"/>
+            <topicref href="topics/c_pg_floating_point_extended_context.dita"/>
+            <topicref href="topics/c_pg_msa_extended_context.dita" audience="msa"/>
+         </topicref>
+         <topicref href="topics/c_pg_exception_handlers.dita"/>
+      </topicref>
+      <topicref href="topics/c_pginterrupts.dita">
+         <topicref href="topics/c_pg_interrupt_handlers.dita"/>
+         <topicref href="topics/c_pg_custom_interrupt_vector.dita"/>
+         <topicref href="topics/c_pg_compiler_support_for_interrupt_handlers.dita"/>
+      </topicref>
+      <topicref href="topics/c_pg_custom_exception_handlers.dita">
+         <topicref href="topics/c_pg_custom_semi_hosting_handlers.dita"/>
+      </topicref>
+      <topicref href="topics/c_pg_application_layout.dita"/>
+      <topicref href="topics/c_pg_semihosting_functions.dita">
+         <topicref href="topics/c_pg_specialist_uhi_operations.dita"/>
+      </topicref>
+      <topicref href="topics/c_pg_configuration_settings.dita"/>
+      <topicref href="topics/c_pg_cache_management.dita">
+         <topicref href="topics/c_pg_cm3_l2_cache.dita"/>
+      </topicref>
+      <topicref href="topics/c_pg_cp0_support_macros_functions.dita">
+         <topicref href="topics/c_pg_mips32_registers.dita"/>
+         <topicref href="topics/c_pg_mips64_registers.dita"/>
+      </topicref>
+      <topicref href="topics/c_pg_tlb_support.dita">
+         <topicref href="topics/c_pg_tlb_32_memory.dita"/>
+         <topicref href="topics/c_pg_tlb_64_bit_memory.dita"/>
+         <topicref href="topics/c_pg_ftlb_set_stride.dita"/>
+         <topicref href="topics/c_pg_xpa.dita"/>
+      </topicref>
+      <topicref href="topics/c_pg_boot_code.dita">
+         <topicref href="topics/c_pg_pre_built_boot_code.dita"/>
+         <topicref href="topics/c_pg_optimized_boot_code.dita"/>
+         <topicref href="topics/c_pg_boot_overrides.dita"/>
+         <topicref href="topics/c_pg_application_handover.dita"/>
+      </topicref>
+      <topicref href="topics/c_pg_optimizing_for_size.dita">
+         <topicref href="topics/c_pg_boot_context.dita"/>
+         <topicref href="topics/c_pg_dynamic_argument_handling.dita"/>
+         <topicref href="topics/c_pg_quieter_exception_handling.dita"/>
+      </topicref>
+      <topicref href="topics/c_pg_argument_handling.dita"/>
+      <topicref href="topics/c_pg_miscellaneous_support_functions.dita"/>
+      <topicref href="topics/c_pg_boot_monitor_interoperability.dita"/>
+   </topicref>
+</map>

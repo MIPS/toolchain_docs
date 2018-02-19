@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="concept_cdl_lgq_fcb">
+ <title>Miscellaneous support functions</title>
+ <conbody>
+  <p>A number of additional support functions are provided that may be used by advanced users who
+   override large portions of the standard HAL code. These should not be referenced by casual
+   users.</p>
+  <table id="table_ukh_mgq_fcb">
+   <title>Support functions</title>
+   <tgroup cols="2">
+    <colspec colnum="1" colname="col1"/>
+    <colspec colnum="2" colname="col2"/>
+    <thead>
+     <row>
+      <entry><b>Function prototype</b></entry>
+      <entry><b>Description</b></entry>
+     </row>
+    </thead>
+    <tbody>
+     <row>
+      <entry><codeph>int __uhi_exception (struct gp_ctx *ctx)</codeph></entry>
+      <entry>Report an unhandled exception with the specified context. This will use the UHI syscall
+       interface.</entry>
+     </row>
+     <row>
+      <entry><codeph>int __uhi_indirect (struct gpctx * ctx)</codeph></entry>
+      <entry>Forward a UHI SYSCALL to the SDBBP interface.</entry>
+     </row>
+     <row>
+      <entry><codeph>__getargs ()</codeph></entry>
+      <entry>Obtains arguments using the UHI argument operations, allocating space from the stack.
+       This function uses a non-standard calling convention.</entry>
+     </row>
+     <row>
+      <entry><codeph>int __register_excpt_handler (void* RA, int SR)</codeph></entry>
+      <entry>Sets up exception handling and optionally calls
+       <codeph>__register_excpt_boot</codeph></entry>
+     </row>
+    </tbody>
+   </tgroup>
+  </table>
+ </conbody>
+</concept>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="c_gs_uhi_intro">
+ <title>UHI with <ph keyref="var_nanotoolchain"/></title>
+ <conbody>
+    <p>This section explains how UHI is built into a program and controlled from various execution
+         platforms.</p>
+    
+     
+  
+ </conbody>
+</concept>

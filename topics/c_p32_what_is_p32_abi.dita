@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="c_what_is_p32_abi">
+ <title>What is p32 ABI</title>
+ <conbody>
+  <p>The Application Binary Interface, or ABI, is the set of rules that all binaries must follow in
+   order to run on a nanoMIPS system. This includes, for example, object file format, instruction
+   set, data layout, subroutine calling convention, and system call numbers. The ABI is one part of
+   the mechanism that maintains binary compatibility across all nanoMIPS platforms.</p>
+  <p>p32 improves on o32 to provide an ABI that is efficient in both code density and performance.
+   p32 is required for the nanoMIPS architecture. </p>
+ </conbody>
+</concept>

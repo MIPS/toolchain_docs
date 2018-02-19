@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="concept_msd_s3q_fcb">
+ <title>Integration with the GCC-based toolchain</title>
+ <conbody>
+  <p>Small C library support in GCC is provided via new multi-lib configurations. Pre-built
+   small/tiny libraries variants are provided with the toolchain for select multi-lib combinations.
+  </p>
+  <p>The Small C library is provided within the toolchain as a set of three static library files,
+   for both small and tiny variants. At the least, the toolchain installation will contain the files
+   mentioned below:</p>
+  <table id="table_o2k_t3q_fcb">
+   <title>Essential files in small C library</title>
+   <tgroup cols="3">
+    <colspec colnum="1" colname="col1"/>
+    <colspec colnum="2" colname="col2"/>
+    <colspec colnum="3" colname="col3"/>
+    <thead>
+     <row>
+      <entry><b>File</b></entry>
+      <entry><b>Location in toolchain-root</b></entry>
+      <entry><b>Description</b></entry>
+     </row>
+    </thead>
+    <tbody>
+     <row>
+      <entry><codeph>libc.a</codeph></entry>
+      <entry><codeph>nanomips-elf/lib/nanomips-r6-soft-small/lib</codeph></entry>
+      <entry>ISO conforming size optimized string, memory, IO, time and other functions.</entry>
+     </row>
+     <row>
+      <entry><codeph>libm.a</codeph></entry>
+      <entry><codeph>nanomips-elf/lib/nanomips-r6-soft-small/lib</codeph></entry>
+      <entry>ISO conforming size optimized Math functions.</entry>
+     </row>
+     <row>
+      <entry><codeph>libg.a</codeph></entry>
+      <entry><codeph>nanomips-elf/lib/nanomips-r6-soft-small/lib</codeph></entry>
+      <entry>ISO conforming size optimized string, memory, IO, time and other functions, compiled
+       with debugging enabled</entry>
+     </row>
+     <row>
+      <entry><codeph>libc.a</codeph></entry>
+      <entry><codeph>nanomips-elf/lib/nanomips-r6-soft-tiny/lib</codeph></entry>
+      <entry>Non-conforming size optimized string, memory, IO, time and other functions</entry>
+     </row>
+     <row>
+      <entry><codeph>libm.a</codeph></entry>
+      <entry><codeph>nanomips-elf/lib/nanomips-r6-soft-tiny</codeph></entry>
+      <entry>Non-conforming size optimized Math functions.</entry>
+     </row>
+     <row>
+      <entry><codeph>libg.a</codeph></entry>
+      <entry><codeph>nanomips-elf/lib/nanomips-r6-soft-tiny</codeph></entry>
+      <entry>Non-conforming size optimized string, memory, IO, time and other functions, compiled
+       with debugging enabled</entry>
+     </row>
+    </tbody>
+   </tgroup>
+  </table>
+  <p>Based on the actual combinations of multilib that the toolchain is built with, there may be
+   multiple versions of these libraries – each having been compiled using a unique combination of
+   compiler options and located within a directory structure determined by the corresponding
+   multi-lib configuration. The libraries listed above correspond to a little-endian, soft-float build
+   for the nanoMIPS32R6 architecture.</p>
+ </conbody>
+</concept>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="concept_z4x_xbl_fcb">
+ <title>Boot overrides</title>
+ <conbody>
+  <p>The boot code can detect when externally configured L2 cache is attached and will report an
+   error if there is no custom initialisation code provided. To provide a custom implementation of
+   L2 cache initialisation then create a module with a function called <codeph>__init_l23cache
+   </codeph>and ensure that it is included in the link. The module should have its text in a section
+   called .boot by defining the<codeph> _BOOTCODE</codeph> macro prior to including
+    <codeph>mips/asm.h</codeph>. This function has no arguments and should not reference the SP or
+   GP registers as these will not be configured. Also, the callee-saved registers are reserved for
+   persistent storage throughout the boot process and should not be clobbered.</p>
+  <p>A general boot hook is provided that will be called after all basic initialisation has
+   happened. To install the hook create a module with a function called
+    <codeph>__boot_init_hook</codeph> and ensure it is included in the link. This module must also
+   have its code in a section called .boot as above.<codeph> __boot_init_hook</codeph> is called
+   before the application code is copied to RAM, permitting additional hardware/software
+   initialization. There is also a hook in case execution returns t the boot code called
+   <codeph>__boot_exit_hook</codeph> which can be used to handle the termination appropriately. The
+   same rules apply to the implementation of<codeph> __boot_init_hook</codeph> and
+   <codeph>__boot_exit_hook</codeph> as the <codeph>__init_l23cache</codeph> function above.</p>
+  <table id="table_jnr_ybl_fcb">
+   <title>Boot override function</title>
+   <tgroup cols="2">
+    <colspec colnum="1" colname="col1"/>
+    <colspec colnum="2" colname="col2"/>
+    <thead>
+     <row>
+      <entry><b>Function prototype</b></entry>
+      <entry><b>Description</b></entry>
+     </row>
+    </thead>
+    <tbody>
+     <row>
+      <entry><codeph>void __boot_init_hook()</codeph></entry>
+      <entry>Optional extra initialization function executed after cache initialization.</entry>
+     </row>
+     <row>
+      <entry><codeph>void __boot_exit_hook()</codeph></entry>
+      <entry>Optional extra final exit function executed after a program returns from _start.</entry>
+     </row>
+    </tbody>
+   </tgroup>
+  </table>
+ </conbody>
+</concept>

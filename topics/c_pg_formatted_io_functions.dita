@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="concept_jpy_wmq_fcb">
+ <title>Formatted IO functions</title>
+ <conbody>
+  <p>Following two macros are available for restricted version of formatted IO. These macros can be
+   used along with small or tiny version of SmallCLib.</p>
+  <dl>
+   <dlentry>
+    <dt>Integer and character only</dt>
+    <dd><codeph>__mips_fio_int__ </codeph>: This macro can be used to disable the support for
+     floating point and wide character format specifiers. It enables the use of integer and
+     character format specifiers (d, i , u, o, n, p, x, X, c, s).</dd>
+   </dlentry>
+   <dlentry>
+    <dt>Floating point, Integer and character only</dt>
+    <dd><codeph>__mips_fio_float__ </codeph>: This macro can be used to enable the support for
+     floating point format specifier (only %f). It enables the use of integer, character and
+     floating point format specifiers (d, i , u, o, n, p, x, X, c, s and f).<p>The default provides
+      support for all format specifiers.</p></dd>
+   </dlentry>
+  </dl>
+ </conbody>
+</concept>

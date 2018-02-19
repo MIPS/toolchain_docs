@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="concept_ftg_stb_fcb">
+ <title>MSA Extended Context</title>
+ <conbody>
+  <p>The HAL provides support for saving and restoring the MSA register set with the following
+   functions: </p>
+  <table id="table_fxy_stb_fcb">
+   <title>Save and restore MSA register functions</title>
+   <tgroup cols="2">
+    <colspec colnum="1" colname="col1"/>
+    <colspec colnum="2" colname="col2"/>
+    <thead>
+     <row>
+      <entry><b>Function prototype</b></entry>
+      <entry><b>Description</b></entry>
+     </row>
+    </thead>
+    <tbody>
+     <row>
+      <entry><codeph>reg_t _msactx_save (struct msactx *ptr)</codeph></entry>
+      <entry>Saves the MSA context in the pointed-to structure. </entry>
+     </row>
+     <row>
+      <entry><codeph>reg_t _msactx_load (struct msactx *ptr)</codeph></entry>
+      <entry>Restores the MSA context from the given fpctx structure.</entry>
+     </row>
+    </tbody>
+   </tgroup>
+  </table>
+  <p>The MSA context structure is laid out as follows:</p>
+  <table id="table_gxy_stb_fcb">
+   <title>MSA context structure</title>
+   <tgroup cols="2">
+    <colspec colnum="1" colname="col1"/>
+    <colspec colnum="2" colname="col2"/>
+    <thead>
+     <row>
+      <entry><b>Type and member name</b></entry>
+      <entry><b>Description</b></entry>
+     </row>
+    </thead>
+    <tbody>
+     <row>
+      <entry><codeph>struct linkctx link</codeph></entry>
+      <entry>Stores link and type.</entry>
+     </row>
+     <row>
+      <entry><codeph>reg_t fscr</codeph></entry>
+      <entry>Floating point condition and status register.</entry>
+     </row>
+     <row>
+      <entry><codeph>reg_t msacsr</codeph></entry>
+      <entry>MSA condition and status register.</entry>
+     </row>
+     <row>
+      <entry>
+       <p>A union of:<simpletable frame="all" relcolwidth="1.0*" id="simpletable_kjh_lwb_fcb">
+         <sthead>
+          <stentry>Type and name</stentry>
+         </sthead>
+         <strow>
+          <stentry><codeph>_msareg w[32]</codeph></stentry>
+         </strow>
+         <strow>
+          <stentry><codeph>double d[64]</codeph></stentry>
+         </strow>
+         <strow>
+          <stentry><codeph>float s[128]</codeph></stentry>
+         </strow>
+        </simpletable></p>
+      </entry>
+      <entry>Data from the 32 MSA registers.</entry>
+     </row>
+    </tbody>
+   </tgroup>
+  </table>
+  <p>Accessors for the elements are provided for use in C or C++:</p>
+  <table id="table_ixy_stb_fcb">
+   <title>MSA accessors</title>
+   <tgroup cols="2">
+    <colspec colnum="1" colname="col1"/>
+    <colspec colnum="2" colname="col2"/>
+    <thead>
+     <row>
+      <entry><b>Name</b></entry>
+      <entry><b>Description</b></entry>
+     </row>
+    </thead>
+    <tbody>
+     <row>
+      <entry><codeph>MSAMSACTX_D(stuct msactx * ctx, int n)</codeph></entry>
+      <entry>Returns the nth msa register.</entry>
+     </row>
+     <row>
+      <entry><codeph>MSACTX_DBL(stuct msactx * ctx, int n)</codeph></entry>
+      <entry>Returns the nth double element.</entry>
+     </row>
+     <row>
+      <entry><codeph>MSACTX_SGL(stuct msactx * ctx, int n)</codeph></entry>
+      <entry>Returns the nth float element.</entry>
+     </row>
+    </tbody>
+   </tgroup>
+  </table>
+ </conbody>
+</concept>

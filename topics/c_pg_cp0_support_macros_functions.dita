@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="concept_qgw_2sc_fcb">
+ <title>CP0 support macros/functions</title>
+ <conbody>
+  <p>Co-processor 0 provides control registers to configure interrupts, exceptions, TLBs and caches.
+   The HAL provides a number of functions to simplify access to these registers and are provided by
+   the <codeph>mips/cpu.h</codeph> header file.</p>
+  <p>Users should consult the <ph conkeyref="c_biblio/mips_arch_ref_volIII"/> or <ph
+    conkeyref="c_biblio/mips_arch_prog_volIII"/>for further details on the registers referenced
+   here.</p>
+  <p>The HAL provides simple get/set/exchange operations and bit wise set, clear, set and clear
+   operations. </p>
+  <p>Some control registers are 64-bit on MIPS64 and some remain 32-bit. The MIPS32 functions must
+   be used to access any 32-bit control register on MIPS64 architectures.</p>
+  <note>These functions are not atomic with respect to interrupts or exceptions.</note>
+ </conbody>
+</concept>

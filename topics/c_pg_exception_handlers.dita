@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="concept_awn_xwb_fcb">
+ <title>Exception Handlers</title>
+ <conbody>
+  <p>The following symbols will be branched to by the vector code placed at EBASE to perform custom
+   handling of exceptions and errors. The vector stubs will only clobber register k1 to perform the
+   indirect branch to the symbol. The handling code must issue return from exception (ERET). </p>
+  <table id="table_i1r_zwb_fcb">
+   <title>Exception handler symbols</title>
+   <tgroup cols="2">
+    <colspec colnum="1" colname="col1"/>
+    <colspec colnum="2" colname="col2"/>
+    <thead>
+     <row>
+      <entry><b>Function prototype</b></entry>
+      <entry><b>Description</b></entry>
+     </row>
+    </thead>
+    <tbody>
+     <row>
+      <entry><codeph>void _mips_tlb_refill ()</codeph></entry>
+      <entry>Entry point for a tlb refill exception. </entry>
+     </row>
+     <row>
+      <entry><codeph>void _mips_xtlb_refill ()</codeph></entry>
+      <entry>Entry point for a xtlb refill exception.</entry>
+     </row>
+     <row>
+      <entry><codeph>void _mips_cache_error ()</codeph></entry>
+      <entry>Entry point for a cache error exception</entry>
+     </row>
+     <row>
+      <entry><codeph>void _mips_general_exception ()</codeph></entry>
+      <entry>Entry point for a general exception. The value of k1 is already saved in a gpctx
+       structure immediately below the stack pointer. </entry>
+     </row>
+    </tbody>
+   </tgroup>
+  </table>
+  <p>Standard exception handling functions are provided by the HAL report unhandled exception
+   events. All function can be overridden.</p>
+  <table id="table_j1r_zwb_fcb">
+   <title>Exception handling functions</title>
+   <tgroup cols="3">
+    <colspec colnum="1" colname="col1" colwidth="1*"/>
+    <colspec colnum="2" colname="col2" colwidth="1*"/>
+    <colspec colnum="3" colname="col3" colwidth="1.5*"/>
+    <thead>
+     <row>
+      <entry><b>Function prototype</b></entry>
+      <entry><b>Language</b></entry>
+      <entry><b>Description</b></entry>
+     </row>
+    </thead>
+    <tbody>
+     <row>
+      <entry><codeph>void _mips_general_exception ()</codeph></entry>
+      <entry>Assembly, non-standard ABI</entry>
+      <entry>A weak definition of <codeph>_mips_general_exception</codeph> is provided that is
+       aliased to<codeph> __exception_save</codeph></entry>
+     </row>
+     <row>
+      <entry><codeph>void __exception_save ()</codeph></entry>
+      <entry>Assembly, non-standard ABI</entry>
+      <entry>Performs full GP context save and calls <codeph>_mips_handle_exception</codeph>. Also
+       restores the context if <codeph>_mips_handle_exception</codeph> returns and performs
+       ERET.</entry>
+     </row>
+     <row>
+      <entry><codeph>void _mips_handle_exception (struct gpctx *ctx, int exception)</codeph></entry>
+      <entry>C – called without preserving FP register state.</entry>
+      <entry>A weak definition of <codeph>_mips_handle_exception</codeph> is provided that is
+       aliased to <codeph>__exception_handle_verbos</codeph>e via the linker scripts.</entry>
+     </row>
+     <row>
+      <entry><codeph>void __exception_handle_verbose (struct gpctx *ctx, int
+       exception)</codeph></entry>
+      <entry>C</entry>
+      <entry>Handles all MIPS exceptions reporting the textual description of the cause using the
+       ‘write’ function on file descriptor 1. Also performs indirection to convert UHI SYSCALL
+       interface operations to use the UHI SDBBP interface. Floating point denormal operations are
+       handled and flush to zero is enabled depending on the <codeph>__flush_to_zero</codeph>
+       setting from the linker scripts. Finally any remaining unhandled exceptions are reported via
+       the UHI exception operation and execution is optionally resumed if the UHI exception
+       operation is successful, otherwise the <codeph>__exit function</codeph> is set as the
+       exception return address with 0xff as the return value.</entry>
+     </row>
+     <row>
+      <entry><codeph>void __exception_handle_quiet (struct gpctx *ctx, int
+       exception)</codeph></entry>
+      <entry>C</entry>
+      <entry>Identical to <codeph>__exception_handle_versbose </codeph>except that no textual output
+       is generated.</entry>
+     </row>
+     <row>
+      <entry><codeph>__exception_handle</codeph></entry>
+      <entry>none</entry>
+      <entry>A symbol created by the linker scripts to alias whichever of
+        <codeph>__exception_handle_quiet </codeph>or <codeph>__exception_handle_verbose</codeph> is
+       included in the link. This symbol can be used to refer to the currently selected
+       implementation. </entry>
+     </row>
+    </tbody>
+   </tgroup>
+  </table>
+  <p> An example using <codeph>_mips_handle_exception</codeph> can be found in<codeph>
+    $MIPS_ELF_ROOT/share/mips/examples/fault_recovery</codeph></p>
+ </conbody>
+</concept>

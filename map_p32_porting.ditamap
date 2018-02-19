@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE map PUBLIC "-//OASIS//DTD DITA Map//EN" "map.dtd">
+<map>
+ <title>Porting Notes</title>
+ <topicref href="topics/c_p32_porting_intro.dita">
+  <topicref href="topics/c_p32_compiler_and_command_line_options.dita"/>
+  <topicref href="topics/c_p32_abi_isa_issues.dita">
+   <topicref href="topics/c_p32_detecting_the_target_api_and_isa.dita"/>
+   <topicref href="topics/c_p32_isa_mode.dita"/>
+   <topicref href="topics/c_p32_calling_convention.dita"/>
+  </topicref>
+  <topicref href="topics/c_p32_abstracting_register_usage.dita"/>
+  <topicref href="topics/c_p32_abstracting_instruction_differences.dita">
+   <topicref href="topics/c_p32_immediates.dita"/>
+   <topicref href="topics/c_p32_compatible_call_sequences.dita"/>
+   <topicref href="topics/c_p32_removal_of_branch_delay_slots.dita"/>
+  </topicref>
+  <topicref href="topics/c_p32_linker_transformations.dita">
+   <topicref href="topics/c_p32_code_safety_written_in_assembly.dita"/>
+   <topicref href="topics/c_p32_instruction_size_enforcement.dita"/>
+  </topicref>
+  <topicref href="topics/c_p32_data_addressing.dita"/>
+  <topicref href="topics/c_p32_elf_sections.dita"/>
+  <topicref href="topics/c_p32_compiler_intrinsics.dita"/>
+ </topicref>
+</map>

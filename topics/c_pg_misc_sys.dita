@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="concept_qrg_fvv_2cb">
+ <title>Miscellaneous system support</title>
+ <conbody>
+  <p>The following generic MIPS system support functions are defined in include file
+    <codeph>mips/cpu.h</codeph>.</p>
+  <table frame="all" rowsep="1" colsep="1" id="table_fqf_y1x_2cb">
+   <title>Generic system support functions </title>
+   <tgroup cols="2">
+    <colspec colname="c1" colnum="1" colwidth="1.0*"/>
+    <colspec colname="c2" colnum="2" colwidth="1.0*"/>
+    <thead>
+     <row>
+      <entry>Function</entry>
+      <entry>Description</entry>
+     </row>
+    </thead>
+    <tbody>
+     <row>
+      <entry><codeph>void mips_wbflush (void)</codeph></entry>
+      <entry>Drain the write buffer. All stores issued prior to the call are guaranteed to have been
+       written to memory or device by the time the function returns. It should be called between
+       writing to device control registers and reading their status/data registers. On some CPUs it
+       is also necessary to call it between successive writes to the same register, to prevent
+       word-gathering write-buffers from swallowing some of the writes.</entry>
+     </row>
+     <row>
+      <entry><codeph>void _mips_sync (void)</codeph></entry>
+      <entry>On modern MIPS-Based CPUs this generates a sync instruction. This is almost but not
+       quite the same as mips_wbflush() - it is a memory <i>barrier</i> which guarantees that all
+       memory accesses preceding this instruction will be completed before any accesses which follow
+       this instruction. It says nothing though about external state, such as interrupts - and on
+       simpler CPUs with blocking loads it may be interpreted as a no-op.</entry>
+     </row>
+     <row>
+      <entry><codeph>uint8_t mips_get_byte (void *addr, int
+       *err)</codeph><lines><codeph>uint16_t mips_get_half (void *addr, int *err)</codeph></lines><lines><codeph>uint32_t mips_get_word
+        (void *addr, int *err)</codeph></lines><lines><codeph>uint64_t mips_get_dword (void *addr, int *err)</codeph></lines></entry>
+      <entry>Return the byte, halfword, word, or dword at address addr. If the address is invalid,
+       then *err may be set to a non-zero value; otherwise *err is unchanged. You can use these
+       functions when accessing arbitrary memory locations outside of your program, to ensure that
+       peculiarities of your system or CPU address map are handled correctly.</entry>
+     </row>
+     <row>
+      <entry/>
+      <entry>Store a byte, halfword, word, or dword val to arbitrary address addr. If the address is
+       invalid, then a non-zero value may be returned, otherwise they return zero.</entry>
+     </row>
+    </tbody>
+   </tgroup>
+  </table>
+ </conbody>
+</concept>
