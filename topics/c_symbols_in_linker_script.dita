@@ -82,5 +82,21 @@
   
   <p>There is no special symbol which defined start/end of heap section. Heap starts at the end of
    .bss section (symbol _end).</p>
+
+  <p>Symbols defined in a linker script can be used from C code by declaring an extern variable of
+   the same name. Care must be taken when such symbols may be considered as part of the small data
+   area according to the setting of <codeph>-G</codeph> and <codeph>-mgpopt</codeph>. If the
+   variable is categorised as small data then the address calculation used to load the value will
+   use a GP-relative sequence. This can lead to link time errors if relaxation is disabled. To
+   ensure that PC-relative or absolute addressing is used then specify a section on the variable as
+   shown below. The exact name of the section is not important as long as it does not start with
+   <codeph>.sdata</codeph> or <codeph>.sbss</codeph>.</p>
+
+  <codeblock>__attribute__((section(".from_script")))
+extern char __end[];</codeblock>
+
+  <p>Because it is an array the <codeph>__end</codeph> variable naturally holds the value of the
+   symbol from the script.  If using a simple scalar variable it is necessary to reference the
+   address of it via <codeph>&amp;__end</codeph>.</p>
  </conbody>
 </concept>
