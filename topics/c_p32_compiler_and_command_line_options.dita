@@ -56,5 +56,30 @@
     </tbody>
    </tgroup>
   </table>
+  The following table lists options that changed their default settings between MIPS
+  and nanoMIPS. Note that this only covers options which exist for both MIPS and
+  nanoMIPS.
+  <table id="table_dh5_qdz_wcb">
+   <title>Default options comparison</title>
+   <tgroup cols="3">
+    <colspec colnum="1" colname="col1"/>
+    <colspec colnum="2" colname="col2"/>
+    <colspec colnum="3" colname="col3"/>
+    <thead>
+     <row>
+      <entry>Option</entry>
+      <entry>o32</entry>
+      <entry>p32</entry>
+     </row>
+    </thead>
+    <tbody>
+     <row>
+      <entry>-mcheck-zero-division</entry>
+      <entry>Enabled at all optimization levels</entry>
+      <entry>Enabled except for -Os optimization level</entry>
+     </row>
+    </tbody>
+   </tgroup>
+  </table>
  </conbody>
 </concept>
