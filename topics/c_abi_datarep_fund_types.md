@@ -14,9 +14,9 @@ A null pointer (for all types) has the value zero.
 | |`unsigned short`      | unsigned halfword       | 16 | 16 |   | 
 | |\[`signed`] `int`     | signed word             | 32 | 32 |   | 
 | |`unsigned int`        | unsigned word           | 32 | 32 |   | 
-| |\[`signed`] long`     | signed word             | 32 | 32 |   | 
+| |\[`signed`] `long`    | signed word             | 32 | 32 |   | 
 | |`unsigned long`       | unsigned word           | 32 | 32 |   | 
-| |\[`signed`] long`     | long signed doubleword  | 64 | 64 |   | 
+| |\[`signed`] `long`    | long signed doubleword  | 64 | 64 |   | 
 | |`unsigned long long`  | unsigned doubleword     | 64 | 64 |   | 
 | |`_Bool/bool`          | unsigned byte           | 8  | 8  | C99/C++ only. False as 0, True as 1. |
 | |`enum`                | signed or unsigned word | 32 | 32 |  | 
