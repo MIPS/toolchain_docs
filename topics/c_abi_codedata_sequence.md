@@ -35,7 +35,7 @@ The following tables list all of the code sequences used for all possible combin
 |**GP-relative addressing** ||||||
 |non-pre  | AM    | <=2B-aligned, within GP+256KiB          | `addiu.b reg, $gp, %gprel(symbol)`     | 4 |   |
 |non-pre  | AM    | >=4B-aligned, within GP+2MiB            | `addiu.w reg, $gp, %gprel(symbol)`     | 4 |   |
-|non-pre  | L     | NMF-only                                | `addiu.b32 reg, $gp, %gprel32(symbol)` | 6 |   |
+|non-pre  | L     | NMF-only                                | `addiu.b32 reg, $gp, %gprel(symbol)`   | 6 |   |
 |non-pre  | L     |                                         | `lui reg, %gprel_hi(symbol) ori reg, reg, %gprel_lo(symbol) addu reg, reg, $gp` | 12 |   |
 |**GOT-dependent addressing** ||||||
 |non-pre  |       | within GP+2MiB, refcount>=2, -Os        | `lw reg, %got_disp(symbol)($gp)`       | 4+4 data | Generated only by a linker.| 
@@ -58,7 +58,7 @@ The following tables list all of the code sequences used for all possible combin
 |**GP-relative addressing** ||||||
 |non-pre  | AM    | byte/half-sized symbol, within GP+256KiB             | `[ls][bh] reg2, %gprel(symbol)($gp)` | 4 | |
 |non-pre  | AM    | word-sized symbol, within GP+2MiB                    | `[ls]w reg2, %gprel(symbol)($gp)` | 2/4 | Uses LW\[GP16]/SW\[GP16] if the register happens to be GPR3.|
-|non-pre  | L     | NMF-only                                             | `addiu.b32 reg1, $gp, %gprel32(symbol)  [ls]X reg2, 0(reg1)` | 8/10 | Uses LW\[16]/SW\[16] if the registers happen to be GPR3.|
+|non-pre  | L     | NMF-only                                             | `addiu.b32 reg1, $gp, %gprel(symbol)  [ls]X reg2, 0(reg1)` | 8/10 | Uses LW\[16]/SW\[16] if the registers happen to be GPR3.|
 |non-pre  | L     |                                                      | `lui reg1, %gprel_hi(symbol)  addu reg1, reg1, $gp  [ls]X reg2, %gprel_lo(symbol)(reg)` | 12 | |
 |**GOT-dependent addressing** ||||||
 |pre      | A     |                                                      | `lw reg1, %got_page(symbol)($gp)  [ls]X reg2, %got_ofst(symbol)(reg1)` | 8+4 data | Generated only by the compiler. The linker has to transform this into one of the other pre-emptible sequences or relax it into a non-pre-emptible sequence.|

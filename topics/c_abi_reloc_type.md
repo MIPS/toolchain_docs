@@ -72,7 +72,7 @@ The set of instructions compatible with each relocation operator is shown below 
 | R_NANOMIPS_PC_HI20    | ALUIPC                 | ALUIPC reg, %pcrel_hi(symbol) |
 | R_NANOMIPS_GOTPC_HI20 | ALUIPC                 | ALUIPC reg, %got_pcrel_hi(symbol) |
 | R_NANOMIPS_PC_I32     | ADDIUPC\[48]           | ADDIUPC reg, %pcrel32(symbol) |
-| R_NANOMIPS_GPREL_I32  | ADDIUGP\[48]           | ADDIUGP reg, %gprel32(symbol) |
+| R_NANOMIPS_GPREL_I32  | ADDIU\[GP48]           | ADDIU.B32 reg, %gprel(symbol) |
 | R_NANOMIPS_GPREL_LO12 |                        |                                 |
 
 ## Data Relocations

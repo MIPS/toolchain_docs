@@ -8,12 +8,10 @@ The following relocations are only used in the automatic model:
 	
 The following relocations are used in both the automatic and the medium code model:
 
-* `%gprel`: 18 or 21-bit GP displacement
 * `%got_disp`: 21-bit (19-bit scaled) GOT displacement pointing to the symbol's GOT entry
 
 The following relocations are only used in the large code model:
 
-* `%gprel32`: 32-bit GP displacement
 * `%gprel_hi`: 20-bit high part of a 32-bit GP displacement
 * `%gprel_lo`: 12-bit low part of a 32-bit GP displacement
 * `%got_pcrel32`: 32-bit PC displacement pointing to the symbol's GOT entry
@@ -22,11 +20,12 @@ The following relocations are only used in the large code model:
 
 The following relocations are used in all models:
 
+* `%gprel`: 18 or 21-bit GP displacement for auto and medium, and 32-bit GP displacement for large
 * `%pcrel32`: 32-bit PC displacement
 * `%pcrel_hi`: 20-bit high part of a 32-bit PC displacement
 * `%lo`: 12-bit low part of a 32-bit address
 
-`%pcrel32`, `%gprel32`, and `%got_pcrel32` can only be used when targeting the full nanoMIPS ISA.
+`%pcrel32` and `%got_pcrel32` can only be used when targeting the full nanoMIPS ISA.
 
 `%lo` is used in both absolute and PC-relative addressing because the upper part of the address will always end up at a 4KiB boundary.
 
