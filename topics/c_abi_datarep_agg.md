@@ -1,15 +1,22 @@
 # Aggregates, union and arrays
 
-* The size of any object, including aggregates and unions, is always a multiple of the alignment of the object.
-* Structure and union objects can require padding to meet size and alignment constraints.
+* The size of any object, including aggregates and unions, is always a
+multiple of the alignment of the object.
+* Structure and union objects can require padding to meet size and alignment
+constraints.
 * An array uses the same alignment as its elements.
 * The content of any padding is undefined.
-* An entire structure or union object is aligned on the same boundary as its most strictly aligned member.
-* Each member is assigned to the lowest available offset with the appropriate alignment. This may require internal padding, depending on the previous member.
+* An entire structure or union object is aligned on the same boundary as its
+most strictly aligned member.
+* Each member is assigned to the lowest available offset with the appropriate
+alignment. This may require internal padding, depending on the previous
+member.
 
 ##Examples
 
-In the following examples, members’ byte offsets for little-endian implementations appear in the upper right corners; offsets for big-endian implementations in the upper left corners.
+In the following examples, members’ byte offsets for little-endian
+implementations appear in the upper right corners; offsets for big-endian
+implementations in the upper left corners.
 
 **Structure Smaller Than a Word**
 

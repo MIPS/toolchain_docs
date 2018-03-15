@@ -2,7 +2,8 @@
 
 This topic describes the register conventions used for the nanoMIPS hardware. 
 
-The nanoMIPS architecture offers 32 general purpose registers, each 32-bit wide. The following table lists all registers and their purpose.
+The nanoMIPS architecture offers 32 general purpose registers, each 32-bit
+wide. The following table lists all registers and their purpose.
 
 |Register     |Register   |Use	                                             |Type         |
 |-------------|-----------|--------------------------------------------------|-------------|

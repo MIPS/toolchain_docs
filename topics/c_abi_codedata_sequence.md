@@ -1,6 +1,12 @@
 # List of code sequences
 
-The following tables list all of the code sequences used for all possible combinations of code model and addressing mode. There are a few sequences which can be generated only by either a compiler or a linker. A compiler is responsible for the bulk of the generation, while a linker adjusts existing sequences by relaxing or expanding them. Each sequence has a set of conditions which need to be fulfilled in order for it to be chosen by a compiler or linker. The sequences are in ascending order according to code size.
+The following tables list all of the code sequences used for all possible
+combinations of code model and addressing mode. There are a few sequences
+which can be generated only by either a compiler or a linker. A compiler is
+responsible for the bulk of the generation, while a linker adjusts existing
+sequences by relaxing or expanding them. Each sequence has a set of conditions
+which need to be fulfilled in order for it to be chosen by a compiler or
+linker. The sequences are in ascending order according to code size.
 
 **Table terminology**
 
@@ -8,15 +14,22 @@ The following tables list all of the code sequences used for all possible combin
 
 *pre*: Short for pre-emptible symbol.
 
-*A, M, L*: Abbreviations for the automatic, medium, and large model, respectively.
+*A, M, L*: Abbreviations for the automatic, medium, and large model,
+respectively.
 
-*NMS*: This is the abbreviation used for the nanoMIPS subset, which excludes some instructions from the ISA for power efficiency reasons.
+*NMS*: This is the abbreviation used for the nanoMIPS subset, which excludes
+some instructions from the ISA for power efficiency reasons.
 
-*NMF*: This is the abbreviation used for the full nanoMIPS ISA. This is used to contrast against NMS.
+*NMF*: This is the abbreviation used for the full nanoMIPS ISA. This is used
+to contrast against NMS.
 
-*insn32 mode*: When enabled, the generation of 16-bit and 48-bit instructions is forbidden. This is not equivalent to NMS or NMF, since both of them contain instructions which are not 32-bit.
+*insn32 mode*: When enabled, the generation of 16-bit and 48-bit instructions
+is forbidden. This is not equivalent to NMS or NMF, since both of them contain
+instructions which are not 32-bit.
 
-*\[ls]X*: The "\[ls]" means that this instruction can be either a load or a store. The "X" stands for all the supported suffixes (H, B, W, D, WC1, DC1 for both loads and stores, and HU, BU, WU for loads-only).
+*\[ls]X*: The "\[ls]" means that this instruction can be either a load or a
+store. The "X" stands for all the supported suffixes (H, B, W, D, WC1, DC1 for
+both loads and stores, and HU, BU, WU for loads-only).
 
 ## Address calculation operation
 

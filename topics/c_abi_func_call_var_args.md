@@ -2,9 +2,16 @@
 
 ## The `va_list` type
 
-The `va_list` type is used to track arguments passed to a variadic function. The arguments are passed in one the three locations: general purpose registers, floating-point registers or in the overflow area (the stack). The prologue of a function shall save the incoming argument registers (both GP and FP registers) within its own stack frame. Then the `va_list` can refer to any argument depending on its type and position in the argument list.
+The `va_list` type is used to track arguments passed to a variadic function.
+An argument is passed in one of the three locations: general purpose
+registers, floating-point registers or in the overflow area (the stack).
+The prologue of a function shall save the incoming argument registers (both GP
+and FP registers) within its own stack frame. Then the `va_list` can refer to
+any argument depending on its type and position in the argument list.
 
-In this soft-float ABI document, the floating-point types are passed in integer registers, hence, both the pointer to FP area and the FP offset are not used but reserved for the future.
+In this soft-float ABI document, floating-point types are passed in integer
+registers, hence, both the pointer to FP area and the FP offset are not used
+but reserved for future use.
 
 ``` C++
 typedef struct __va_list {
@@ -16,21 +23,38 @@ typedef struct __va_list {
 } va_list;
 ```
 
-## The va_start() macro
+## The `va_start()` macro
 
-The macro is required to initiliaze all the fields of a va_list argument and it should be invoked before accessing any unnamed arguments. The MAX_ARGS_IN_REGISTERS is equal to 8, `num_gprs' is the number of general registers that hold named incoming arguments and the `num_fprs' is the number of floating point registers that hold named incoming floating-point arguments.
+The macro is required to initiliaze all the fields of a `va_list` argument and
+it should be invoked before accessing any unnamed arguments.
+The `MAX_ARGS_IN_REGISTERS` is 8, `num_gprs` is the number of general
+registers that hold named incoming arguments and the `num_fprs` is the number
+of floating point registers that hold named incoming floating-point arguments.
 
-* `__overflow_argptr` - this pointer is used to get arguments passed on the stack. It is initialized to the first (lowest address) named incoming argument on the stack and it is updated to point to the next argument on the stack.
-* `__gpr_top` - is set to the top of GP register save area; this pointer points to the top of the general purpose argument register save area.
-* `__fpr_top` - is set to the top of FP register save area; this pointer points to the top of the floating-point argument register save area.
-* `__gpr_offset = (MAX_ARGS_IN_REGISTERS - num_gprs) * UNITS_PER_WORD`; this holds the offset in bytes from the `__gpr_top` pointer to the location where the next general purpose argument register is saved.
-* `__fpr_offset = (MAX_ARGS_IN_REGISTERS - num_fprs) * UNITS_PER_FPREG`; this holds the offset in bytes from the `__fpr_top` pointer to the location where the next floating-point argument register is saved.
+* `__overflow_argptr` - this pointer is used to get arguments passed on
+the stack. It is initialized to the first (lowest address) named incoming
+argument on the stack and it is updated to point to the next argument on
+the stack.
+* `__gpr_top` - this pointer points to the top of the general purpose argument
+register save area.
+* `__fpr_top` - this pointer points to the top of the floating-point argument
+register save area.
+* `__gpr_offset = (MAX_ARGS_IN_REGISTERS - num_gprs) * UNITS_PER_WORD`; this
+holds the offset in bytes from the `__gpr_top` pointer to the location where
+the next general purpose argument register is saved.
+* `__fpr_offset = (MAX_ARGS_IN_REGISTERS - num_fprs) * UNITS_PER_FPREG`; this
+holds the offset in bytes from the `__fpr_top` pointer to the location where
+the next floating-point argument register is saved.
 
-Note that `__fpr_top` and `__fpr_offset` are reserved for future use and currently unused in the soft-float mode.
+Note that `__fpr_top` and `__fpr_offset` are reserved for future use and
+currently unused in the soft-float mode.
 
 ## The `va_arg()` macro
 
-The macro is used to to modify parameter `ap` of `va_list` type to get to the value of successive arguments. The following is a pseudo code that calculates the address of an argument for a type and updates the `va_list` after processing an argument.
+The macro is used to to modify parameter `ap` of `va_list` type to get to the
+value of successive arguments. The following is simplifed C code that
+calculates the address of an argument for a type and updates the `va_list`
+after processing an argument.
 
 ``` C++
 /*
@@ -97,7 +121,8 @@ type va_arg (va_list ap, type)
 
 ## Argument passing example
 
-The following code is an example how various types will be passed in registers or on the stack using the calling conventions.
+The following code is an example of how various types will be passed in
+registers or on the stack using the calling conventions.
 
 ``` C++
 typedef struct {
@@ -127,11 +152,13 @@ r = foo(ia, fa, da, sa, ib, lla, s2a);
 |`sa`^	  | `$a4`     |   `X`
 |`ib`	  | `$a5`     |   `X`
 |`lla`	  | `$a6-$a7` |   `X`
-|`s2a`	  | `X`       |  0-7
+|`s2a`	  | `X`       | `0-7`
 
 Notes:
 
-\* - it might be subject to the default argument promotion causing different argument register/stack allocation. It is assumed that the prototype for `foo` is provided here.
+\* - it might be subject to the default argument promotion causing different
+argument register/stack allocation. It is assumed that the prototype for `foo`
+is provided here.
 
 ^ - Passed by reference.
 

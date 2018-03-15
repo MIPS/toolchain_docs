@@ -5,24 +5,26 @@
 S - The absolute address of the symbol from the RELA record
 A - The 32-bit addend from the RELA record
 P - The PC that the reloc is being applied to
-G - The value of `\_gp`
+G - The value of `_gp`
 
 ## Relocation Operators 
 
-Each of the relocation operators supported by the nanoMIPS ABI is shown below along with the ELF reloc number, the operation to calculate the value and the method of encoding the value in an instruction. 
+Each of the relocation operators supported by the nanoMIPS ABI is shown below
+along with the ELF reloc number, the operation to calculate the value and the
+method of encoding the value in an instruction. 
 
 | Relocation (Value)        | Operation | Bit encoding |
 |---------------------------|-----------|--------------|
-| R_NANOMIPS_PC21_S1 (14)   | offset = (S + A - (P + 4)) is_signed_value (offset, nbits = 22)  is_aligned(offset, 2) | op\[0] = offset\[21] op\[20:1] = offset\[20:1] |
+| R_NANOMIPS_PC21_S1 (14)   | offset = (S + A - (P + 4)) is_signed_value (offset, nbits = 22)  is_aligned(offset, 2) | op\[0] = offset\[21], op\[20:1] = offset\[20:1] |
 | R_NANOMIPS_GOTPC_I32 (34) | offset = (GOT(S + A) - (P + 4)) is_signed_value (offset, nbits = 32) | op\[31:0] = offset\[31:0] |
 | R_NANOMIPS_GOT_DISP (33)  | offset = (GOT(S + A) - G) is_unsigned_value (offset, nbits = 21) is_aligned(offset, 4) | op\[20:2] = offset\[20:2] |
 | R_NANOMIPS_GOT_CALL (37)  | offset = (GOT(S + A) - G) is_unsigned_value (offset, nbits = 21) is_aligned(offset, 4) | op\[20:2] = offset\[20:2] |
 | R_NANOMIPS_GOT_PAGE (38)  | expand to got slot for S + A | none |
 | R_NANOMIPS_GPREL19_S2 (20)| offset = (S + A - G) is_unsigned_value (offset, nbits = 21) is_aligned(offset, 4) | op\[20:2] = offset\[20:2] |
-| R_NANOMIPS_GPREL7_S2 (25) | offset = (S + A - G) is_unsigned_value (offset, nbits = 9)) is_aligned(offset, 4) | op\[6:0] = offset\[8:2] |
-| R_NANOMIPS_GPREL_HI20 (26)| offset = (S + A - G) | op\[0] = offset\[31] op\[11:2] = offset\[30:21] op\[20:12] = offset\[20:12] |
-| R_NANOMIPS_HI20 (28)      | offset = S + A | op\[0] = offset\[31] op\[11:2] = offset\[30:21] op\[20:12] = offset\[20:12] |
-| R_NANOMIPS_I32 (32)       | address = S + A is_signed_value (address, nbits = 32) |op\[31:0] = address\[31:0] |
+| R_NANOMIPS_GPREL7_S2 (25) | offset = (S + A - G) is_unsigned_value (offset, nbits = 9) is_aligned(offset, 4) | op\[6:0] = offset\[8:2] |
+| R_NANOMIPS_GPREL_HI20 (26)| offset = (S + A - G) | op\[0] = offset\[31], op\[11:2] = offset\[30:21], op\[20:12] = offset\[20:12] |
+| R_NANOMIPS_HI20 (28)      | offset = S + A | op\[0] = offset\[31], op\[11:2] = offset\[30:21], op\[20:12] = offset\[20:12] |
+| R_NANOMIPS_I32 (32)       | address = S + A, is_signed_value (address, nbits = 32) |op\[31:0] = address\[31:0] |
 | R_NANOMIPS_GPREL17_S1 (23)| offset = (S + A - G) is_unsigned_value (offset, nbits = 18) is_aligned(offset, 2) | op\[17:1] = offset\[17:1] |
 | R_NANOMIPS_GPREL16_S2 (24)| offset = (S + A - G) is_unsigned_value (offset, nbits = 18) is_aligned(offset, 4) | op\[17:2] = offset\[17:2]  |
 | R_NANOMIPS_GPREL18_S3 (21)| offset = (S + A - G)  is_unsigned_value (offset, nbits = 22) is_aligned(offset, 8)  | op\[20:3] = offset\[20:3] |
@@ -30,23 +32,26 @@ Each of the relocation operators supported by the nanoMIPS ABI is shown below al
 | R_NANOMIPS_GOT_OFST (39)  | expand to got slot for S + A | none |
 | R_NANOMIPS_LO12 (29)      | offset = S + A | op\[11:0] = offset\[11:0] |
 | R_NANOMIPS_GOT_LO12 (36)  | offset = GOT(S + A) | op\[11:0] = offset\[11:0]  |
-| R_NANOMIPS_PC7_S1 (18)    | offset = (S + A - (P + 2)) is_signed_value (offset, nbits = 8) is_aligned(offset, 2) | op\[0] = offset\[7] op\[6:1] = target\[6:1]  |
-| R_NANOMIPS_PC11_S1 (16)   | offset = (S + A - (P + 4)) is_signed_value (offset, nbits = 12) is_aligned(offset, 2) | op\[0] = offset\[11] op\[10:1] = offset\[10:1]  |
+| R_NANOMIPS_PC7_S1 (18)    | offset = (S + A - (P + 2)) is_signed_value (offset, nbits = 8) is_aligned(offset, 2) | op\[0] = offset\[7], op\[6:1] = target\[6:1]  |
+| R_NANOMIPS_PC11_S1 (16)   | offset = (S + A - (P + 4)) is_signed_value (offset, nbits = 12) is_aligned(offset, 2) | op\[0] = offset\[11], op\[10:1] = offset\[10:1]  |
 | R_NANOMIPS_PC4_S1 (19)    | offset = (S + A - (P + 2)) is_unsigned_value (offset, nbits = 5) is_aligned(offset, 2) | op\[3:0] = offset\[3:0] |
-| R_NANOMIPS_PC14_S1 (15)   | offset = (S + A - (P + 4)) is_signed_value (offset, nbits = 15) is_aligned(offset, 2) | op\[0] = offset\[14] op\[13:1] = offset\[13:1] |
-| R_NANOMIPS_PC25_S1 (13)   | offset = (S + A - (P + 4)) is_signed_value (offset, nbits = 26) is_aligned(offset, 2) | op\[0] = offset\[25] op\[24:1] = offset\[24:1] |
-| R_NANOMIPS_PC10_S1 (17)   | offset = (S + A - (P + 2)) is_signed_value (offset, nbits = 11) is_aligned(offset, 2) | op\[0] = offset\[10] op\[9:1] = offset\[9:1] |
-| R_NANOMIPS_PC_HI20 (27)   | offset = (S + A) - ((P + 4) & ~0xfff) | op\[0] = offset\[31] op\[11:2] = offset\[30:21] op\[20:12] = offset\[20:12] |
-| R_NANOMIPS_GOTPC_HI20 (35)| offset = GOT(S + A) - ((P + 4) & ~0xfff) | op\[0] = offset\[31] op\[11:2] = offset\[30:21] op\[20:12] = offset\[20:12] |
+| R_NANOMIPS_PC14_S1 (15)   | offset = (S + A - (P + 4)) is_signed_value (offset, nbits = 15) is_aligned(offset, 2) | op\[0] = offset\[14], op\[13:1] = offset\[13:1] |
+| R_NANOMIPS_PC25_S1 (13)   | offset = (S + A - (P + 4)) is_signed_value (offset, nbits = 26) is_aligned(offset, 2) | op\[0] = offset\[25], op\[24:1] = offset\[24:1] |
+| R_NANOMIPS_PC10_S1 (17)   | offset = (S + A - (P + 2)) is_signed_value (offset, nbits = 11) is_aligned(offset, 2) | op\[0] = offset\[10], op\[9:1] = offset\[9:1] |
+| R_NANOMIPS_PC_HI20 (27)   | offset = (S + A) - ((P + 4) & ~0xfff) | op\[0] = offset\[31], op\[11:2] = offset\[30:21], op\[20:12] = offset\[20:12] |
+| R_NANOMIPS_GOTPC_HI20 (35)| offset = GOT(S + A) - ((P + 4) & ~0xfff) | op\[0] = offset\[31], op\[11:2] = offset\[30:21], op\[20:12] = offset\[20:12] |
 | R_NANOMIPS_PC_I32 (31)    | offset = (S + A) - (P + 4) is_signed_value (offset, nbits = 32) | op\[31:0] = offset\[31:0] |
 | R_NANOMIPS_GPREL_I32 (30) | offset = (S + A - G) | op\[31:0] = offset\[31:0] |
-| R_NANOMIPS_GPREL_LO12 (42)| address = (symval + addend) - section->output_offset |   |
+| R_NANOMIPS_GPREL_LO12 (42)| offset = (S + A - G) | op\[11:0] = offset\[11:0]  |
+| R_NANOMIPS_LO4_S2(40)     | offset=S+A | op\[3:0] = offset\[5:2]
+| R_NANOMIPS_HI32(41)       | offset=S+A | op\[31:0] = offset\[63:32]
 
-The set of instructions compatible with each relocation operator is shown below along with example usage.
+The set of instructions compatible with each relocation operator is shown
+below along with example usage.
 
 | Relocation            | Instructions           | Usage       |
 |-----------------------|------------------------|-------------|
-| R_NANOMIPS_PC21_S1    | MOVE.BALC ADDIUPC\[32] | MOVE.BALC reg, reg, symbol Note: This is for both branches and data reference. |
+| R_NANOMIPS_PC21_S1    | MOVE.BALC LAPC\[32]    | MOVE.BALC reg, reg, symbol Note: This is for both branches and data reference. |
 | R_NANOMIPS_GOTPC_I32  | LWPC\[48]              | LWPC reg, %got_pcrel32(symbol) |
 | R_NANOMIPS_GOT_DISP   | LWGP, LDGP             | LW reg, %got_disp(symbol)(gp) |
 | R_NANOMIPS_GOT_CALL   | LWGP, LDGP             | LW reg, %got_call(symbol)(gp) |
@@ -71,7 +76,7 @@ The set of instructions compatible with each relocation operator is shown below 
 | R_NANOMIPS_PC10_S1    | BALC16, BC16           | BC16 symbol |
 | R_NANOMIPS_PC_HI20    | ALUIPC                 | ALUIPC reg, %pcrel_hi(symbol) |
 | R_NANOMIPS_GOTPC_HI20 | ALUIPC                 | ALUIPC reg, %got_pcrel_hi(symbol) |
-| R_NANOMIPS_PC_I32     | ADDIUPC\[48]           | ADDIUPC reg, %pcrel32(symbol) |
+| R_NANOMIPS_PC_I32     | LAPC\[48]              | ADDIUPC reg, %pcrel32(symbol) |
 | R_NANOMIPS_GPREL_I32  | ADDIU\[GP48]           | ADDIU.B32 reg, %gprel(symbol) |
 | R_NANOMIPS_GPREL_LO12 |                        |                                 |
 
@@ -81,16 +86,17 @@ The set of instructions compatible with each relocation operator is shown below 
 |-------------------------------------|----------------------------|---------------------------|
 | R_NANOMIPS_32 / R_NANOMIPS_WORD (1) | S + A                      | => target\[31:0]          |
 | R_NANOMIPS_64 / R_NANOMIPS_DWORD (2)| S + A                      | => target\[63:0]          |
-| R_NANOMIPS_NEG (3)                  | -S + A                     | => target\[ABI_WIDTH]     | 
-| R_NANOMIPS_ASHIFTR_1 (4)            | sign_extend ((S + A) >> 1) | => target\[ABI_WIDTH]     | 
-| R_NANOMIPS_UNSIGNED_8 (5)           | S + A                      | => target\[7:0]           | 
-| R_NANOMIPS_SIGNED_8 (6)             | S + A                      | => target\[7:0]           | 
-| R_NANOMIPS_UNSIGNED_16 (7)          | S + A                      | => target\[15:0]          | 
-| R_NANOMIPS_SIGNED_16 (8)            | S + A                      | => target\[15:0]          | 
-| R_NANOMIPS_RELATIVE (9)             | => target\[ABI_WIDTH]      | (Explicit GOT relocation) | 
-| R_NANOMIPS_GLOBAL (10)              | => target\[ABI_WIDTH]      | (Explicit GOT relocation) | 
-| R_NANOMIPS_JUMP_SLOT (11)           | => target\[ABI_WIDTH]      | (Explicit GOT relocation) | 
-| R_NANOMIPS_IRELATIVE (12)           | => target\[ABI_WIDTH]      | | 
+| R_NANOMIPS_NEG (3)                  | -S + A                     | => target\[ABI_WIDTH]     |
+| R_NANOMIPS_ASHIFTR_1 (4)            | sign_extend ((S + A) >> 1) | => target\[ABI_WIDTH]     |
+| R_NANOMIPS_UNSIGNED_8 (5)           | S + A                      | => target\[7:0]           |
+| R_NANOMIPS_SIGNED_8 (6)             | S + A                      | => target\[7:0]           |
+| R_NANOMIPS_UNSIGNED_16 (7)          | S + A                      | => target\[15:0]          |
+| R_NANOMIPS_SIGNED_16 (8)            | S + A                      | => target\[15:0]          |
+| R_NANOMIPS_RELATIVE (9)             | S + A                      | => target\[ABI_WIDTH]     |
+| R_NANOMIPS_GLOBAL (10)              | S + A                      | => target\[ABI_WIDTH]     |
+| R_NANOMIPS_JUMP_SLOT (11)           | lazy_stub (S)              | => target\[ABI_WIDTH]     |
+| R_NANOMIPS_IRELATIVE (12)           | ifunc_resolver (S)         | => target\[ABI_WIDTH]     |
+| R_NANOMIPS_COPY (44)                | copy_data (S)              | => variable, sizeof (S)   |
 
 ## Place-holder Relocations for Linker Relaxations
 
