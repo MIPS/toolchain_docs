@@ -25,7 +25,7 @@
    increases. To find out the names of the <codeph>.sdata</codeph> symbols, we need to examine
    the symbol table of example.o, their object file of origin. Here is the symbol table as
    printed by <codeph>nanomips-elf-objdump -t</codeph>:</p>
-  <codeblock>00000000 l    df *ABS*  00000000 cm.c
+  <codeblock>    00000000 l    df *ABS*  00000000 cm.c
     00000000 l    d  .text  00000000 .text
     00000000 l    d  .data  00000000 .data
     00000000 l    d  .bss   00000000 .bss
