@@ -3,7 +3,7 @@
 <concept id="c_pg_intro">
  <title>Introduction</title>
  <conbody>
-    <p>This is a programmers’ guide for the 'Codescape GNU tools for nanoMIPS' (henceforth called
+    <p>This is a programmer’s guide for the 'Codescape GNU tools for nanoMIPS' (henceforth called
                 '<ph keyref="var_nanotoolchain"/>' in this manual). </p>
     <p>The <ph keyref="var_nanotoolchain"/> is a software engineer’s cross-development system for
             nanoMIPS architecture processors, intended for statically linked bare metal applications or

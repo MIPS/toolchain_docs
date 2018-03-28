@@ -2,7 +2,7 @@
 
 C allows you to define structures that can have 'bit-fields', that is, a standard integer type with a specified number of bits.
 
-| Bit-field type   | Width (*w*) | Range                  |
+| Bit-field type   | Width (w)   | Range                  |
 |------------------|-------------|------------------------|
 | `signed char`    | 1 to 8      | 2^(w-1) to 2^(w-1) - 1 |
 | `char`           |             | 0 to 2^(w-1)           |

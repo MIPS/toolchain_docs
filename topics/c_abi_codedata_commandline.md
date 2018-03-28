@@ -2,7 +2,7 @@
 
 Option | Description|
 |-------|------------|
-`-mcmodel={auto, medium, large}`| Used to select the code model for non-pre-emptible symbols.
+`-mcmodel={auto,medium,large}`| Used to select the code model for non-pre-emptible symbols.
 `-mpcrel`| Forces PC-relative addressing for non-pre-emptible symbols. This also effectively disables absolute addressing.
 `-mno-pcrel`| Avoids PC-relative addressing for non-pre-emptible symbols where alternative sequences are not larger or slower.
 `-mgpopt`| Enables GP-relative addressing for non-pre-emptible symbols which are within the size limit specified by the `-G` option.

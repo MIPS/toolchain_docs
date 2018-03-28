@@ -127,7 +127,7 @@ r = foo(ia, fa, da, sa, ib, lla, s2a);
 |`sa`^	  | `$a4`     |   `X`
 |`ib`	  | `$a5`     |   `X`
 |`lla`	  | `$a6-$a7` |   `X`
-|`s2a`	  | `X`       |  0-7
+|`s2a`	  | `X`       | `0-7`
 
 Notes:
 
