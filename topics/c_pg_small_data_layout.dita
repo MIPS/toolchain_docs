@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
 <concept id="concept_acz_44p_1cb">
- <title>Address calculation of read-only data</title>
+ <title>Optimizing the layout of small data</title>
  <conbody>
 <p>The nanoMIPS ISA supports a highly optimised global addressing mode that provides direct access using a 16-bit instruction to 128 of the most commonly referenced 4-byte data items. These data items must be placed at the start of the small data area and there are linker features to make this feature easy to use. Overlapping this region there is a 256KiB region that can be used to access 1-byte or 2-byte data items with a single 32-bit instruction. Finally overlapping these regions is a 2MiB region where 4-byte data items can be accessed using a single 32-bit instruction. There are commonly two issues that must be addressed to make good use of these regions:</p>
 

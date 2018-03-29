@@ -3,7 +3,7 @@
 <concept id="concept_acz_44p_1cb">
  <title>Address calculation of read-only data</title>
  <conbody>
-   <p>The nanoMIPS ISA includes a 32-bit PC-relative instructions that can calculate the address of a 2-byte or greater aligned variable within 1MiB of the reference. This is used to access data wherever possible at compile time and will be converted by the linker to an instruciton with greater range if the reference and target are out of range; this transformation grows code size by 16-bits per expansion. Read-only data is particularly targettable with this feature as read-only data can often be safely interleaved with text meaning that the 1MiB range is more likely to reach. To interleave read-only data and code it is best to enable -ffunction-sections and -fdata-sections to give fine grained use of ELF sections per function or data item increasing interleaving possibilities. The interleaving of sections is controlled via the linker script SECTIONS command. Normally text sections are all grouped together and then all read-only data sections:</p>
+   <p>The nanoMIPS ISA includes a 32-bit PC-relative instruction that can calculate the address of a 2-byte or greater aligned variable within 1MiB of the reference. This is used to access data wherever possible at compile time and will be converted by the linker to an instruciton with greater range if the target is out of range; this transformation grows code size by 16-bits per expansion. Read-only data is particularly targettable with this feature because read-only data can often be safely interleaved with text meaning that the 1MiB range is more likely to reach. To interleave read-only data and code it is best to enable -ffunction-sections and -fdata-sections to give fine grained use of ELF sections per function or data item which increases interleaving possibilities. The interleaving of sections is controlled via the linker script SECTIONS command. Normally text sections are all grouped together and then all read-only data sections:</p>
    <codeblock>SECTIONS
 {
   .text : {
@@ -28,6 +28,8 @@
     *(.rodata)
   }
 }</codeblock>
+
+   <p>This layout will provide the maximum possible chance of references to read-only data being encoded using 32-bit instructions. The assumption is that locality of the data definition and references will be within a group of related objects; this will always hold true for constant data like strings that are created automatically by the compiler. Interleaving text and data is not always possible as some memories such as ISPRAM cannot be read using normal load instructions. There may also be an impact on cache usage as some code may get pulled into the data cache and some data into the instruction cache; this is not a functional issue though.</p>
 
  </conbody>
 </concept>
