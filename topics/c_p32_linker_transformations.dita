@@ -38,8 +38,7 @@
      <codeph>.linkrelax</codeph> directive to enable the transformations. The relaxations and
     expansion for code fragments can be then controlled by wrapping the code with <codeph>.set
      nolinkrelax/.set linkrelax</codeph> or <codeph>.set push/.set</codeph> pop. For example: 
-   <codeblock>
-    .text
+   <codeblock>    .text
     .linkrelax
     foo:
     &lt;code>
@@ -48,8 +47,7 @@
       .set linkrelax
       &lt;code> </codeblock>
    <p>This is equivalent to:
-   <codeblock>
-    .text
+   <codeblock>    .text
     .linkrelax
     foo:
     &lt;code>

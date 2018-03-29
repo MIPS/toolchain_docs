@@ -4,6 +4,5 @@
  <title>Register Naming Convention</title>
  <topicref href="topics/c_p32_regname_intro.dita">
   <topicref href="topics/c_p32_cpu_registers.dita"/>
-  <topicref href="topics/c_p32_fpu_registers.dita"/>
  </topicref>
 </map>

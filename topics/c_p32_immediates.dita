@@ -24,7 +24,7 @@
    immediate, the result will be a single instruction that is the immediate form of the same
    instruction. If the final operand is an out-of-range immediate, the instruction will be expanded
    using the AT register as a temporary to build the immediate value.</p>
-  <p>For non-performance critical code where the immediate values are out of range then switching to
+  <p>For non-performance critical code where the immediate values are out of range switching to
    use the register form of an instruction is the best course of action.</p>
  </conbody>
 </concept>

@@ -21,12 +21,12 @@
      <row>
       <entry>
        <codeblock>bc 8
-lw $a0, %gp_rel(data)($gp)
+lw $a0, %gprel(data)($gp)
 andi $a0, $a0, 20</codeblock>
       </entry>
       <entry>
        <codeblock>bc 1f
-lw $a0, %gp_rel(data)($gp)
+lw $a0, %gprel(data)($gp)
 andi $a0, $a0, 20
 1:</codeblock>
        
