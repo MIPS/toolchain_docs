@@ -9,8 +9,8 @@
   <codeblock>__memory_size = 0x10000; </codeblock>
   <p>In the linker script file, ‘.’ is a special symbol which represents the location counter. It
    can be read or written. </p>
-  <codeblock>. = 0x80200000; /* Assign 0x80200000 to location counter */
-   _end = .; /* Assign location counter to symbol _end */</codeblock>
+  <codeblock>    _. = 0x80200000; /* Assign 0x80200000 to location counter */
+    _end = .; /* Assign location counter to symbol _end */</codeblock>
   
   <p>The following table lists important symbols defined in the linker script file: </p>
   <table id="table_hyc_hr1_fcb">
