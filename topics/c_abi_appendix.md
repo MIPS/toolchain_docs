@@ -13,9 +13,9 @@ struct {
 ```
 
 The MIPS/microMIPS/MIPS16 ISAs use the lowest bit in addresses to indicate the
-ISA mode, hence, the lowest bit of `__pfn` could not beused to to indicate
+ISA mode, hence, the lowest bit of `__pfn` could not be used to to indicate
 whether the function that will be called through a pointer-to-member-function
-is virtual. In case of MIPSi/microMIPS/MIPS16, this bit was encoded in
+is virtual. In case of MIPS/microMIPS/MIPS16, this bit was encoded in
 `__delta` and the `__delta` shifted by to the left to make space for it. As the
 nanoMIPS ISA does not use the lowest bit in addresses to indicate the ISA mode,
 the lowest bit in `__pfn` is now used to mark a pointer-to-member-function as
