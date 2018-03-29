@@ -77,8 +77,8 @@
    their value restored.</p>
   <p>The status field will be restored by the standard exception handler but this is not guaranteed
    as an RTOS may manage the status register specially when overriding the handlers.</p>
-  <p>Users should consult the <ph conkeyref="c_biblio/mips_arch_ref_volIII"/> or <ph
-    conkeyref="c_biblio/mips_arch_prog_volIII"/> for further details on the <i>status</i>,
+  <p>Users should consult the <ph conkeyref="c_biblio/mips_arch_ref_volIII"/>
+    for further details on the <i>status</i>,
     <i>cause</i>, <i>badvaddr</i>, <i>badinstr</i> and <i>epc</i> values, as per
    the corresponding co-processor 0 registers.</p>
   <p> The toolchain provides a facility to report exceptions through UHI semi hosting, giving the

@@ -15,9 +15,13 @@
     size, they should use the medium model. To qualify for this model, an application must fulfil
     the following size restrictions:</p>
    <ul id="ul_rs3_nl3_1cb">
-    <li>no more than 256KiB worth of char and short variables and 2MiB worth of word-addressable
-     data in the small data section</li>
-    <li>no more than 2MiB worth of addresses in its GOT</li>
+    <li>Have no more than 2MiB of GP-addressable data, comprising of:
+     <ul>
+      <li>no more than 256KiB of char and short variables in small data sections</li>
+      <li>all word-addressable data in small data sections</li>
+      <li>all address slots in GOT tables</li>
+     </ul>
+    </li>
     <li>call sites and destinations must be within 32MiB; this is trivially met by applications
      which are less than 32MiB in size and have a single code segment</li>
    </ul>

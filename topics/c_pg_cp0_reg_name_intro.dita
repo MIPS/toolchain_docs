@@ -130,10 +130,10 @@
       <entry>BadInstr Reports the instruction which caused the most recent exception.</entry>
      </row>
      <row>
-      <entry><codeph>C0_BADINSTRP</codeph></entry>
-      <entry>BadInstrP</entry>
-      <entry>Reports the branch instruction if a delay slot caused the most recent
-       exception.</entry>
+      <entry><codeph>C0_BADINSTRX</codeph></entry>
+      <entry>BadInstrX</entry>
+      <entry>Report the last 16-bits of a 48-bit instruction that caused the most
+	recent exception.</entry>
      </row>
      <row>
       <entry><codeph>C0_COUNT</codeph></entry>

@@ -6,8 +6,7 @@
   <p>A general set of functions are provided to access header defined CP0 registers. These functions
    take a register name to access any co-processor 0 register. The header file
     <codeph>mips/m32c0.h</codeph> defines these macros and textual names for many of the
-   architectural specified registers, see <xref href="../map_pg_cp0_reg_names.ditamap"
-    format="ditamap"/> for a full list. </p>
+   architectural specified registers. </p>
   <table id="table_tnr_htc_fcb">
    <title>MIPS32 CP0 functions</title>
    <tgroup cols="2">

@@ -64,8 +64,8 @@
   </table>
   <p>tlbhi64_t, tlblo64_t and pmsk (pagemask) are 64-bits wide and their usage with EntryHi,
    EntryLo0 and EntryLo1 and PageMask fields should be consulted in the <ph
-    conkeyref="c_biblio/mips_arch_ref_volIII"/> and the <ph
-    conkeyref="c_biblio/mips_arch_prog_volIII"/> for using this API with XPA. </p>
+    conkeyref="c_biblio/mips_arch_ref_volIII"/> 
+    for using this API with XPA. </p>
   <p>Users will also need to implement the xTLB, TLB refill exception handlers and general exception
    handlers for TLB refill events if they make use of virtual memory management features.</p>
  </conbody>

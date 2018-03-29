@@ -5,9 +5,9 @@
  <conbody>
   <p>The HAL has support for argument handling that is compliant with the UHI specification. This
    interface is implemented by the <codeph>_start</codeph> application entry point. </p>
-  <p>$4 is the control register for determining how arguments are passed.</p>
+  <p>$r4 is the control register for determining how arguments are passed.</p>
   <table id="table_grq_h2q_fcb">
-   <title>$4 control register</title>
+   <title>$r4 control register</title>
    <tgroup cols="2">
     <colspec colnum="1" colname="col1"/>
     <colspec colnum="2" colname="col2"/>
@@ -25,7 +25,7 @@
      </row>
      <row>
       <entry>Any non-zero positive value.</entry>
-      <entry>$4 contains argc, $5 contains argv, $6 contains envp. Envp contains a null terminated
+      <entry>$r4 contains argc, $r5 contains argv, $r6 contains envp. Envp contains a null terminated
        of char* pointers with each string being in the format key=value.</entry>
      </row>
      <row>
@@ -35,7 +35,7 @@
      </row>
      <row>
       <entry>All other negative values</entry>
-      <entry>Unknown interface, the same as $4 == 0.</entry>
+      <entry>Unknown interface, the same as $r4 == 0.</entry>
      </row>
     </tbody>
    </tgroup>

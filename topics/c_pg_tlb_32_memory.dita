@@ -70,8 +70,8 @@
   </table>
   <p><codeph>tlbhi_t</codeph>,<codeph> tlblo_t</codeph> and <codeph>pmsk</codeph> are 32-bits wide
    and their usage for the relevant EntryHi, EntryLo0 and EntryLo1 and PageMask fields should be
-   consulted in the <ph conkeyref="c_biblio/mips_arch_prog_volIII"/> and <ph
-    conkeyref="c_biblio/mips_arch_ref_volIII"/>. Users will also need to implement the TLB refill
+   consulted in the <ph conkeyref="c_biblio/mips_arch_prog_volIII"/>.
+   Users will also need to implement the TLB refill
    exception handler and general exception handlers for TLB refill events if using virtual memory
    management features.</p>
  </conbody>

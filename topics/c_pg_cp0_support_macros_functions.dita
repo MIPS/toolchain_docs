@@ -6,8 +6,8 @@
   <p>Co-processor 0 provides control registers to configure interrupts, exceptions, TLBs and caches.
    The HAL provides a number of functions to simplify access to these registers and are provided by
    the <codeph>mips/cpu.h</codeph> header file.</p>
-  <p>Users should consult the <ph conkeyref="c_biblio/mips_arch_ref_volIII"/> or <ph
-    conkeyref="c_biblio/mips_arch_prog_volIII"/>for further details on the registers referenced
+  <p>Users should consult the <ph conkeyref="c_biblio/mips_arch_ref_volIII"/> 
+    for further details on the registers referenced
    here.</p>
   <p>The HAL provides simple get/set/exchange operations and bit wise set, clear, set and clear
    operations. </p>
