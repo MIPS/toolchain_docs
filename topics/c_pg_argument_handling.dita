@@ -5,9 +5,9 @@
  <conbody>
   <p>The HAL has support for argument handling that is compliant with the UHI specification. This
    interface is implemented by the <codeph>_start</codeph> application entry point. </p>
-  <p>$r4 is the control register for determining how arguments are passed.</p>
+ <p><codeph>$r4</codeph> is the control register for determining how arguments are passed.</p>
   <table id="table_grq_h2q_fcb">
-   <title>$r4 control register</title>
+   <title><codeph>$r4</codeph> control register</title>
    <tgroup cols="2">
     <colspec colnum="1" colname="col1"/>
     <colspec colnum="2" colname="col2"/>
@@ -20,22 +20,24 @@
     <tbody>
      <row>
       <entry>0</entry>
-      <entry>All other registers are ignored. A null argument vector is created for main with argc
-       == 0, argv[0] == 0 *envp == 0.</entry>
+      <entry>All other registers are ignored. A null argument vector is created
+	for main with <codeph>argc == 0</codeph>, <codeph>argv[0] == 0</codeph>,
+	<codeph>*envp == 0</codeph>.</entry>
      </row>
      <row>
       <entry>Any non-zero positive value.</entry>
-      <entry>$r4 contains argc, $r5 contains argv, $r6 contains envp. Envp contains a null terminated
-       of char* pointers with each string being in the format key=value.</entry>
+      <entry><codeph>$r4</codeph> contains argc, <codeph>$r5</codeph> contains argv,
+       <codeph>$r6</codeph> contains envp. Envp contains a null terminated
+       of <codeph>char *</codeph> pointers with each string being in the format key=value.</entry>
      </row>
      <row>
       <entry>-1</entry>
-      <entry>The UHI interface is used to obtain the command line. The memory for the argv array is
+      <entry>The UHI interface is used to obtain the command line. The memory for the <codeph>argv</codeph> array is
        allocated from the start of the application stack.</entry>
      </row>
      <row>
       <entry>All other negative values</entry>
-      <entry>Unknown interface, the same as $r4 == 0.</entry>
+      <entry>Unknown interface, the same as <codeph>$r4 == 0</codeph>.</entry>
      </row>
     </tbody>
    </tgroup>

@@ -16,7 +16,7 @@
     <codeph>pcrel_static_int</codeph>, because the affected instructions are all LAPCs, which
     are used for loading addresses by anchoring against the PC</li>
    <li>the next three transformations are of GP-relative accesses because the affected
-    instructions are loads, they use the $gp register, and the symbols involved reside in the
+     instructions are loads, they use the <codeph>$gp</codeph> register, and the symbols involved reside in the
     .sdata section</li>
    <li>the last transformation is of a call to the local function
      <codeph>pcrel_static_func</codeph>, because the affected instruction is a BALC</li>

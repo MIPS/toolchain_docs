@@ -42,7 +42,7 @@
      <row>
       <entry><codeph>void __chain_uhi_excpt (struct gpctx* ctx)</codeph></entry>
       <entry>Restores the context from ctx and indirect jumps to the general exception vector entry
-       point of the boot time (pre-application) exception vector. $3 is clobbered to achieve the
+       point of the boot time (pre-application) exception vector. <codeph>$3</codeph> is clobbered to achieve the
        indirect branch which is compliant with the UHI specification. </entry>
      </row>
      <row>

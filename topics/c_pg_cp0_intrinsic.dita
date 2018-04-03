@@ -326,19 +326,19 @@
      </row>
      <row>
       <entry><codeph>mips32_mt_getsp()</codeph></entry>
-      <entry>Return the stack pointer ($29) of the selected TC/VPE.</entry>
+      <entry>Return the stack pointer (<codeph>$29</codeph>) of the selected TC/VPE.</entry>
      </row>
      <row>
       <entry><codeph>mips32_mt_setsp(val)</codeph></entry>
-      <entry>Set the stack pointer ($29) of the selected TC/VPE.</entry>
+      <entry>Set the stack pointer (<codeph>$29</codeph>) of the selected TC/VPE.</entry>
      </row>
      <row>
       <entry><codeph>mips32_mt_getgp()</codeph></entry>
-      <entry>Return the global pointer ($28) of the selected TC/VPE.</entry>
+      <entry>Return the global pointer (<codeph>$28</codeph>) of the selected TC/VPE.</entry>
      </row>
      <row>
       <entry><codeph>mips32_mt_setgp(val)</codeph></entry>
-      <entry>Set the global pointer ($28) of the selected TC/VPE.</entry>
+      <entry>Set the global pointer (<codeph>$28</codeph>) of the selected TC/VPE.</entry>
      </row>
      <row>
       <entry><codeph>mips32_mt_getvpecontrol()</codeph></entry>

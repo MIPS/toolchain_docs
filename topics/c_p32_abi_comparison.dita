@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
 <concept id="c_032_p32_abi_comparison">
- <title>032/p32 ABI comparison</title>
+ <title>o32/p32 ABI comparison</title>
  <conbody>
   <table id="table_xls_lcz_wcb">
    <title>ABI comparison</title>
@@ -44,13 +44,13 @@
      </row>
      <row>
       <entry>Number of GP argument registers</entry>
-      <entry>4 ($4..$7)</entry>
-      <entry>8 ($r4..$r11)</entry>
+      <entry>4 (<codeph>$4..$7</codeph>)</entry>
+      <entry>8 (<codeph>$r4..$r11</codeph>)</entry>
      </row>
      <row>
       <entry>Number of GP return registers</entry>
-      <entry>2 ($2..$3)</entry>
-      <entry>2 ($r4..$r5)</entry>
+      <entry>2 (<codeph>$2..$3</codeph>)</entry>
+      <entry>2 (<codeph>$r4..$r5</codeph>)</entry>
      </row>
      <row>
       <entry>Width of FP registers</entry>

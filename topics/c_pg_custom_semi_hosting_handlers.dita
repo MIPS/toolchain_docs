@@ -14,12 +14,12 @@
   <p>A custom handler must therefore intercept a SYSCALL exception and handle a subset of UHI
    operations instead of forwarding them to<codeph> __exception_handle</codeph> as above. The
    SYSCALL instruction may be used for multiple purposes but UHI guarantees that the operand to
-   SYSCALL will be ‘1’ for UHI operations and also that $2 (v0) will be set to ‘1’. It is
-   recommended that any other usage of SYSCALL also sets $2 to a unique value excluding ‘1’ to make
+   SYSCALL will be ‘1’ for UHI operations and also that <codeph>$2</codeph> (<codeph>v0</codeph>) will be set to ‘1’. It is
+   recommended that any other usage of SYSCALL also sets <codeph>$2</codeph> to a unique value excluding ‘1’ to make
    disambiguation in the handler easier. Reading the instruction that caused an exception is
    possible and depending on hardware support then it may be stored in the badinstr field of the
    CTX; note that code must check for CP0 BADINSTR support before relying on this field. </p>
-  <p>The code below relies on $2 being able to distinguish UHI SYSCALLs from any other SYSCALLs:</p>
+  <p>The code below relies on <codeph>$2</codeph> being able to distinguish UHI SYSCALLs from any other SYSCALLs:</p>
   <codeblock>#include &lt;mips/hal.h>
 #include &lt;mips/uhi_syscalls.h>
 
