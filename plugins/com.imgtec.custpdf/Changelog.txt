@@ -1,0 +1,262 @@
+16022018 
+======
+added outputclass pageBreak and removed default page break on x.x level headings. Page break can be forced by adding outputclass="pageBreak" to the title 
+
+12022018
+======
+Pagination has been altered - blank pages will no longer be added to make new chapters start on odd pages if the preceeding chapter ends on an odd
+page.
+Table line thickness has been increased slightly. 
+
+17112017
+=======
+altered company name from MIPS LLC to MIPS Tech LLC
+
+30102017 
+===========
+added keep-together.within-page">always to keep fig title with the figure. This has side-effect of pulling preceeding paragraph with the figure title onto next page in some circumstances.
+
+2610217
+------------
+increased spacing after from 1.5 to 5pt 
+First level heading switched from MIPS blue to black.
+
+13102017
+------------
+Alter company name for headers, confidentiality etc to MIPS LLC
+
+12102017
+-----------
+More branding changes
+front logo changed to centre
+titles moved
+header added to first page of chapters
+
+10102017
+--------------
+Rebranded - img purple #72166B replaced with mips blue #0066B5
+Removed image border
+Changed copyright statements
+Changed company name in footers
+Changed logo
+Removed 3 balls logo
+Altered base sans-serif font to Arial (from Verdana)
+Flipped image caption position to be before images/figures
+
+
+26092017
+--------
+Register table - thickened border under title slightly to prevent it 'disappearing' on PDFs.
+
+Altered ToC to 'blue'.
+
+14092017
+========
+Fixed bug - where output-message is called, old mechanism of param should be replaced with ID select
+
+30082017 
+=========
+added outputclass wideblock for very long code strings in codeblock
+
+220817
+=======
+Amended <lines> to overcome fontsize problem and fixed bug triggering spurious error messages in logs.
+
+150817
+======
+Altered relationship tables so that short descriptions are not included in the links (if they exist).
+
+
+250717
+======
+Replace front main logo with
+corrected colors version
+
+130717
+======
+altered spacing for general text, bullets and numbered lists in table cells. This is now 1.5pt before and after.
+
+160617
+======
+Implemented the font sizes in heading rows. These can be applied to individual cells, or to the heading row
+To implement to the row, enter as follows:
+<thead>
+      <row outputclass="fontsize-small">
+       <entry>Table header</entry>
+       <entry>Table header</entry>
+      </row>
+     </thead>
+
+To implement to a cell, apply the outputclass to the <entry>
+
+120617
+=======
+Added additional spacing between number and heading text for first heading in each 'chapter'.
+
+Altered formatting/layout of first page of 'Appendix' so that only heading appears, with 'A', 'B' numbering.
+The string 'Appendix' is shown in the table of contents. 
+
+Format of footnotes corrected  font size and purple.
+Size of <lines> corrected to 90%
+Spacing of <notes> increased.
+
+
+080617
+======
+Added outputclass to rotate text in table heading
+
+outputclass="rotate"
+
+Corrected error with table font size (should now longer show error message "Unknown length unit ‘pt90’..."
+
+
+
+060617
+======
+Added outputclasses for table cells. These set background colours.
+
+outputclass="goodCell"   	Good cells  	(green)
+outputclass="badCell"		Bad		(red)
+outputclass="neutralCell"	Neutral		(yellow)
+outputclass="resCell"		Reserved	(grey)
+outputclass="notCell"		Not Available	(white)
+
+
+outputclass="fontsize-small"	80%
+outputclass="fontsize-tiny"	60%
+outputclass="fontsize-large"	120%
+outputclass="fontsize-huge"	140%
+outputclass="bitnumber"		Purple, centred, 60%
+outputclass="subheading"	Bold, grey background
+
+Note: These do not work with Simple Tables
+
+Amended alignment of simple-register outputclass to centred.
+Amended font size of table headings and general font text to 90% of standard (i.e 9pt)
+
+
+250517
+======
+Added sw-domain.xsl, ui-domain.xsl to activate calls formatting support for ui elements 
+and sw elements
+
+16052017
+========
+Added display of document ID to header. If bookmap contains 
+<othermeta name="documentID" content="document_ID_number"/>
+this will be displayed on the second page below the legal statement.
+
+07022017
+========
+Standard font now set to Verdana
+Titles and footers use Arial.
+
+03022017
+========
+Added 5pt space before equiv to H5
+Set Definition list DD to use base-font
+
+
+31012017
+========
+Removed part of SVG patch; no longer needed when using DITA-OT 2.4.3 
+Note that --args.fo.userconfig="plugins\com.imgtec.custpdf\cfg\fo\fop.xconf" must still
+be used when building from the command line or txt will be munged in SVG images.
+
+16012017
+========
+Amended <lines> to remove whitespace before and after
+
+
+13012017
+========
+Removed mini-toc from start of chapters.
+
+Removed underline from heading post-start of chapter heading ('heading 2' level).
+
+Added option to switch logos using the <prodname>PvR</prodname> metadata from bookmap. Valid options are PvR or MIPS. Any other values will result in default IMG logo being used.
+
+
+05012017
+========
+Added fop.xconf, fop-svg-text-placement-patch.jar and xml-apis-ext.jar
+to overcome SVG issues. pdfs must be built with --args.fo.userconfig="plugins\com.imgtec.custpdf\cfg\fo\fop.xconf" on the command line.
+
+Altered side-col-width measurement from 18pt to 6mm to overcome processing error that
+made some heading incorrectly indented with a space.
+
+
+07122016
+========
+Footer added to first page of chapters
+Numbering added to first heading level 
+(heading above mini-toc at start of chapters)
+
+
+
+02112016
+========
+Codeblock font size set to 8pt
+Indented DT
+Removed 'Chapter #' page, set topic.title with no page break before
+
+
+01112016
+========
+<fig> added 10pt before and after
+Add thin border in img blue
+
+
+26092016
+========
+Definition list Title explicitly set to be default font size. 
+	(it was falling back to pdf2 setting, which was too large)
+
+
+
+1208
+=====
+<table outputclass="simple_register">
+Now fully working, produces table with no borders on header
+
+
+0308
+=====
+Fixed error with <sub> and <sup> - they both now produce subscript and superscript.
+
+
+29/07/2016
+===========
+
+Images and figures will now default to align centred, unless locally specified.
+Note: figures must be in separate tags rather than inline. For example:
+	<p> some text</p>
+	<fig><title>title text</title>
+				<image href="" id="image_cqv_qcb_5w"/>
+			</fig>
+
+	If they are inline (<p> <fig></fig></p>) then they will be aligned left.
+
+
+
+22/07/2016
+===========
+Styles
+-------
+
+<table outputclass="simple_register" 
+	Alters heading row, changing font size to 6pt, img purple, white background.
+	
+
+21/07/2016
+===========
+Styles
+-------
+
+<xref outputclass="noPageNo" 
+	This outputclass omits the page number from the generated link in pdf output.
+	
+General Changes
+---------------
+Chapter Mini toc has increased space between text and horizontal bar.
+Vertical bar colour changed to img purple.

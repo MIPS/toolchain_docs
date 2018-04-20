@@ -1,0 +1,10 @@
+<project name="com.imgtec.custpdf" default="dita2custpdf">
+	<property name="transtype" value="custpdf"/>
+	<target name="dita2custpdf"
+			xmlns:dita="http://dita-ot.sourceforge.net"
+			dita:extension="depends org.dita.dost.platform.InsertDependsAction">
+	<property name="customization.dir"
+			location="${dita.plugin.com.imgtec.custpdf.dir}/cfg"/>
+	<antcall target="dita2pdf2"/>
+	</target>
+</project>

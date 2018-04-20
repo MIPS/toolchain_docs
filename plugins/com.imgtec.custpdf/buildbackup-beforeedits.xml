@@ -1,0 +1,23 @@
+<project>
+	<import file="build_custpdf_template.xml"/>
+</project>
+
+ <property name="artwork.dir" value="${dita.map.output.dir}">
+ 
+ </property>
+<copy todir="${coreArtworkDestinationDir}/Configuration/OpenTopic"/> 
+
+
+<fileset dir="${basedir}" includes="cfg/common/artwork/**/*.*"/>
+
+
+<fileset dir="${customization.dir}" includes="common/artwork/**/*.*"/>
+
+
+
+<!--com.imgtec.custpdf
+
+
+
+<property name="customization.dir" value="${dita.plugin.org.dita.pdf2.dir}/Customization"></property>
+    <property file="${customization.dir}/build.properties"></property>-->

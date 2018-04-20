@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<plugin id="com.imgtec.custpdf">
+	<require plugin="org.dita.pdf2"/>
+	<feature extension="dita.conductor.transtype.check" value="custpdf"/>
+	<feature extension="dita.transtype.print" value="custpdf"/>
+	<feature extension="dita.conductor.target.relative" file="build.xml"/>
+	
+	
+	
+</plugin>

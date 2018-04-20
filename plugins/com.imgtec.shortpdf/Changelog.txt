@@ -1,0 +1,122 @@
+17112017
+=======
+altered company name from MIPS LLC to MIPS Tech LLC
+
+30102017 
+===========
+added keep-together.within-page">always to keep fig title with the figure. This has side-effect of pulling preceeding paragraph with the figure title onto next page in some circumstances.
+
+
+2610217
+------------
+increased spacing after from 1.5 to 5pt 
+First level heading switched from MIPS blue to black.
+
+13102017
+------------
+Alter company name for headers, confidentiality etc to MIPS LLC
+
+12102017
+==========
+Rebranded with MIPS Tallwood branding
+New text for copyright
+MIPS logo
+'blue' colouring
+Font changed to Arial
+
+16092017
+========
+Fixed bug - where output-message is called, old mechanism of param should be replaced with ID select
+
+30082017 
+=========
+added outputclass wideblock for very long code strings in codeblock
+
+220817
+=======
+Amended <lines> to overcome fontsize problem and fixed bug triggering spurious error messages in logs.
+
+150817
+======
+Altered relationship tables so that short descriptions are not included in the links (if they exist).
+
+130717
+======
+altered spacing for general text, bullets and numbered lists in table cells. This is now 1.5pt before and after.
+
+160617
+======
+Implemented the font sizes in heading rows. These can be applied to individual cells, or to the heading row
+To implement to the row, enter as follows:
+<thead>
+      <row outputclass="fontsize-small">
+       <entry>Table header</entry>
+       <entry>Table header</entry>
+      </row>
+     </thead>
+
+To implement to a cell, apply the outputclass to the <entry>
+
+1306
+=====
+Format of footnotes corrected  font size and purple.
+Size of <lines> corrected to 90%
+Spacing of <notes> increased.
+
+Added outputclass to rotate text in table heading
+
+outputclass="rotate"
+
+250517
+======
+Added sw-domain.xsl, ui-domain.xsl to activate calls formatting support for ui elements 
+and sw elements
+
+16052017
+========
+Added display of document ID to header. If bookmap contains 
+<othermeta name="documentID" content="document_ID_number"/>
+this will be displayed in the header below the confidentiality.
+
+
+07022017
+========
+Standard font now set to Verdana
+Titles and footers use Arial.
+
+03022017
+========
+Added 5pt space before equiv to H5
+Set Definition list DD to use base-font
+
+31012017
+========
+Removed part of SVG patch; no longer needed when using DITA-OT 2.4.3 
+Note that --args.fo.userconfig="plugins\com.imgtec.custpdf\cfg\fo\fop.xconf" must still
+be used when building from the command line or txt will be munged in SVG images.
+
+24042017
+========
+Altered output from bookmaps so that if last page ends on odd page, 
+blank page is not added.
+
+20012017
+========
+Switch position of Confidentiality statement to footer.
+Placed version, publication date to header
+
+16012017
+========
+Amended <lines> to remove whitespace before and after
+
+13012017
+=========
+Increased space for start of main text to 45mm from top of page.
+
+Added code so that logo can be selected using <prodname>PvR</prodname> field in bookmap. Enter PvR or MIPS to select a logo. Default logo is IMG logo if not specified.
+
+
+09012017
+========
+Initial checkin
+Includes SVG patch

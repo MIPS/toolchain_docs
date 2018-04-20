@@ -1,0 +1,10 @@
+<project name="com.imgtec.shortpdf" default="dita2custpdf">
+	<property name="transtype" value="shortpdf"/>
+	<target name="dita2shortpdf"
+			xmlns:dita="http://dita-ot.sourceforge.net"
+			dita:extension="depends org.dita.dost.platform.InsertDependsAction">
+	<property name="customization.dir"
+			location="${dita.plugin.com.imgtec.shortpdf.dir}/cfg"/>
+	<antcall target="dita2pdf2"/>
+	</target>
+</project>
