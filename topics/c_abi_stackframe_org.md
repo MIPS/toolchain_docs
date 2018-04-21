@@ -1,4 +1,4 @@
-# Stack Frame Organization
+# Stack frame organization
 
 The following diagram shows how the compiler lays out the stack.
 
