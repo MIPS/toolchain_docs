@@ -2,10 +2,10 @@
 
 ## Relocation Operands
 
-S - The absolute address of the symbol from the RELA record
-A - The 32-bit addend from the RELA record
-P - The PC that the reloc is being applied to
-G - The value of `_gp`
+* S - The absolute address of the symbol from the RELA record
+* A - The 32-bit addend from the RELA record
+* P - The PC that the reloc is being applied to
+* G - The value of `_gp`
 
 ## Relocation Operators 
 

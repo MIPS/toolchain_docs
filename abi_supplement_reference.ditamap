@@ -13,6 +13,8 @@
   <topicref href="topics/c_abi_stackframe_chaining.md" format="markdown"/>
  </topicref>
  <topicref href="topics/c_abi_obj_form.md" format="markdown">
+  <topicref href="topics/c_abi_obj_form_elf_header.md" format="markdown"/>
+  <topicref href="topics/c_abi_obj_form_abiflags.md" format="markdown"/>
   <topicref href="topics/c_abi_obj_form_sections.md" format="markdown"/>
  </topicref>
  <topicref href="topics/c_abi_codedata.md" format="markdown">
