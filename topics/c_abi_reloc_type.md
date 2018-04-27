@@ -6,6 +6,8 @@
 * A - The 32-bit addend from the RELA record
 * P - The PC that the reloc is being applied to
 * G - The value of `_gp`
+* TP - The value of the thread pointer for current thread
+* DTP - The address of the TLS block for the module that provides S, for current thread.
 
 ## Relocation Operators 
 
@@ -43,8 +45,20 @@ method of encoding the value in an instruction.
 | R_NANOMIPS_PC_I32 (31)    | offset = (S + A) - (P + 4) is_signed_value (offset, nbits = 32) | op\[31:0] = offset\[31:0] |
 | R_NANOMIPS_GPREL_I32 (30) | offset = (S + A - G) | op\[31:0] = offset\[31:0] |
 | R_NANOMIPS_GPREL_LO12 (42)| offset = (S + A - G) | op\[11:0] = offset\[11:0]  |
-| R_NANOMIPS_LO4_S2(40)     | offset=S+A | op\[3:0] = offset\[5:2]
-| R_NANOMIPS_HI32(41)       | offset=S+A | op\[31:0] = offset\[63:32]
+| R_NANOMIPS_LO4_S2 (40)     | offset = (S + A) | op\[3:0] = offset\[5:2] |
+| R_NANOMIPS_HI32 (41)       | offset = (S + A) | op\[31:0] = offset\[63:32] |
+| R_NANOMIPS_TLS_GD (83)     | offset = (GOT_TLS(S + A) - G) is_unsigned_value (offset, nbits = 21) is_aligned(offset, 4) | op\[20:2] = offset\[20:2] |
+| R_NANOMIPS_TLS_GD_I32 (84) | offset = (GOT_TLS(S + A) - G) is_signed_value (offset, nbits = 32)  | op\[31:0] = offset\[31:0] |
+| R_NANOMIPS_TLS_LD (85)     | offset = (GOT_TLS_MODULE(S) - G) is_unsigned_value (offset, nbits = 21) is_aligned(offset, 4) | op\[20:2] = offset\[20:2] |
+| R_NANOMIPS_TLS_LD_I32 (86) | offset = (GOT_TLS_MODULE(S) - G) is_signed_value (offset, nbits = 32) | op\[31:0] = offset\[31:0] |
+| R_NANOMIPS_TLS_DTPREL12 (87)| offset = (S - DTP) is_unsigned_value(offset, nbits = 12) | op\[11:0] = offset\[11:0]  |
+| R_NANOMIPS_TLS_DTPREL16 (88)| offset = (S - DTP) is_unsigned_value(offset, nbits = 16) | op\[15:0] = offset\[15:0]  |
+| R_NANOMIPS_TLS_DTPREL_I32 (89) | offset = (S - DTP) is_signed_value(offset, nbits = 32) | op\[31:0] = offset\[31:0] |
+| R_NANOMIPS_TLS_GOTTPREL (90) | offset = (GOT_TLS(S + A) - G) is_unsigned_value (offset, nbits = 21) is_aligned(offset, 4) | op\[20:2] = offset\[20:2] |
+| R_NANOMIPS_TLS_GOTTPREL_PC32 (91) | offset = (GOT_TLS(S + A) - (P + 4)) is_signed_value(offset, nbits = 32) | op\[31:0] = offset\[31:0] |
+| R_NANOMIPS_TLS_TPREL12 (92)| offset = (S - TP) is_unsigned_value(offset, nbits = 12) | op\[11:0] = offset\[11:0]  |
+| R_NANOMIPS_TLS_TPREL16 (93)| offset = (S - TP) is_unsigned_value(offset, nbits = 16) | op\[15:0] = offset\[15:0]  |
+| R_NANOMIPS_TLS_TPREL_I32 (94) | offset = (S - TP) is_signed_value(offset, nbits = 32) | op\[31:0] = offset\[31:0] |
 
 The set of instructions compatible with each relocation operator is shown
 below along with example usage.
@@ -52,11 +66,11 @@ below along with example usage.
 | Relocation            | Instructions           | Usage       |
 |-----------------------|------------------------|-------------|
 | R_NANOMIPS_PC21_S1    | MOVE.BALC LAPC\[32]    | MOVE.BALC reg, reg, symbol Note: This is for both branches and data reference. |
-| R_NANOMIPS_GOTPC_I32  | LWPC\[48]              | LWPC reg, %got_pcrel32(symbol) |
+| R_NANOMIPS_GOTPC_I32  | LWPC\[48], LDPC\[48]   | LWPC reg, %got_pcrel32(symbol) |
 | R_NANOMIPS_GOT_DISP   | LWGP, LDGP             | LW reg, %got_disp(symbol)(gp) |
 | R_NANOMIPS_GOT_CALL   | LWGP, LDGP             | LW reg, %got_call(symbol)(gp) |
 | R_NANOMIPS_GOT_PAGE   | LWGP, LDGP             | LW reg,%got_page(symbol)(gp) |
-| R_NANOMIPS_GPREL19_S2 | LW\[GP], SW\[GP]       | LW reg, %gprel(symbol)(gp) |
+| R_NANOMIPS_GPREL19_S2 | LW\[GP], SW\[GP], ADDIU.W | LW reg, %gprel(symbol)(gp) |
 | R_NANOMIPS_GPREL7_S2  | LW\[GP16], SW\[GP16]   | LW16 reg, %gprel(symbol)(gp) |
 | R_NANOMIPS_GPREL_HI20 | LUI	                 | LUI reg, %gprel_hi(symbol) |
 | R_NANOMIPS_HI20       | LUI                    | LUI reg, %hi(symbol) |
@@ -64,7 +78,7 @@ below along with example usage.
 | R_NANOMIPS_GPREL17_S1 | LH\[GP], LHU\[GP], SH\[GP] | LH reg, %gprel(symbol)(gp) |
 | R_NANOMIPS_GPREL16_S2 | LDC1\[GP], LWC1\[GP], SDC1\[GP], SWC1\[GP], LWU\[GP] | LHU reg, %gprel(symbol)(gp) |
 | R_NANOMIPS_GPREL18_S3 | LD\[GP], SD\[GP]       | LD reg, %gprel(symbol)(gp) |
-| R_NANOMIPS_GPREL18    | LB\[GP], LBU\[GP], SB\[GP], ADDIU\[GP.B] | LB reg, %gprel(symbol)(gp) |
+| R_NANOMIPS_GPREL18    | LB\[GP], LBU\[GP], SB\[GP], ADDIU.B | LB reg, %gprel(symbol)(gp) |
 | R_NANOMIPS_GOT_OFST   | LB, LBU, LD, LH, LHU, LW, LWU, SB, SD, SH, SW, LDC1, LWC1, SDC1, SWC1 | LW reg, %got_ofst(symbol)(reg) |
 | R_NANOMIPS_LO12       | LB, LBU, LD, LH, LHU, LW, LWU, SB, SD, SH, SW, LDC1, LWC1, SDC1, SWC1, ORI, ADDIU | ORI reg, reg, %lo(symbol) Notes: Do not use with ADDIU from compiled code, use ORI for power efficiency. ADDIU may be necessary for compatible ASM code with pre-nanoMIPS. |
 | R_NANOMIPS_GOT_LO12   | LB, LBU, LD, LH, LHU, LW, LWU, SB, SD, SH, SW, LDC1, LWC1, SDC1, SWC1, ORI | ORI reg, reg, %got_lo(symbol) |
@@ -78,7 +92,19 @@ below along with example usage.
 | R_NANOMIPS_GOTPC_HI20 | ALUIPC                 | ALUIPC reg, %got_pcrel_hi(symbol) |
 | R_NANOMIPS_PC_I32     | LAPC\[48]              | ADDIUPC reg, %pcrel32(symbol) |
 | R_NANOMIPS_GPREL_I32  | ADDIU\[GP48]           | ADDIU.B32 reg, %gprel(symbol) |
-| R_NANOMIPS_GPREL_LO12 |                        |                                 |
+| R_NANOMIPS_GPREL_LO12 | LB, LBU, LD, LH, LHU, LW, LWU, SB, SD, SH, SW, LDC1, LWC1, SDC1, SWC1, ORI, ADDIU | ORI reg, reg, %gprel_lo(symbol) Notes: Do not use with ADDIU from compiled code, use ORI for power efficiency. ADDIU may be necessary for compatible ASM code with pre-nanoMIPS. |
+| R_NANOMIPS_TLS_GD     | LW\[GP], SW\[GP], ADDIU.W | ADDIU.W reg, gp, %tlsgd(symbol) |
+| R_NANOMIPS_TLS_GD_I32 | ADDIU\[GP48]           | ADDIU.B32 reg, gp, %tlsgd(symbol)  |
+| R_NANOMIPS_TLS_LD     | LW\[GP], SW\[GP], ADDIU.W | ADDIU.W reg, gp, %tlsld(symbol) |
+| R_NANOMIPS_TLS_LD_I32 | ADDIU\[GP48]           | ADDIU.B32 reg, gp, %tlsld(symbol)  |
+| R_NANOMIPS_TLS_DTPREL12 | LB, LBU, LD, LH, LHU, LW, LWU, SB, SD, SH, SW, LDC1, LWC1, SDC1, SWC1 | LW reg, %dtprel(symbol)(reg_dtp) |
+| R_NANOMIPS_TLS_DTPREL16 | ADDIU                | ADDIU reg, reg_dtp, %dtprel(symbol) |
+| R_NANOMIPS_TLS_DTPREL_I32 | LI[48]             | LI reg, %dtprel(symbol) |
+| R_NANOMIPS_TLS_GOTTPREL | LWGP, LDGP           | LW reg, %gottprel(symbol)(gp) |
+| R_NANOMIPS_TLS_GOTTPREL_PC32 | LWPC\[48], LDPC\[48] | LWPC reg, %got_pcrel32(symbol) |
+| R_NANOMIPS_TLS_TPREL12 | LB, LBU, LD, LH, LHU, LW, LWU, SB, SD, SH, SW, LDC1, LWC1, SDC1, SWC1 | LW reg, %tprel(symbol)(reg_tp) |
+| R_NANOMIPS_TLS_TPREL16 | ADDIU                | ADDIU reg, reg_tp, %tprel(symbol) |
+| R_NANOMIPS_TLS_TPREL_I32 | LI[48]             | LI reg, %tprel(symbol) |
 
 ## Data Relocations
 
@@ -97,6 +123,9 @@ below along with example usage.
 | R_NANOMIPS_JUMP_SLOT (11)           | lazy_stub (S)              | => target\[ABI_WIDTH]     |
 | R_NANOMIPS_IRELATIVE (12)           | ifunc_resolver (S)         | => target\[ABI_WIDTH]     |
 | R_NANOMIPS_COPY (44)                | copy_data (S)              | => variable, sizeof (S)   |
+| R_NANOMIPS_TLS_DTPMOD (80)          | tls_module_number (S)      | => target\[ABI_WIDTH]     |
+| R_NANOMIPS_TLS_DTPREL (81)          | tls_module_offset (S)      | => target\[ABI_WIDTH]     |
+| R_NANOMIPS_TLS_TPREL (82)           | tls_static_offset (S)      | => target\[ABI_WIDTH]     |
 
 ## Place-holder Relocations for Linker Relaxations
 
