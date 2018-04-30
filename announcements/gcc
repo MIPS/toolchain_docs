@@ -1,0 +1,318 @@
+To: gcc@gcc.gnu.org
+CC: matthew.fortune@mips.com, toma.tabacu@mips.com, zoran.jo@mips.com,
+    faraz.shahbazker@mips.com, jack.romo@mips.com, stefan.markovic@mips.com,
+    sara.popadic@mips.com
+Subject: Introducing a nanoMIPS port for GCC
+
+Earlier today MIPS Tech announced the latest generation of the MIPS family of
+architectures called nanoMIPS [1].  As part of the development we have been
+designing all the open source tools necessary to support the architecture and,
+thanks to the speed with which we were able to prototype, we have also been
+using these tools to shape the architecture along the way.  This has led to
+some really interesting improvements in the tools, which MIPS would like to
+contribute back to the community.  While doing this work many of us have been
+unable to contribute to the community as actively as we would have liked, we
+are therefore very grateful for the community support given to the MIPS
+architecture over the last 18 months.  This announcement has a general
+introduction at the start, so if you have read that for one of the GNU tools
+then you can skip down to the information specific to GCC.
+
+For anyone who knows the MIPS architecture you may well wonder why we are
+introducing another major variant and the question is perfectly valid.  We do
+admittedly have quite a few: MIPS I through MIPS IV, MIPS32 and MIPS64 through
+to MIPS32R6 and MIPS64R6, MIPS16e, MIPS16e2, microMIPSR3 and microMIPSR6.
+Each of these serves (or served) a purpose and there is a high level of
+synergy between all of them.  In general, they build upon the previous and
+there is a high level of compatibility, even when switching to a new encoding
+like moving from MIPS to microMIPS.  The switch to MIPS32R6/MIPS64R6 was a
+major shift in the way the architecture innovated and drew more on the
+original theory of the architecture, where evolution was not expected to be
+limited by binary compatibility.  MIPS Release 6 removed instructions and did
+create some very minor incompatibility but is also much cleaner to implement
+from a micro-architecture perspective.  We have taken this idea much further
+with nanoMIPS and reimagined the instruction set, by drawing on all the
+experience gained from previous designs.  Hopefully others will find it as
+interesting as we do.
+
+The major driving force behind the nanoMIPS architecture was to achieve
+outstanding code density, while also balancing out hardware and software
+design cost.  As background MIPS has two compressed ISA variants: MIPS16e,
+which cannot exist without also implementing MIPS32, and microMIPS, which can
+exist on its own.  Since MIPS16e has specific limits that cannot be engineered
+around, we chose to use an approach similar to the microMIPS design.
+
+nanoMIPS has a variable-length compressed instruction set that is completely
+standalone from the other MIPS ISAs.  It is designed to compress the highest
+frequency instructions to 16-bits, and use 48-bit instructions to efficiently
+encode 32-bit constants into the instruction stream.  There is also a wider
+range of 32-bit instructions, which merge carefully chosen high frequency
+instruction sequences into single operations creating more flexible addressing
+modes such as indexed and scaled indexed addressing, branch compare with
+immediate and macro style instructions.  The macro like instructions compress
+prologue and epilogue sequences, as well as a small number of high frequency
+instruction pairs like two move instructions or a move and function call.
+nanoMIPS also totally eliminates branch delay slots which follows a precedent
+set by microMIPSR6.
+
+To get the best from a new ISA we also re-engineered the ABI and created a new
+symbiotic relationship between the ISA and ABI that pushes code density and
+performance further still.  The ABI creates a fully link time relaxable model,
+which enables us to squeeze every last byte out of the code image even when
+deferring final addressing mode and layout decisions to link time.  We have
+been mindful of MIPS heritage and ensured that while open to any possible
+change, we also have minimal impact when porting code from MIPS to nanoMIPS,
+and have plenty of support to achieve source compatibility between the two.
+
+The net effect of these changes leads to an average code size reduction of 20%
+relative to microMIPSR6.  This compression could well be one of the best
+achieved by GNU tools for any RISC ISA.  Comparing the ISA in terms of number
+of instructions to issue vs microMIPS we also see a reduction of between 8%
+and 11% of dynamic instruction count.
+
+Below we dig into some technical specifics for each of the GNU tools; we
+welcome any feedback and questions as we start to look at rebasing this work
+to the trunk/master and formally submitting it.  nanoMIPS pre-built toolchains
+and source code tarballs are available at:
+
+http://codescape.mips.com/components/toolchain/nanomips/2018.04-02/
+
+GCC specific details
+====================
+
+The back-end
+------------
+
+Instead of creating a new nanoMIPS back-end, we decided to reuse the existing
+MIPS back-end.  Starting from scratch would have required copying the majority
+of code but most of the logic would have remained the same.  Reusing allowed
+us to speed up porting.  Maintenance might be more difficult but a fix for
+nanoMIPS could automatically be a fix MIPS and vice versa.
+
+Most of the back-end is contained within a small number of files.  The shared
+part is mostly in mips.{h,c,md,opt} files.  The MIPS toolchains use
+mips-classic.md as the entry file (instead of mips.md) i.e. it includes
+shareable mips.md, processor configuration and includes all other .md files as
+necessary.  nanomips.md is used as the entry file for nanoMIPS toolchains and
+similarly includes its own processors list, mips.md and other machine
+descriptions files as needed.  In this way, it makes easier to enable the
+features that can be shared between the two.  Some chunks of the back-end code
+had to be enabled conditionally as compiler would fail to build (missing
+patterns etc).  Lastly, we needed to clean up nanoMIPS' target options by
+disabling them in mips.opt and create a number nanoMIPS specific files to keep
+the separation as clear as possible.
+
+The p32 ABI [2]
+---------------
+
+1. Calling convention
+
+To avoid major porting issues, the register conventions have been mostly left
+intact and resemble MIPS n32/n64 ABIs.  The main difference is removal of
+dedicated return registers ($2/v0, $3/v1) and using the argument registers to
+return values from functions.  The old return registers have been re-purposed
+and became temporaries.  This allowed a better code density with more
+efficient data passing between functions e.g. foo(bar()).  This is
+particularly visible in soft-float mode where more complex expressions require
+multiple library calls.
+
+The ABI requires named registers i.e. $0..$31 is no longer supported (unless
+-mlegacyregs is used).  $r0..$r31 should be used or names depending on the
+function (arguments: $a0..$a7, saved temporaries $s0..$s7 etc).
+
+2. Stack frame organization
+
+The major change in comparison to the previous MIPS ABIs is the change of the
+location of the frame pointer.  The frame pointers now form a chain that will
+allow an efficient stack unwinding.  Previously, in order to find the location
+of the frame-pointer, the instructions had to be scanned at the current
+program counter, going backwards.  With this change, finding the location is
+trivial, however, it's important to point out that the frame pointer is biased
+by 4096 bytes i.e. logical_frame_pointer = $fp + 4096.  The rationale was to
+enable full use of the unsigned 12-bit offsets in memory instructions when
+using the frame pointer as the base.  Also, the notable difference is the
+order of general-purpose registers on the stack.  This reflects the operation
+of the SAVE/RESTORE instructions in the nanoMIPS ISA.
+
+3. Code and data models
+
+The automatic model (-mcmodel=auto) produces the most compact code possible by
+relying on the linker to do further size optimizations on the
+compiler-generated code.  The linker will also expand the code when symbols
+end up being out of range.  This model has been designed to keep the size
+difference between the intermediate objects and the fully linked object as
+small as possible, although having the linker perform too many expansions will
+widen that gap.  It can be used only with a linker which is capable of
+performing relaxations and expansions.
+
+The medium model (-mcmodel=medium) is somewhat similar to the automatic model
+in terms of the range and size of the generated code, but it does not rely on
+linker relaxations and expansions.  This lack of linker transformations makes
+the size of the fully linked object more predictable, even though it squanders
+some opportunities for further size optimization and it introduces inherent
+limitations in the fully linked code.
+
+The large model (-mcmodel=large) produces code which has an unlimited range by
+only using instructions which cover the entire address space.  Because these
+instructions tend to be bigger, this model sacrifices code size in order to
+guarantee that code sequences will work regardless of where the symbol is
+placed in memory.  The large model also does not rely on linker relaxations
+and expansions.
+
+In addition to the models, there are 4 addressing modes:
+- absolute: addresses are fixed at link-time.  This mode is rarely necessary
+  but has some potential for energy efficiency.
+- PC-relative: addresses appear as offsets from the PC and are used in
+  PC-relative instructions.  This mode produces position-independent code.
+- GP-relative: addresses appear as offsets from the GP and are used in
+  GP-relative instructions.  Symbols are placed in the small data section,
+  also known as .sdata.  This mode produces position-independent data for
+  some or all symbols of an application.
+- GOT-dependent: addresses are kept in the GOT and are loaded by using offsets
+  between the GP and a given symbol's entry in the GOT.  This mode produces
+  dynamically linkable code.
+
+4. Thread Local Storage
+
+The nanoMIPS TLS ABI has support for both the traditional TLS models and TLS
+descriptors.  All of the TLS models have been adapted to the nanoMIPS ISA
+following an approach similar to the one taken for the code and data models.
+
+The runtime TLS layout has also been redesigned to take advantage of the
+unsigned offset LW[U12] nanoMIPS instruction, thus extending the possible
+range of symbols inside the TLS block.
+
+Target-independent optimizations
+--------------------------------
+
+In addition to these ABI improvements, we have also developed various
+target-independent and nanoMIPS-specific compiler optimizations, in order to
+further improve code size and performance.
+
+1. LRA: use equivalences to help with frame pointer elimination
+   (currently enabled by -mlra-equiv)
+
+The patch has already been posted [3] and went through some additional changes
+since posting.  A case was found where LRA produced suboptimal code for a
+large frame and frame growing downward.  The code size was affected
+particularly in cases where the offset was large and could not be used in an
+add operation directly introducing more instructions for a single frame
+access.  Using the equivalences, the frame pointer gets more often eliminated
+resulting in smaller code.  The reasons are twofold: register pressure drops
+resulting in fewer spills and the offset might be smaller fitting into a
+single add instruction for every frame access.
+
+2. IRA register recoloring (-fadjust-costs)
+
+The goal of register cost adjustment optimization is to make better usage of
+instructions that improve code density.  In this group of instructions are all
+16-bit instructions and 32-bit nanoMIPS instructions that replace two other
+instructions (e.g. movep, move.balc, etc).  Most of these instructions can use
+only a subset of all available registers and the purpose of this optimization
+is to increase the chances that pseudo registers used inside these
+instructions are assigned to the required hard registers.  This is achieved by
+introducing a new target hook through which the cost of corresponding hard
+registers is modified just before allocation of a pseudo register.  Cost
+modification is based on properties of all instructions in which pseudo
+register is used.  If assigning a pseudo to some hard registers would lead to
+more dense code e.g. by being able to generate 16-bit instructions, then the
+cost of these hard registers is decreased.  Otherwise, the cost of the hard
+registers is increased, thus improving chances that these hard registers will
+be available for pseudos that are allocated later in the process.
+
+3. Jump-table optimization (-fjump-table-clusters)
+
+The optimization enables splitting of a single switch statement into a
+combination of multiple jump tables and decision trees.  GCC currently emits
+either a single jump table or decision tree.  The optimization can be enabled
+by the command line option -fjump-table-clusters and it works independently of
+target.  A MIPS specific option has been added (-mjump-table-density=DENSITY)
+to change the default density.  Density is the minimum percentage of
+non-default case indices in a jump table.  If not specified, GCC will default
+density to 40% if optimizing for size and 10% if optimizing for speed.  The
+target option will be later replaced by an appropriate --param
+jump-table-density option or similar.
+
+4. Edge sorting for -Os during basic block reordering
+   (-freorder-blocks-edge-sort=[one|two|all|default])
+
+When reordering blocks using the `simple' algorithm edges are sorted for speed
+optimized functions and not sorted for size optimized functions.  However,
+sorting the edges for size optimized functions can significantly improve
+performance with some code size cost.  Inner loops show the greatest benefit
+with `level' set to `one'.  Further improvement is possible by sorting one
+level of nested loops (`level' set to `two') with additional cost in size.
+Finally, all edges can be sorted (`level' set to `all').  This option
+overrides the normal sorting choice for both size and speed optimized
+functions.
+
+Target-specific optimizations
+-----------------------------
+
+1. Optimized inline memcpy (-mmemcpy-interleave=NUM/-mmulti-memcpy)
+
+The options have been introduced to control inlined memcpy.  -mmulti-memcpy
+attempts to exploit Load/Store Word Multiple instructions and
+-mmemcpy-interleave=NUM controls how loads and stores are interleaved i.e. how
+many NUM words are loaded first before storing them.
+
+2. MOVEP/MOVE.BALC/RESTORE.JRC
+
+The machine-dependent hook will attempt to find opportunities in the
+instruction stream to combine instructions into MOVEP, MOVE.BALC or
+RESTORE.JRC to improve code density.  MOVE.BALC can be controlled with
+-m[no-]opt-movebalc switch.
+
+3. Offset shrinking pass (-m[no-]shrink-offsets)
+
+The pass processes the instruction stream, extracts offsets from memory
+accesses and then tries to figure out the best offset adjustment to get
+maximum potential code size savings.  We take into account the cost of
+introducing a new add instruction that could undo the code size savings.  As
+the pass is run before the register allocation, we can only speculate and be
+optimistic about the potential code size improvement.  These guesses appear to
+be relatively good on average but might need to be considered a case by case
+basis.
+
+4. Jump-table optimization (-mjump-table-opt)
+
+The switch enables jump-tables that contain relative addresses.
+
+5. BALC stubs (-m[no-]balc-stubs)
+
+This code size optimization is not being performed in the compiler but the
+flag is passed to the assembler.  It controls out-of-range call optimization
+through trampoline stubs.  It is enabled by default when optimizing for size.
+
+
+Note that the 64-bit ISA, floating-point support and ABI for these are still
+WIP.  The GCC implementation has some support for 64-bit and the
+floating-point but are neither finalized nor officially supported.
+
+GCC contributors
+================
+
+- nanoMIPS port, ABI, code and data models, TLS, bugfixes:
+  Robert Suchanek
+  Toma Tabacu
+  Matthew Fortune
+- IRA register recosting, edge sorting:
+  Zoran Jovanovic
+- Jump-table optimization, scheduler, MOVE.BALC/MOVEP optimization:
+  Prachi Godbole
+- RESTORE.JRC optimization:
+  Robert Suchanek
+- Lightweight sync codes:
+  Faraz Shahbazker
+- Offset shrinking pass:
+  Robert Suchanek
+  Steve Ellcey
+- Exception handling:
+  Jack Romo
+- Dejagnu tests, bugfixes:
+  Stefan Markovic
+  Sara Popadic
+
+[1] <link to marketing announcement>
+[2] Codescape GNU tools for nanoMIPS: ELF ABI Supplement,
+    <link to PDF>
+[3] https://patchwork.ozlabs.org/patch/666637/

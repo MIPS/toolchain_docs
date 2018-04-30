@@ -1,0 +1,104 @@
+(From:Matthew Fortune)
+(To:qemu-devel@nongnu.org)
+(Cc:yongbok.kim@mips.com; stefan.markovic@mips.com; aleksandar.rikalo@mips.com;
+    dimitrije.nikolic@mips.com; james.hogan@mips.com; paul.burton@mips.com)
+(Subject: Introducing a nanoMIPS port for QEMU)
+
+Earlier today MIPS Tech announced the latest generation of the MIPS family of
+architectures called nanoMIPS [1]. As part of the development we have been
+designing all the open source tools necessary to support the architecture and,
+thanks to the speed with which we were able to prototype, we have also been
+using these tools to shape the architecture along the way. This has led to some
+really interesting improvements in the tools, which MIPS would like to
+contribute back to the community. While doing this work many of us have been
+unable to contribute to the community as actively as we would have liked, we
+are therefore very grateful for the community support given to the MIPS
+architecture over the last 18 months. This announcement has a general
+introduction at the start, so if you have read that for one of the tools
+then you can skip down to the information specific to QEMU.
+
+For anyone who knows the MIPS architecture you may well wonder why we are
+introducing another major variant and the question is perfectly valid. We do
+admittedly have quite a few: MIPS I through MIPS IV, MIPS32 and MIPS64 through
+to MIPS32R6 and MIPS64R6, MIPS16e, MIPS16e2, microMIPSR3 and microMIPSR6. Each
+of these serves (or served) a purpose and there is a high level of synergy
+between all of them. In general, they build upon the previous and there is a
+high level of compatibility, even when switching to a new encoding like moving
+from MIPS to microMIPS. The switch to MIPS32R6/MIPS64R6 was a major shift in
+the way the architecture innovated and drew more on the original theory of the
+architecture, where evolution was not expected to be limited by binary
+compatibility. MIPS Release 6 removed instructions and did create some very
+minor incompatibility but is also much cleaner to implement from a
+micro-architecture perspective. We have taken this idea much further with
+nanoMIPS and reimagined the instruction set, by drawing on all the experience
+gained from previous designs. Hopefully others will find it as interesting as
+we do.
+
+The major driving force behind the nanoMIPS architecture was to achieve
+outstanding code density, while also balancing out hardware and software design
+cost. As background MIPS has two compressed ISA variants: MIPS16e, which cannot
+exist without also implementing MIPS32, and microMIPS, which can exist on its
+own. Since MIPS16e has specific limits that cannot be engineered around, we
+chose to use an approach similar to the microMIPS design.
+
+nanoMIPS has a variable-length compressed instruction set that is completely
+standalone from the other MIPS ISAs. It is designed to compress the highest
+frequency instructions to 16-bits, and use 48-bit instructions to efficiently
+encode 32-bit constants into the instruction stream. There is also a wider
+range of 32-bit instructions, which merge carefully chosen high frequency
+instruction sequences into single operations creating more flexible addressing
+modes such as indexed and scaled indexed addressing, branch compare with
+immediate and macro style instructions. The macro like instructions compress
+prologue and epilogue sequences, as well as a small number of high frequency
+instruction pairs like two move instructions or a move and function call.
+nanoMIPS also totally eliminates branch delay slots which follows a precedent
+set by microMIPSR6.
+
+To get the best from a new ISA we also re-engineered the ABI and created a new
+symbiotic relationship between the ISA and ABI that pushes code density and
+performance further still. The ABI creates a fully link time relaxable model,
+which enables us to squeeze every last byte out of the code image even when
+deferring final addressing mode and layout decisions to link time. We have been
+mindful of MIPS heritage and ensured that while open to any possible change, we
+also have minimal impact when porting code from MIPS to nanoMIPS, and have
+plenty of support to achieve source compatibility between the two.
+
+The net effect of these changes leads to an average code size reduction of 20%
+relative to microMIPSR6. This compression could well be one of the best
+achieved by GNU tools for any RISC ISA. Comparing the ISA in terms of number of
+instructions to issue vs microMIPS we also see a reduction of between 8% and
+11% of dynamic instruction count.
+
+Below we dig into some technical specifics for QEMU; we welcome any feedback
+and questions as we start to look at rebasing this work to the trunk/master
+and formally submitting it. nanoMIPS pre-built toolchains and source code
+tarballs are available at:
+
+http://codescape.mips.com/components/toolchain/nanomips/2018.04-02/
+
+QEMU specific details
+====================
+
+The nanoMIPS QEMU port borrows a significant amount of logic from the MIPS
+port. Most instructions in nanoMIPS exist in another MIPS ISA, which allows the
+new decoder to hook into existing logic. Some of the more interesting technical
+changes include:
+
+- The Unified Hosting Interface (UHI) for semihosting is supported and,
+  in-keeping with the aims of the interface, the same ABI is used with nanoMIPS
+  as MIPS.
+- Linux user-mode support has been updated significantly compared to MIPS to
+  follow the new nanoMIPS ABI which utilizes most of the generic syscall and
+  signal infrastructure from the Linux kernel.
+
+The QEMU build targets for nanoMIPS are nanomips-softmmu and
+nanomips-linux-user rather than the existing mips targets, because nanoMIPS is
+not designed for use alongside any other MIPS ISA.
+
+QEMU contributors:
+
+- QEMU
+  Yongbok Kim, Stefan Markovic, Aleksandar Rikalo, Dimitrije Nikolic
+  Aleksandra Karadzic, Matthew Fortune, Paul Burton, James Hogan
+
+[1] <link to marketing announcement>
