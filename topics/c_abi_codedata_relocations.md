@@ -29,12 +29,10 @@ The following relocations are used in all models:
 
 * `%gprel`: 18 or 21-bit GP displacement for auto and medium, and 32-bit GP
 displacement for large
-* `%pcrel32`: 32-bit PC displacement
 * `%pcrel_hi`: 20-bit high part of a 32-bit PC displacement
 * `%lo`: 12-bit low part of a 32-bit address
 
-`%pcrel32` and `%got_pcrel32` can only be used when targeting the full
-nanoMIPS ISA.
+`%got_pcrel32` can only be used when targeting the full nanoMIPS ISA.
 
 `%lo` is used in both absolute and PC-relative addressing because the upper
 part of the address will always end up at a 4KiB boundary.
