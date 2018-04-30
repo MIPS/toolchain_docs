@@ -31,7 +31,7 @@
        <p><codeph>nanomips-elf-g++</codeph></p>
        <p><codeph>nanomips-elf-gcov</codeph></p>
       </entry>
-      <entry>2018.01-01 (Based on FSF GCC 6.3.0)</entry>
+      <entry>2018.04-02 (Based on FSF GCC 6.3.0)</entry>
      </row>
      <row>
       <entry>Libraries</entry>
@@ -43,7 +43,7 @@
        <p>Newlib</p>
        <p> </p>
       </entry>
-      <entry>2018.01-01 (Based on 2.5.0)</entry>
+      <entry>2018.04-02 (Based on 2.5.0)</entry>
      </row>
      <row>
       <entry>Binary utilities</entry>
@@ -65,7 +65,7 @@
        <p><codeph>nanomips-elf-strings</codeph></p>
        <p><codeph>nanomips-elf-strip</codeph></p>
       </entry>
-      <entry>2018.01-01 (Based on 2.28)</entry>
+      <entry>2018.04-02 (Based on 2.28)</entry>
      </row>
      <row>
       <entry>GDB</entry>
@@ -74,7 +74,7 @@
        <p><codeph>nanomips-elf-gdb</codeph></p>
        <p> </p>
       </entry>
-      <entry>2018.01-01 (Based on 8.0)</entry>
+      <entry>2018.04-02 (Based on 8.0)</entry>
      </row>
      <row>
       <entry>Small C library</entry>
@@ -93,7 +93,7 @@
       <entry>
 	<p><codeph>qemu-system-nanomips</codeph></p>
       </entry>
-      <entry>2018.01-01 (Based on 2.5.0)</entry>
+      <entry>2018.04-02 (Based on 2.5.0)</entry>
      </row>
     </tbody>
    </tgroup>

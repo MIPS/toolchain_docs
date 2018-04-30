@@ -3,9 +3,9 @@
 <concept id="concept_acz_44p_1cb">
  <title>Managing the .sdata section</title>
  <conbody>
-  <p>The .sdata section stores data which is accessed using the GP-relative addressing mode.
+   <p>The <codeph>.sdata</codeph> section stores data which is accessed using the GP-relative addressing mode.
    Using this mode helps decrease the code size, but it also gives the user the possibility
-   of having position-independent data, as the .sdata section can be relocated independently
+   of having position-independent data, as the <codeph>.sdata</codeph> section can be relocated independently
    of the code.</p>
   <p>Because this section is so closely tied to the GP-relative addressing mode, it is
    created only when this mode is enabled. In GCC, the <codeph>-mgpopt</codeph> command-line
