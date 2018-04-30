@@ -15,7 +15,7 @@ linker. The sequences are in ascending order according to code size.
 *pre*: Short for pre-emptible symbol.
 
 *A, M, L*: Abbreviations for the automatic, medium, and large model,
-respectively.
+respectively. These apply only to compiler-generated sequences.
 
 *NMS*: This is the abbreviation used for the nanoMIPS subset, which excludes
 some instructions from the ISA for power efficiency reasons.
