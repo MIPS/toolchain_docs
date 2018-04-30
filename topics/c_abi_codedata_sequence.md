@@ -27,8 +27,8 @@ to contrast against NMS.
 is forbidden. This is not equivalent to NMS or NMF, since both of them contain
 instructions which are not 32-bit.
 
-*\[ls]X*: The "\[ls]" means that this instruction can be either a load or a
-store. The "X" stands for all the supported suffixes (H, B, W, D, WC1, DC1 for
+*\[ls\]\[suff]*: The "\[ls]" means that this instruction can be either a load or a
+store. The "\[suff]" stands for all the supported suffixes (H, B, W, D, WC1, DC1 for
 both loads and stores, and HU, BU, WU for loads-only).
 
 ## Address calculation operation
@@ -61,23 +61,23 @@ both loads and stores, and HU, BU, WU for loads-only).
 |Category | Model | Conditions                                           | Code sequence | Size | Remarks|
 |---------|-------|------------------------------------------------------|---------------|------|--------|
 |**Absolute addressing** ||||||
-|non-pre  | AML   | 4KiB-aligned                                         | `lui reg1, %hi(symbol)  [ls]X reg2, 0(reg1)` | 6/8 | Must be used only for symbols which are explicitly 4KiB-aligned. Uses LW\[16]/SW\[16] if the registers happen to be GPR3.|
-|non-pre  | AML   |                                                      | `lui reg1, %hi(symbol)  [ls]X reg2, %lo(symbol)(reg1)` | 8 | |
+|non-pre  | AML   | 4KiB-aligned                                         | `lui reg1, %hi(symbol)  [ls][suff] reg2, 0(reg1)` | 6/8 | Must be used only for symbols which are explicitly 4KiB-aligned. Uses LW\[16]/SW\[16] if the registers happen to be GPR3.|
+|non-pre  | AML   |                                                      | `lui reg1, %hi(symbol)  [ls][suff] reg2, %lo(symbol)(reg1)` | 8 | |
 |**PC-relative addressing** ||||||
 |non-pre  | AML   | NMF-only, word-sized symbol                          | `[ls]wpc reg2, symbol` | 6 | |
-|non-pre  |       | >=2B-aligned, within PC+1MiB, reg1 and reg2 are GPR3 | `lapc.h reg1, symbol  [ls]X reg2, 0(reg1)` | 6 | Generated only by the linker.|
-|non-pre  | AML   | 4KiB-aligned                                         | `aluipc reg1, %pcrel_hi(symbol)  [ls]X reg2, 0(reg1)` | 6/8 |  Must be used only for symbols which are explicitly 4KiB-aligned. Uses LW\[16]/SW\[16] if the registers happen to be GPR3.|
-|non-pre  | AML   |                                                      | `aluipc reg1, %pcrel_hi(symbol)  [ls]X reg2, %lo(symbol)(reg1)` | 8 | |
+|non-pre  |       | >=2B-aligned, within PC+1MiB, reg1 and reg2 are GPR3 | `lapc.h reg1, symbol  [ls][suff] reg2, 0(reg1)` | 6 | Generated only by the linker.|
+|non-pre  | AML   | 4KiB-aligned                                         | `aluipc reg1, %pcrel_hi(symbol)  [ls][suff] reg2, 0(reg1)` | 6/8 |  Must be used only for symbols which are explicitly 4KiB-aligned. Uses LW\[16]/SW\[16] if the registers happen to be GPR3.|
+|non-pre  | AML   |                                                      | `aluipc reg1, %pcrel_hi(symbol)  [ls][suff] reg2, %lo(symbol)(reg1)` | 8 | |
 |**GP-relative addressing** ||||||
 |non-pre  | AM    | byte/half-sized symbol, within GP+256KiB             | `[ls][bh] reg2, %gprel(symbol)($gp)` | 4 | |
 |non-pre  | AM    | word-sized symbol, within GP+2MiB                    | `[ls]w reg2, %gprel(symbol)($gp)` | 2/4 | Uses LW\[GP16]/SW\[GP16] if the register happens to be GPR3.|
-|non-pre  | L     | NMF-only                                             | `addiu.b32 reg1, $gp, %gprel(symbol)  [ls]X reg2, 0(reg1)` | 8/10 | Uses LW\[16]/SW\[16] if the registers happen to be GPR3.|
-|non-pre  | L     |                                                      | `lui reg1, %gprel_hi(symbol)  addu reg1, reg1, $gp  [ls]X reg2, %gprel_lo(symbol)(reg)` | 12 | |
+|non-pre  | L     | NMF-only                                             | `addiu.b32 reg1, $gp, %gprel(symbol)  [ls][suff] reg2, 0(reg1)` | 8/10 | Uses LW\[16]/SW\[16] if the registers happen to be GPR3.|
+|non-pre  | L     |                                                      | `lui reg1, %gprel_hi(symbol)  addu reg1, reg1, $gp  [ls][suff] reg2, %gprel_lo(symbol)(reg)` | 12 | |
 |**GOT-dependent addressing** ||||||
-|pre      | A     |                                                      | `lw reg1, %got_page(symbol)($gp)  [ls]X reg2, %got_ofst(symbol)(reg1)` | 8+4 data | Generated only by the compiler. The linker has to transform this into one of the other pre-emptible sequences or relax it into a non-pre-emptible sequence.|
-|pre      | M     |                                                      | `lw reg1, %got_disp(symbol)($gp)  [ls]X reg2, 0(reg1)` | 6/8+4 data | Uses LW\[16]/SW\[16] if the registers happen to be GPR3.|
-|pre      | L     | NMF-only                                             | `lwpc reg1, %got_pcrel32(symbol)  [ls]X reg2, 0(reg1)` | 8/10+4 data | Uses LW\[16]/SW\[16] if the registers happen to be GPR3.|
-|pre      | L     |                                                      | `aluipc reg1, %got_pcrel_hi(symbol)  lw reg1, %got_lo(symbol)(reg1)  [ls]X reg2, 0(reg1)` | 10/12+4 data | Uses LW\[16]/SW\[16] if the registers happen to be GPR3.|
+|pre      | A     |                                                      | `lw reg1, %got_page(symbol)($gp)  [ls][suff] reg2, %got_ofst(symbol)(reg1)` | 8+4 data | Generated only by the compiler. The linker has to transform this into one of the other pre-emptible sequences or relax it into a non-pre-emptible sequence.|
+|pre      | M     |                                                      | `lw reg1, %got_disp(symbol)($gp)  [ls][suff] reg2, 0(reg1)` | 6/8+4 data | Uses LW\[16]/SW\[16] if the registers happen to be GPR3.|
+|pre      | L     | NMF-only                                             | `lwpc reg1, %got_pcrel32(symbol)  [ls][suff] reg2, 0(reg1)` | 8/10+4 data | Uses LW\[16]/SW\[16] if the registers happen to be GPR3.|
+|pre      | L     |                                                      | `aluipc reg1, %got_pcrel_hi(symbol)  lw reg1, %got_lo(symbol)(reg1)  [ls][suff] reg2, 0(reg1)` | 10/12+4 data | Uses LW\[16]/SW\[16] if the registers happen to be GPR3.|
 
 ## Function call operation
 
