@@ -93,8 +93,7 @@ both loads and stores, and HU, BU, WU for loads-only).
 |non-pre  | L     |                                  | `aluipc reg, %pcrel_hi(symbol) ori reg, reg, %lo(symbol) jalrc $31, reg`  | 10/12 | Uses JALRC\[32] in insn32 mode and JALRC\[16] otherwise.|
 |**GOT-dependent addressing** ||||||
 |non-pre  |       | within GP+2MiB, refcount>=2, -Os | `lw reg, %got_disp(symbol)($gp) jalrc $31, reg` |  6/8+4 data | Generated only by the linker. Uses JALRC\[32] in insn32 mode and JALRC\[16] otherwise. |
-|pre      | A     |                                  | `lw reg, %got_call(symbol)($gp) jalrc   $31, reg : R_NANOMIPS_JALR symbol` | 6/8+4 data | Generated only by the compiler. The linker has to transform this into one of the other pre-emptible sequences or relax it into a non-pre-emptible sequence. Uses JALRC\[32] in insn32 mode and JALRC\[16] otherwise. |
-|pre      | M     |                                  | `lw reg, %got_disp(symbol)($gp) jalrc $31, reg` |  6/8+4 data | Uses JALRC\[32] in insn32 mode and JALRC\[16] otherwise.|
+|pre      | AM    |                                  | `lw reg, %got_call(symbol)($gp) jalrc   $31, reg : R_NANOMIPS_JALR symbol` | 6/8+4 data | Generated only by the compiler. The linker has to transform this into one of the other pre-emptible sequences or relax it into a non-pre-emptible sequence. Uses JALRC\[32] in insn32 mode and JALRC\[16] otherwise. |
 |pre      | L     | NMF-only                         | `lwpc reg, %got_pcrel32(symbol) jalrc $31, reg` | 8+4 data | Will always use JALRC\[16] because it will be skipped altogether for insn32 mode, as it is using LWPC, which is 48 bits long.|
 |pre      | L     |                                  | `aluipc reg, %got_pcrel_hi(symbol) lw reg, %got_lo(symbol)(reg) jalrc $31, reg` |  10/12+4 data | Uses JALRC\[32] in insn32 mode and JALRC\[16] otherwise.|
 
