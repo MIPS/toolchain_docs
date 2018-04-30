@@ -6,6 +6,7 @@ This section provides the following information for the nanoMIPS ABI:
 * Stack Frame
 * Object Format
 * Code and Data Models
+* TLS Models
 * Data Representation
 * Relocation Types
 
