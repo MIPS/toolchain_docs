@@ -12,7 +12,8 @@ model:
 * `%got_disp`: 21-bit (19-bit scaled) GOT displacement pointing to the
 symbol's GOT entry
 * `%got_call`: tells the linker that the address being loaded is a text
-address which will be used to call a function
+address which will be used to call a function; also used to indicate to the
+static linker that this function is eligible for lazy binding
 * `R_NANOMIPS_JALR16, R_NANOMIPS_JALR32`: tells the linker that it can relax
 this JALRC16 or JALRC32 to a BALC, if the symbol is non-pre-emptible.
 
@@ -36,8 +37,3 @@ displacement for large
 
 `%lo` is used in both absolute and PC-relative addressing because the upper
 part of the address will always end up at a 4KiB boundary.
-
-`%got_call` is different from `%call16` (found in other MIPS ABIs) in that
-`%call16` is used to indicate where a lazy evaluation stub can be introduced,
-while `%got_call` only indicates that the address being loaded is a text
-address and is subsequently used to call a function.
