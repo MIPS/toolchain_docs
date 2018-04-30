@@ -19,7 +19,7 @@
 | L  | | `li48 reg, %dtprel(symbol); addu reg, reg, reg_dtp` | 8/10 | R_NANOMIPS_TLS_DTPREL_I32 symbol |||
 |**Variable Access**|||||||
 | A  | within DTP+4KiB  | `[ls] reg, %dtprel(symbol)(reg_dtp)` | 4 | R_NANOMIPS_TLS_DTPREL12 symbol |||
-| AM | within DTP+64KiB | `addiu reg1, reg_dtp, %dtprel(symbol); [ls] reg2, 0(reg1)` | 6/8 | R_NANOMIPS_TLS_DTPREL16 symbol |||
+| M | within DTP+64KiB | `addiu reg1, reg_dtp, %dtprel(symbol); [ls] reg2, 0(reg1)` | 6/8 | R_NANOMIPS_TLS_DTPREL16 symbol |||
 | L  | | `li48 reg, %dtprel(symbol); [ls]x reg2, reg1(reg_dtp)` | 10 | R_NANOMIPS_TLS_DTPREL_I32 symbol |||
 
 ## Initial Exec
@@ -47,5 +47,5 @@
 | L  | | `li48 reg, %tprel(symbol); addu reg, reg, reg_tp` | 8/10 | R_NANOMIPS_TLS_TPREL_I32 symbol |||
 |**Variable Access**|||||||
 | A  | within TP+4KiB | `[ls] reg, %tprel(symbol)(reg_tp)` | 4 | R_NANOMIPS_TLS_TPREL12 symbol |||
-| AM | within TP+64KiB | `addiu reg1, reg_tp, %tprel(symbol);[ls] reg2, 0(reg1)` | 6/8 | R_NANOMIPS_TLS_TPREL16 symbol |||
+| M | within TP+64KiB | `addiu reg1, reg_tp, %tprel(symbol);[ls] reg2, 0(reg1)` | 6/8 | R_NANOMIPS_TLS_TPREL16 symbol |||
 | L  | | `li48 reg, %tprel(symbol); [ls]x reg2, reg1(reg_tp)` | 10 | R_NANOMIPS_TLS_TPREL_I32 symbol |||
