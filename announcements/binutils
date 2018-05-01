@@ -98,7 +98,7 @@ options is mostly consistent with MIPS. Many redundant options and directives
 have been removed, although some are silently accepted to allow easy porting of
 assembly code. Many new features specific to nanoMIPS have been added. The
 assembler interface is documented within the info pages, under Machine
-Dependant Features, as usual. Key features include:
+Dependent Features, as usual. Key features include:
 
 - Fine-grained directives and syntax to control linker relaxation
 - New formats for instruction selection that interact with linker relaxation
@@ -110,7 +110,7 @@ Dependant Features, as usual. Key features include:
   trampolines (balc-stubs)
 
 For GDB there is not much to note except that support is in place for bare
-metal debug with user-mode Linux in progress. The most notable difference for
+metal debug, with user-mode Linux in progress. The most notable difference for
 debugging is that the p32 ABI provides efficient stack unwinding by means of
 frame chaining.
 
@@ -140,18 +140,18 @@ assembly text is guaranteed to remain the same after linking. An expansion may
 happen during linking if, for instance, a symbol is out-of-range. An example of
 this is a BALC instruction being rewritten in-place to LAPC+JALRC. This means
 that with default options the linker can automatically expand any out-of-range
-reference without the need for recompile.
+reference without the need to recompile.
 
-The opposite of expansion is relaxation. The linker may transform an
-instruction into a more compressed one, for instance, it may replace a 32-bit
-BC instruction with a 16-bit BC if a symbol is within the range of the 16-bit
-instruction. Many rules are specified that allow complex transformation of
-multiple instructions to compress code as much as possible; each transformation
-is carefully designed so that each instruction can be considered in isolation
-as would normally happen in a linker.
+The opposite of expansion is relaxation, in which the linker may transform
+an instruction into a more compressed one. For instance, it may replace a
+32-bit BC instruction with a 16-bit BC if a symbol is within the range of the
+16-bit instruction. Many rules have to be followed in order to allow complex
+transformations of multiple instructions, which help compress the code as much
+as possible. Each transformation is carefully designed so that each instruction
+can be considered in isolation, as would normally happen in a linker.
 
 Any instruction with a relocation record pointing at it can be rewritten at
-link time unless the feature is disabled. This feature is implemented in a
+link time, unless this feature is disabled. This feature is implemented in a
 relaxation loop to allow the transformations to stabilise. 
 
 - Sorting output sections by reference:
@@ -160,16 +160,17 @@ In order to replace the maximum number of LWGP/SWGP instructions with
 LWGP16/SWGP16, the linker needs to place the most commonly referenced input
 sections in the first 512 bytes from the global pointer. The linker calculates
 the number of references to each 4-byte data section that can be compressed and
-using that information sorts those sections to be at the beginning; sections
-that don't go into the first 512 bytes are sorted by ascending size and
-descending alignment. This sort can only be used with -fdata-sections option in
-the compiler and requires relaxation to be enabled in the linker (--relax).
+uses that information when sorting to place those sections at the beginning.
+Sections that don't go into the first 512 bytes are sorted by ascending size
+and descending alignment. This sort can only be used with -fdata-sections
+option in the compiler and requires relaxation to be enabled in the linker
+(--relax).
 
-Beyond the nanoMIPS specific features, one of the major gold issues to overcome
-was to get the linker scripting support up to a standard that could cope with
-complex bare metal layout rules. A significant set of issues have been
-addressed some of which already had been posted to the binutils mailing list
-and others are new work. An outline of the improvements is below:
+Beyond the issues specific to nanoMIPS, we have had to overcome the issue of
+getting linker scripting support up to a standard that could cope with complex
+bare metal layout rules. As a result, a significant set of issues have been
+addressed. Some of them had already been posted to the binutils mailing list,
+but most of them are new work. Here is an outline of the improvements:
 
 Patches used from the binutils mailing list:
 

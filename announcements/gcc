@@ -82,11 +82,11 @@ GCC specific details
 The back-end
 ------------
 
-Instead of creating a new nanoMIPS back-end, we decided to reuse the existing
-MIPS back-end.  Starting from scratch would have required copying the majority
-of code but most of the logic would have remained the same.  Reusing allowed
-us to speed up porting.  Maintenance might be more difficult but a fix for
-nanoMIPS could automatically be a fix MIPS and vice versa.
+Instead of creating a new back-end for nanoMIPS, we decided to reuse the
+existing MIPS back-end.  Starting from scratch would have required copying the
+majority of code but most of the logic would have remained the same.  Reusing
+allowed us to speed up porting.  Maintenance might be more difficult but a fix
+for nanoMIPS could automatically be a fix MIPS and vice versa.
 
 Most of the back-end is contained within a small number of files.  The shared
 part is mostly in mips.{h,c,md,opt} files.  The MIPS toolchains use
@@ -94,30 +94,31 @@ mips-classic.md as the entry file (instead of mips.md) i.e. it includes
 shareable mips.md, processor configuration and includes all other .md files as
 necessary.  nanomips.md is used as the entry file for nanoMIPS toolchains and
 similarly includes its own processors list, mips.md and other machine
-descriptions files as needed.  In this way, it makes easier to enable the
-features that can be shared between the two.  Some chunks of the back-end code
-had to be enabled conditionally as the compiler would fail to build (missing
-patterns etc).  Lastly, we needed to clean up nanoMIPS' target options by
-disabling them in mips.opt and create a number nanoMIPS specific files to keep
-the separation as clear as possible.
+descriptions files as needed.  Doing it in this way makes it easier to enable
+features which can be shared between the two.  Some chunks of the back-end
+code had to be enabled conditionally, as the compiler would otherwise fail to
+build (missing patterns etc).  Lastly, we needed to clean up nanoMIPS' target
+options by disabling them in mips.opt, and also create a number nanoMIPS
+specific files to keep the separation as clear as possible.
 
 The p32 ABI [2]
 ---------------
 
 1. Calling convention
 
-To avoid major porting issues, the register conventions have been mostly left
-intact and resemble MIPS n32/n64 ABIs.  The main difference is removal of
-dedicated return registers ($2/v0, $3/v1) and using the argument registers to
-return values from functions.  The old return registers have been re-purposed
-and became temporaries.  This allowed a better code density with more
-efficient data passing between functions e.g. foo(bar()).  This is
-particularly visible in soft-float mode where more complex expressions require
-multiple library calls.
+To avoid major porting issues, the register conventions have been left mostly
+intact, and resemble the MIPS n32/n64 ABIs.  The main difference is the
+removal of dedicated return registers ($2/v0, $3/v1) and using the argument
+registers to return values from functions.  The old return registers have been
+re-purposed and have now become temporaries.  This allowed us to achieve
+better code density because of more efficient data passing between functions
+e.g. foo(bar()).  This is particularly visible in soft-float mode, where more
+complex expressions require multiple library calls.
 
-The ABI requires named registers i.e. $0..$31 is no longer supported (unless
--mlegacyregs is used).  $r0..$r31 should be used or names depending on the
-function (arguments: $a0..$a7, saved temporaries $s0..$s7 etc).
+The nanoMIPS ABI requires the usage of either named registers, such as
+$a0..$a7 for arguments, $s0..$s7 for saved temporaries, etc. or of the
+$r0..$r31 format.  Using $0..$31 is no longer supported by default, but can be
+re-enabled by using -mlegacyregs.
 
 2. Stack frame organization
 
@@ -129,9 +130,9 @@ program counter, going backwards.  With this change, finding the location is
 trivial, however, it's important to point out that the frame pointer is biased
 by 4096 bytes i.e. logical_frame_pointer = $fp + 4096.  The rationale was to
 enable full use of the unsigned 12-bit offsets in memory instructions when
-using the frame pointer as the base.  Also, the notable difference is the
-order of general-purpose registers on the stack.  This reflects the operation
-of the SAVE/RESTORE instructions in the nanoMIPS ISA.
+using the frame pointer as the base.  Another notable difference is in the
+order of general-purpose registers on the stack, which now reflects the
+operation of the SAVE/RESTORE instructions from the nanoMIPS ISA.
 
 3. Code and data models
 
@@ -196,7 +197,7 @@ since posting.  A case was found where LRA produced suboptimal code for a
 large frame and frame growing downward.  The code size was affected
 particularly in cases where the offset was large and could not be used in an
 add operation directly introducing more instructions for a single frame
-access.  Using the equivalences, the frame pointer gets more often eliminated
+access.  Using the equivalences, the frame pointer gets eliminated more often,
 resulting in smaller code.  The reasons are twofold: register pressure drops
 resulting in fewer spills and the offset might be smaller fitting into a
 single add instruction for every frame access.
@@ -205,32 +206,32 @@ single add instruction for every frame access.
 
 The goal of register cost adjustment optimization is to make better usage of
 instructions that improve code density.  This group of instructions includes
-16-bit instructions and 32-bit nanoMIPS instructions that replace two other
+16-bit instructions and 32-bit nanoMIPS instructions which replace two other
 instructions (e.g. movep, move.balc, etc).  Most of these instructions can use
 only a subset of all available registers and the purpose of this optimization
 is to increase the chances that pseudo registers used inside these
 instructions are assigned to the required hard registers.  This is achieved by
 introducing a new target hook through which the cost of corresponding hard
 registers is modified just before allocation of a pseudo register.  Cost
-modification is based on properties of all instructions in which pseudo
+modification is based on the properties of all instructions in which a pseudo
 register is used.  If assigning a pseudo to some hard registers would lead to
 more dense code e.g. by being able to generate 16-bit instructions, then the
 cost of these hard registers is decreased.  Otherwise, the cost of the hard
-registers is increased, thus improving chances that these hard registers will
-be available for pseudos that are allocated later in the process.
+registers is increased, thus improving the chances that these hard registers
+will be available for pseudos that are allocated later in the process.
 
 3. Jump-table optimization (-fjump-table-clusters)
 
-The optimization enables splitting of a single switch statement into a
+The optimization enables the splitting of a single switch statement into a
 combination of multiple jump tables and decision trees.  GCC currently emits
 either a single jump table or decision tree.  The optimization can be enabled
-by the command line option -fjump-table-clusters and it works independently of
-target.  A MIPS specific option has been added (-mjump-table-density=DENSITY)
-to change the default density.  Density is the minimum percentage of
-non-default case indices in a jump table.  If not specified, GCC will default
-density to 40% if optimizing for size and 10% if optimizing for speed.  The
-target option will be later replaced by an appropriate --param
-jump-table-density option or similar.
+by the command line option -fjump-table-clusters and is target-independent.
+A MIPS specific option has been added (-mjump-table-density=DENSITY) to change
+the default density.  DENSITY is the minimum percentage of non-default case
+indices in a jump table.  If not specified, GCC will use the default density
+of 40%, if optimizing for size, and 10%, if optimizing for speed.  The target
+option will be later replaced by an appropriate --param jump-table-density
+option or something similar.
 
 4. Edge sorting for -Os during basic block reordering
    (-freorder-blocks-edge-sort=[one|two|all|default])
@@ -250,42 +251,41 @@ Target-specific optimizations
 
 1. Optimized inline memcpy (-mmemcpy-interleave=NUM/-mmulti-memcpy)
 
-The options have been introduced to control inlined memcpy.  -mmulti-memcpy
-attempts to exploit Load/Store Word Multiple instructions and
+These options have been introduced to control the inlined memcpy.
+-mmulti-memcpy attempts to exploit Load/Store Word Multiple instructions and
 -mmemcpy-interleave=NUM controls how loads and stores are interleaved i.e. how
 many NUM words are loaded first before storing them.
 
 2. MOVEP/MOVE.BALC/RESTORE.JRC
 
-The machine-dependent hook will attempt to find opportunities in the
+A machine-dependent hook will attempt to find opportunities in the
 instruction stream to combine instructions into MOVEP, MOVE.BALC or
 RESTORE.JRC to improve code density.  MOVE.BALC can be controlled with
 -m[no-]opt-movebalc switch.
 
 3. Offset shrinking pass (-m[no-]shrink-offsets)
 
-The pass processes the instruction stream, extracts offsets from memory
-accesses and then tries to figure out the best offset adjustment to get
+This pass processes the instruction stream, extracts offsets from memory
+accesses, and then tries to figure out the best offset adjustment to get the
 maximum potential code size savings.  We take into account the cost of
 introducing a new add instruction that could undo the code size savings.  As
 the pass is run before the register allocation, we can only speculate and be
 optimistic about the potential code size improvement.  These guesses appear to
-be relatively good on average but might need to be considered a case by case
-basis.
+be relatively good on average but might need to be considered on a case by
+case basis.
 
 4. Jump-table optimization (-mjump-table-opt)
 
-The switch enables jump-tables that contain relative addresses.
+This switch enables jump-tables which contain relative addresses.
 
 5. BALC stubs (-m[no-]balc-stubs)
 
-This code size optimization is not being performed in the compiler but the
-flag is passed to the assembler.  It controls out-of-range call optimization
-through trampoline stubs.  It is enabled by default when optimizing for size.
+This code size optimization is not performed by the compiler, but by the
+the assembler.  It controls out-of-range call optimization through trampoline
+stubs.  It is enabled by default when optimizing for size.
 
-Note that the 64-bit ISA, floating-point support and ABI for these are still
-WIP.  The GCC implementation has some support for 64-bit and the
-floating-point but are neither finalized nor officially supported.
+Note that support for 64-bit and floating-point is not finalized and still
+unofficial.
 
 GCC contributors
 ================
