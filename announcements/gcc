@@ -311,7 +311,26 @@ GCC contributors
   Stefan Markovic
   Sara Popadic
 
+Corresponding technical detail for other toolchain components can
+be found in the following archived posts.
+
+binutils/gdb/gold
+=================
+https://sourceware.org/ml/binutils/2018-05/msg00003.html
+
+qemu
+====
+http://lists.nongnu.org/archive/html/qemu-devel/2018-05/msg00081.html
+
+musl
+====
+http://www.openwall.com/lists/musl/2018/05/01/6
+
+References:
+
 [1] https://www.mips.com/press/new-mips-i7200-processor-core-delivers-unmatched-performance-and-efficiency-for-advanced-lte5g-communications-and-networking-ic-designs/
+
 [2] Codescape GNU tools for nanoMIPS: ELF ABI Supplement,
     https://codescape.mips.com/components/toolchain/nanomips/2018.04-02/docs/MIPS_nanoMIPS_ABI_supplement_01_02_DN00179.pdf
+
 [3] https://patchwork.ozlabs.org/patch/666637/
