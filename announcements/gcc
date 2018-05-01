@@ -96,7 +96,7 @@ necessary.  nanomips.md is used as the entry file for nanoMIPS toolchains and
 similarly includes its own processors list, mips.md and other machine
 descriptions files as needed.  In this way, it makes easier to enable the
 features that can be shared between the two.  Some chunks of the back-end code
-had to be enabled conditionally as compiler would fail to build (missing
+had to be enabled conditionally as the compiler would fail to build (missing
 patterns etc).  Lastly, we needed to clean up nanoMIPS' target options by
 disabling them in mips.opt and create a number nanoMIPS specific files to keep
 the separation as clear as possible.
@@ -121,7 +121,7 @@ function (arguments: $a0..$a7, saved temporaries $s0..$s7 etc).
 
 2. Stack frame organization
 
-The major change in comparison to the previous MIPS ABIs is the change of the
+The major change in comparison to the previous MIPS ABIs is changing the
 location of the frame pointer.  The frame pointers now form a chain that will
 allow an efficient stack unwinding.  Previously, in order to find the location
 of the frame-pointer, the instructions had to be scanned at the current
@@ -204,7 +204,7 @@ single add instruction for every frame access.
 2. IRA register recoloring (-fadjust-costs)
 
 The goal of register cost adjustment optimization is to make better usage of
-instructions that improve code density.  In this group of instructions are all
+instructions that improve code density.  This group of instructions includes
 16-bit instructions and 32-bit nanoMIPS instructions that replace two other
 instructions (e.g. movep, move.balc, etc).  Most of these instructions can use
 only a subset of all available registers and the purpose of this optimization
@@ -282,7 +282,6 @@ The switch enables jump-tables that contain relative addresses.
 This code size optimization is not being performed in the compiler but the
 flag is passed to the assembler.  It controls out-of-range call optimization
 through trampoline stubs.  It is enabled by default when optimizing for size.
-
 
 Note that the 64-bit ISA, floating-point support and ABI for these are still
 WIP.  The GCC implementation has some support for 64-bit and the

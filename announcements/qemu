@@ -86,10 +86,10 @@ changes include:
 
 - The Unified Hosting Interface (UHI) for semihosting is supported and,
   in-keeping with the aims of the interface, the same ABI is used with nanoMIPS
-  as MIPS.
+  as MIPS
 - Linux user-mode support has been updated significantly compared to MIPS to
   follow the new nanoMIPS ABI which utilizes most of the generic syscall and
-  signal infrastructure from the Linux kernel.
+  signal infrastructure from the Linux kernel
 
 The QEMU build targets for nanoMIPS are nanomips-softmmu and
 nanomips-linux-user rather than the existing mips targets, because nanoMIPS is
