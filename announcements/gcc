@@ -14,8 +14,8 @@ contribute back to the community.  While doing this work many of us have been
 unable to contribute to the community as actively as we would have liked, we
 are therefore very grateful for the community support given to the MIPS
 architecture over the last 18 months.  This announcement has a general
-introduction at the start, so if you have read that for one of the GNU tools
-then you can skip down to the information specific to GCC.
+introduction at the start, so if you have already read it for one of the other
+tools, you can skip down to the information specific to GCC.
 
 For anyone who knows the MIPS architecture you may well wonder why we are
 introducing another major variant and the question is perfectly valid.  We do
