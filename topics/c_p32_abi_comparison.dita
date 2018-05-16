@@ -53,21 +53,6 @@
       <entry>2 (<codeph>$r4..$r5</codeph>)</entry>
      </row>
      <row>
-      <entry>Width of FP registers</entry>
-      <entry>32/64 bits</entry>
-      <entry>64 bits</entry>
-     </row>
-     <row>
-      <entry>Number of FP registers</entry>
-      <entry>16 (FR=0) or 32 (FR=1)</entry>
-      <entry>32</entry>
-     </row>
-     <row>
-      <entry>Number of FP argument registers</entry>
-      <entry>4</entry>
-      <entry>8</entry>
-     </row>
-     <row>
       <entry>Stack region alignment</entry>
       <entry>8 bytes</entry>
       <entry>16 bytes</entry>
@@ -76,11 +61,6 @@
       <entry>Stack slot size for GPRs</entry>
       <entry>32 bits</entry>
       <entry>32 bits</entry>
-     </row>
-     <row>
-      <entry>Stack slot size for FPRs</entry>
-      <entry>32 bits</entry>
-      <entry>64 bits</entry>
      </row>
      <row>
       <entry>Debug format</entry>
@@ -95,8 +75,5 @@
     </tbody>
    </tgroup>
   </table>
-  <note>The FR=0 mode describes an FPU where registers are constructed of 32-bit parts and there are
-   16 double-precision registers. The double-precision registers exist at even indices and their
-   upper half exists in the odd indices.</note>
  </conbody>
 </concept>
