@@ -26,14 +26,18 @@
          short mips_get_half (void *addr, int *err)</codeph></p><p><codeph>unsigned int
          mips_get_word (void *addr, int *err)</codeph></p><codeph> unsigned long long mips_get_dword
         (void *addr, int *err)</codeph></entry>
-      <entry>Return the byte, half-word, word, or double-word at address addr.</entry>
+      <entry>Return the byte, halfword, word, or dword at address addr. If the address is invalid,
+       then *err may be set to a non-zero value; otherwise *err is unchanged. You can use these
+       functions when accessing arbitrary memory locations outside of your program, to ensure that
+       peculiarities of your system or CPU address map are handled correctly.</entry>
      </row>
      <row>
       <entry><codeph>mips_put_byte (void *addr, unsigned char val)</codeph><p><codeph>mips_put_half
          (void *addr, unsigned short val)</codeph></p><p><codeph>mips_put_word (void *addr, unsigned
          int val)</codeph></p><codeph> mips_put_dword (void *addr, unsigned long long
        val)</codeph></entry>
-      <entry>Store a byte, half-word, word, or double-word val to arbitrary address addr.</entry>
+      <entry>Store a byte, halfword, word, or dword val to arbitrary address addr. If the address is
+       invalid, then a non-zero value may be returned, otherwise they return zero.</entry>
      </row>
     </tbody>
    </tgroup>

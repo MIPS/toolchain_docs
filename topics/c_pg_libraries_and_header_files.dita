@@ -8,8 +8,7 @@
    the flags you give the compiler - see <xref href="c_pg_supported_configurations.dita"/>. The C
    libraries and associated header files follow the ISO C Standard (ISO 9899:1990[1992]), also known
    as ISO C90, and formerly the ANSI X3J11 committee’s standard for the C programming language
-   (called the ANSI C standard in this manual). This has been validated using the Plum Hall
-   Validation Suite.</p>
+   (called the ANSI C standard in this manual).</p>
   <p>The following additional libraries are provided for bare-metal environments. These libraries
    are available as both sources and binary components:</p>
   <ul id="ul_ryq_gg3_1cb">
@@ -17,15 +16,18 @@
     standard (C99). <p>SmallCLib has been specially tuned for embedded environment, where code size
      and run-time memory requirements are critical. SmallCLib aims to provide as much functionality
      as possible in the smallest amount of space. It is implemented in C with selective use of
-     extended assembly and comes in two flavours: </p></li>
+   extended assembly and comes in two flavours: </p>
+   <ol>
     <li>A small flavour which is ISO C Standard (ISO 9899:1999) compliant and functionally
      identical to Newlib 2.5. Space saving is achieved by refactoring code to eliminate redundancy,
      occasionally at the expense of speed. In versions tuned for the latest nanoMIPS ISA, new
      instructions are used aggressively, thereby reducing code size and in some cases improving
-     performance. This variant is validated using the Plum Hall Validation suite.</li>
+     performance.</li>
     <li>A tiny flavour which diverges from both the ISO standard and Newlib behaviour in select
      areas. This variant is aggressively optimized for code size, in lieu of performance and
-     features are reduced to the minimum set expected of a space-contrained embedded platform.</li>
+    features are reduced to the minimum set expected of a space-contrained embedded platform.</li>
+   </ol>
+   </li>
   </ul>
   <p>Both flavours are available as multiple pre-built configurations, where a small footprint
    library is deemed to be most relevant. However, the libraries can be built for any configuration

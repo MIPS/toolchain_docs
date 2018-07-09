@@ -281,6 +281,18 @@
       <entry>Operations on the SRSConf0-4 Registers (CP0 Register 6, Select 1-5)</entry>
      </row>
      <row>
+      <entry><codeph>mips32_*bcopcontrol</codeph></entry>
+      <entry>Operations on the Batch Cache Operation Control Register (CP0 Register 22, Select 0)</entry>
+     </row>
+     <row>
+      <entry><codeph>mips32_*bcopstatus</codeph></entry>
+      <entry>Operations on the Batch Cache Operation Status Register (CP0 Register 22, Select 1)</entry>
+     </row>
+     <row>
+      <entry><codeph>mips32_*sramcontrol</codeph></entry>
+      <entry>Operations on the Core Control Register (CP0 Register 22, Select 3)</entry>
+     </row>
+     <row>
       <entry><codeph>mips32_mt_settarget (int vpe, int tc)</codeph></entry>
       <entry>Selects the target VPE and TC number for the following access functions.</entry>
      </row>

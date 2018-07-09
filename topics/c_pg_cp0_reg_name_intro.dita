@@ -26,12 +26,93 @@
      <row>
       <entry><codeph>C0_RANDOM</codeph></entry>
       <entry>Random Register</entry>
-      <entry>Randomly generated index into the TLB array</entry>
+      <entry>Randomly generated index into the TLB array (deprecated)</entry>
+     </row>
+     <row>
+      <entry><codeph>C0_MVPCONTROL</codeph></entry>
+      <entry>MVPControl</entry>
+      <entry>Processor-wide multithreading control</entry>
+     </row>
+     <row>
+      <entry><codeph>C0_MVPCONF0</codeph></entry>
+      <entry>MVPConf0</entry>
+      <entry>Processor's multithreading resources</entry>
+     </row>
+     <row>
+      <entry><codeph>C0_MVPCONF1</codeph></entry>
+      <entry>MVPConf1</entry>
+      <entry>Processor's multithreading resources</entry>
+     </row>
+     <row>
+      <entry><codeph>C0_MVPCONTROL</codeph></entry>
+      <entry>MVPControl</entry>
+      <entry>Processor-wide multithreading control</entry>
+     </row>
+     <row>
+      <entry><codeph>C0_VPECONTROL</codeph></entry>
+      <entry>VPEControl</entry>
+      <entry>VPE control and status</entry>
+     </row>
+     <row>
+      <entry><codeph>C0_VPECONF0</codeph></entry>
+      <entry>VPEConf0</entry>
+      <entry>Initializable per-VPE resource lists</entry>
+     </row>
+     <row>
+      <entry><codeph>C0_VPECONF1</codeph></entry>
+      <entry>VPEConf1</entry>
+      <entry>Initializable per-VPE resource lists</entry>
+     </row>
+     <row>
+      <entry><codeph>C0_YQMASK</codeph></entry>
+      <entry>YQMask</entry>
+      <entry>Defines valid inputs for yield instruction</entry>
+     </row>
+     <row>
+      <entry><codeph>C0_VPEOPT</codeph></entry>
+      <entry>VPEOpt</entry>
+      <entry>Per-VPE cache-way inhibition</entry>
      </row>
      <row>
       <entry><codeph>C0_ENTRYLO0</codeph></entry>
       <entry>EntryLo0</entry>
-      <entry>Low-order portion of the TLB entry for even-numbered virtual pages</entry>
+      <entry>Low-order portion of the TLB entry for even-numbered virtual
+ pages</entry>
+     </row>
+     <row>
+      <entry><codeph>C0_TCSTATUS</codeph></entry>
+      <entry>TCStatus</entry>
+      <entry>Status and control for each TC</entry>
+     </row>
+     <row>
+      <entry><codeph>C0_TCBIND</codeph></entry>
+      <entry>TCBind</entry>
+      <entry>VPE affiliation and own TC number of this TC</entry>
+     </row>
+     <row>
+      <entry><codeph>C0_TCRESTART</codeph></entry>
+      <entry>TCRestart</entry>
+      <entry>Where this TC will next fetch code from</entry>
+     </row>
+     <row>
+      <entry><codeph>C0_TCHALT</codeph></entry>
+      <entry>TCHalt</entry>
+      <entry>Set 1 to freeze the TC for inspection/modification</entry>
+     </row>
+     <row>
+      <entry><codeph>C0_TCCONTEXT</codeph></entry>
+      <entry>TCContext</entry>
+      <entry>Read/write scratch register for OS to maintain thread ID</entry>
+     </row>
+     <row>
+      <entry><codeph>C0_TCSCHEDULE</codeph></entry>
+      <entry>TCSchedule</entry>
+      <entry>Per-TC thread scheduling hints</entry>
+     </row>
+     <row>
+      <entry><codeph>C0_TCSCHEFBACK</codeph></entry>
+      <entry>TCScheFBack</entry>
+      <entry>Per-TC register to provide scheduling feed-back to software</entry>
      </row>
      <row>
       <entry><codeph>C0_ENTRYLO1</codeph></entry>
@@ -56,8 +137,9 @@
      <row>
       <entry><codeph>C0_USERLOCAL</codeph></entry>
       <entry>UserLocal</entry>
-      <entry>User information that can be written by privileged software and read via RDHWR register
-       29. If the processor implements the MIPS® MT Module, this is a per-TC register.</entry>
+      <entry>User information that can be written by privileged software and
+read via RDHWR register 29. If the processor implements the MIPS® MT Module,
+this is a per-TC register.</entry>
      </row>
      <row>
       <entry><codeph>C0_XCONTEXTCONF</codeph></entry>
@@ -110,6 +192,11 @@
       <entry>Controls the number of fixed (“wired”) TLB entries</entry>
      </row>
      <row>
+      <entry><codeph>C0_SRSCONF0</codeph></entry>
+      <entry>SRCConf0</entry>
+      <entry>Write these to use TCs as shadow registers</entry>
+     </row>
+     <row>
       <entry><codeph>C0_PWCTL</codeph></entry>
       <entry>PWCtl</entry>
       <entry>HW Page Walker Control</entry>
@@ -127,13 +214,14 @@
      <row>
       <entry><codeph>C0_BADINSTR</codeph></entry>
       <entry>BadInstr</entry>
-      <entry>BadInstr Reports the instruction which caused the most recent exception.</entry>
+      <entry>BadInstr Reports the instruction which caused the most recent
+exception</entry>
      </row>
      <row>
       <entry><codeph>C0_BADINSTRX</codeph></entry>
       <entry>BadInstrX</entry>
-      <entry>Report the last 16-bits of a 48-bit instruction that caused the most
-	recent exception.</entry>
+      <entry>Report the last 16-bits of a 48-bit instruction that caused the
+most recent exception</entry>
      </row>
      <row>
       <entry><codeph>C0_COUNT</codeph></entry>
@@ -178,7 +266,8 @@
      <row>
       <entry><codeph>C0_NESTEDEXC</codeph></entry>
       <entry>NestedExc</entry>
-      <entry>Nested exception Support - EXL, ERL values at current exception</entry>
+      <entry>Nested exception Support - EXL, ERL values at current
+exception</entry>
      </row>
      <row>
       <entry><codeph>C0_EPC</codeph></entry>
@@ -188,7 +277,8 @@
      <row>
       <entry><codeph>C0_NEPC</codeph></entry>
       <entry>NestedEPC</entry>
-      <entry>Nested exception Support - Program Counter at current exception</entry>
+      <entry>Nested exception Support - Program Counter at current
+exception</entry>
      </row>
      <row>
       <entry><codeph>C0_PRID</codeph></entry>
@@ -209,6 +299,11 @@
       <entry><codeph>C0_CMGCRBASE</codeph></entry>
       <entry>CMGCRBase</entry>
       <entry>Coherency Manager Global Control Register Base register</entry>
+     </row>
+     <row>
+      <entry><codeph>C0_BEVVA</codeph></entry>
+      <entry>BEVVA</entry>
+      <entry>Boot Exception Vector Virtual Address</entry>
      </row>
      <row>
       <entry><codeph>C0_CONFIG</codeph></entry>
@@ -246,6 +341,11 @@
       <entry>Configuration register 5</entry>
      </row>
      <row>
+      <entry><codeph>C0_CONFIG7</codeph></entry>
+      <entry>Config7</entry>
+      <entry>I7200 family-specific configuration register</entry>
+     </row>
+     <row>
       <entry><codeph>C0_LLADDR</codeph></entry>
       <entry>LLAddr</entry>
       <entry>Load linked address</entry>
@@ -269,6 +369,21 @@
       <entry><codeph>C0_WATCHHI</codeph></entry>
       <entry>WatchHi</entry>
       <entry>Watchpoint control</entry>
+     </row>
+     <row>
+      <entry><codeph>C0_BCOPCONTROL</codeph></entry>
+      <entry>BatchCacheOpControl</entry>
+      <entry>Batch Cache Operation control register</entry>
+     </row>
+     <row>
+      <entry><codeph>C0_BCOPSTATUS</codeph></entry>
+      <entry>BatchCacheOpStatus</entry>
+      <entry>Batch Cache Operation status register</entry>
+     </row>
+     <row>
+      <entry><codeph>C0_SRAMCONTROL</codeph></entry>
+      <entry>Core Control</entry>
+      <entry>Controls configurations and micro-architecture features</entry>
      </row>
      <row>
       <entry><codeph>C0_XCONTEXT</codeph></entry>
@@ -296,6 +411,46 @@
       <entry>Performance counter interface</entry>
      </row>
      <row>
+      <entry><codeph>C0_PERFCTL0</codeph></entry>
+      <entry>PerfCtl0</entry>
+      <entry>Performance counter 0 control</entry>
+     </row>
+     <row>
+      <entry><codeph>C0_PERFCNT0</codeph></entry>
+      <entry>PerfCnt0</entry>
+      <entry>Performance counter 0</entry>
+     </row>
+     <row>
+      <entry><codeph>C0_PERFCTL1</codeph></entry>
+      <entry>PerfCtl1</entry>
+      <entry>Performance counter 1 control</entry>
+     </row>
+     <row>
+      <entry><codeph>C0_PERFCNT1</codeph></entry>
+      <entry>PerfCnt1</entry>
+      <entry>Performance counter 1</entry>
+     </row>
+     <row>
+      <entry><codeph>C0_PERFCTL2</codeph></entry>
+      <entry>PerfCtl2</entry>
+      <entry>Performance counter 2 control</entry>
+     </row>
+     <row>
+      <entry><codeph>C0_PERFCNT2</codeph></entry>
+      <entry>PerfCnt2</entry>
+      <entry>Performance counter 2</entry>
+     </row>
+     <row>
+      <entry><codeph>C0_PERFCTL3</codeph></entry>
+      <entry>PerfCtl3</entry>
+      <entry>Performance counter 3 control</entry>
+     </row>
+     <row>
+      <entry><codeph>C0_PERFCNT3</codeph></entry>
+      <entry>PerfCnt3</entry>
+      <entry>Performance counter 3</entry>
+     </row>
+     <row>
       <entry><codeph>C0_ERRCTL</codeph></entry>
       <entry>ErrCtl</entry>
       <entry>Parity/ECC error control and status</entry>
@@ -312,12 +467,13 @@
      </row>
      <row>
       <entry><codeph>C0_ITAGLO</codeph></entry>
-      <entry> </entry>
-      <entry>Cache-tag interface, implementation specific (instruction low).</entry>
+      <entry>ITagLo</entry>
+      <entry>Cache-tag interface, implementation specific (instruction
+low).</entry>
      </row>
      <row>
       <entry><codeph>C0_DTAGLO</codeph></entry>
-      <entry> </entry>
+      <entry>DTagLo</entry>
       <entry>Cache-tag interface, implementation specific (data low).</entry>
      </row>
      <row>
@@ -332,12 +488,12 @@
      </row>
      <row>
       <entry><codeph>C0_IDATALO</codeph></entry>
-      <entry> </entry>
+      <entry>IDataLo</entry>
       <entry>Cache-tag interface, implementation specific (data low).</entry>
      </row>
      <row>
       <entry><codeph>C0_DDATALO</codeph></entry>
-      <entry> </entry>
+      <entry>DDataLo</entry>
       <entry>Cache-tag interface, implementation specific (data low).</entry>
      </row>
      <row>
@@ -352,12 +508,13 @@
      </row>
      <row>
       <entry><codeph>C0_ITAGHI</codeph></entry>
-      <entry> </entry>
-      <entry>Cache-tag interface, implementation specific (instruction high).</entry>
+      <entry>ITagHi</entry>
+      <entry>Cache-tag interface, implementation specific (instruction
+high).</entry>
      </row>
      <row>
       <entry><codeph>C0_DTAGHI</codeph></entry>
-      <entry> </entry>
+      <entry>DTagHi</entry>
       <entry>Cache-tag interface, implementation specific (data high).</entry>
      </row>
      <row>
@@ -367,12 +524,12 @@
      </row>
      <row>
       <entry><codeph>C0_IDATAHI</codeph></entry>
-      <entry> </entry>
+      <entry>IDataHi</entry>
       <entry>Cache-tag interface, implementation specific.</entry>
      </row>
      <row>
       <entry><codeph>C0_DDATAHI</codeph></entry>
-      <entry> </entry>
+      <entry>DDataHi</entry>
       <entry>Cache-tag interface, implementation specific (data high).</entry>
      </row>
      <row>
@@ -418,6 +575,6 @@
     </tbody>
    </tgroup>
   </table>
-  
+
  </conbody>
 </concept>
