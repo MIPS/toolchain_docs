@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE map PUBLIC "-//OASIS//DTD DITA Map//EN" "map.dtd">
+<map>
+ <title>Tuning memcpy for MIPS cores</title>
+ <topicref href="topics/memcpy_intro.md" format="markdown"/>
+ <topicref href="topics/memcpy_tuning_parameters.md" format="markdown">
+   <topicref href="topics/memcpy_struct_controls.md" format="markdown">
+     <topicref href="topics/memcpy_enable_prefetch.md" format="markdown"/>
+     <topicref href="topics/memcpy_enable_prefetch_check.md" format="markdown"/>
+     <topicref keys="BLOCK_SIZE" href="topics/memcpy_block_size.md" format="markdown"/>
+   </topicref>
+   <topicref href="topics/memcpy_core_controls.md" format="markdown">
+     <topicref href="topics/memcpy_hw_unaligned.md" format="markdown"/>
+     <topicref href="topics/memcpy_unaligned_instr.md" format="markdown"/>
+     <topicref keys="CACHE_LINE" href="topics/memcpy_cache_line.md" format="markdown"/>
+     <topicref keys="LATENCY_CYCLES" href="topics/memcpy_latency_cycles.md" format="markdown"/>
+     <topicref keys="BLOCK_CYCLES" href="topics/memcpy_block_cycles.md" format="markdown">
+       <topicref keys="BLOCK_CYCLES_MEASUREMENT" href="topics/memcpy_block_cycles_measurement.md" format="markdown"/>
+     </topicref>
+   </topicref>
+   <topicref href="topics/memcpy_derived_controls.md" format="markdown">
+     <topicref keys="PREF_AHEAD" href="topics/memcpy_pref_ahead.md" format="markdown"/>
+     <topicref keys="CACHE_LINES_PER_BLOCK" href="topics/memcpy_cache_lines_per_block.md" format="markdown"/>
+   </topicref>
+ </topicref>
+ <topicref href="topics/memcpy_tuning_quickstart.md" format="markdown"/>
+</map>
+
