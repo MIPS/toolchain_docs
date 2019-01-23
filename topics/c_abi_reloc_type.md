@@ -138,7 +138,8 @@ below along with example usage.
 | R_NANOMIPS_FIXED (68)       | none       | No relaxation or expansion at this instruction.  |
 | R_NANOMIPS_NORELAX (69)     | none       | Inhibit relaxation/expansion until subsequent RELAX relocation  |
 | R_NANOMIPS_RELAX (70)       | none       | Activate relaxation/expansion until subsequent NORELAX relocation |
-| R_NANOMIPS_SAVERESTORE (71) | none       | Placeholder relocation for 32-bit save/restore instructions with GP-bit in PIC mode. |
+| R_NANOMIPS_SAVERESTORE (71) | function symbol   | Placeholder relocation for 32-bit save/restore instructions with GP-bit in PIC mode. |
 | R_NANOMIPS_INSN16 (72)      | none       | Inhibit relaxation to 32-bits. |
 | R_NANOMIPS_JALR32 (73)      | none       | Hint for a 32-bit jump-and-link instruction to allow it to be relaxed for locally resolved symbols to an unconditional branch. |
 | R_NANOMIPS_JALR16 (74)      | none       | Hint for a 16-bit jump-and-link instruction to allow it to be relaxed for locally resolved symbols to an unconditional branch. |
+| R_NANOMIPS_JUMPTABLE_LOAD (75) | jump-table symbol | Hint for a scaled load instruction from a jump-table to be modified to match type-relaxation in the jump-table. |
