@@ -3,7 +3,5 @@
 <map>
  <title>Using QEMU with <ph keyref="var_nano"/> programs</title>
  <topicref href="topics/c_gs_qemu_intro.dita">
-  
-  <topicref href="topics/c_support.dita"/>
  </topicref>
 </map>
