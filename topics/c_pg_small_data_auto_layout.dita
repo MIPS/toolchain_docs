@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="concept_acz_44p_1cb">
+ <title>Linker-automated optimized layout</title>
+ <conbody>
+   <p>In this scheme, the linker sorts all small data items in a particular
+order tuned to the limitations of the nanoMIPS ISA. This scheme is not the
+default. The user still needs to restrict the amount of small data according
+to the ISA-specified limits described above, in order to get an optimal
+layout. However, in case the limits are breached, the optimization degrades
+gracefully as compared to a script managed layout.</p>
+
+   <p>The main disadvantage of this scheme is the added complexity. It
+requires custom linker scripts and a slightly modified compile-link workflow
+as described below.</p>
+
+   <p>Some compiler options are necessary in order to use this scheme. Firstly
+<codeph>-fdata-sections</codeph> is needed to break data items up such that
+there is only one per-section. This allows the linker to treat each section
+independently and because there is one data item per section this creates a
+1-to-1 relationship between variables that the user understands and sections
+that the linker understands. The user must also explicitly inhibit the
+separation of small data items according to type, using the compiler option
+<codeph>-mno-ssdata</codeph>. It is also important to disable the use of
+common symbols using <codeph>-fno-common</codeph>; these symbols cannot be
+taken into account for this feature due to the linkage rules for them.</p>
+
+<codeblock>nanomips-elf-gcc -fdata-sections -fno-common -mno-ssdata</codeblock>
+
+<p>To get the linker to sort data sections the
+<codeph>--sort-by-reference</codeph> option is needed and must specify the
+output section that requires sorting
+i.e. <codeph>-Wl,--sort-by-reference=.sdata</codeph>. This will gather all
+input sections assigned to the output section and sort them using the
+following rules:</p>
+
+<ol>
+<li>collect up to 128 of the most frequently accessed 4-byte sections</li>
+<li>collect all the 1-byte and 2-byte sections</li>
+<li>sort the remaining sections first by size, smallest first and then by
+alignment, lowest first</li>
+</ol>
+
+<p>The grouping of input sections specified by the linker script will however
+interfere with the ordering as the linker first collects input sections, then
+sorts them and finally groups them according to the order in the linker
+script. This can lead to undoing the sorting. To overcome this all of the
+input sections need to be specified in the same input selector so that they
+end up in the same group. A worked example follows:</p>
+
+<section>
+<title>Example</title>
+<codeblock>char data2;
+volatile int data1;
+short data3;
+int data4;
+
+int main()
+{
+  data1 = 2;
+  data1 = 2;
+  data1 = 2;
+  data1 = 2;
+  data1 = 2;
+  data2 = 3;
+  data3 = 4;
+  data4 = 5;
+  return 0;
+}</codeblock>
+</section>
+
+<section>
+<title>Linker script</title>
+<codeblock>SECTIONS
+{
+  .text : {
+    *(.text)
+    *(.text.* .rodata.*)
+  }
+  .sdata : {
+    *(.sdata.* .sdata)
+  }
+  .sbss : {
+    *(.sbss.* .sbss)
+  }
+}</codeblock>
+</section>
+
+<section>
+<title>Command line</title>
+<codeblock>nanomips-elf-gcc -O2 -fdata-sections data_layout.c -fno-common -mno-ssdata -Wl,--reference-counts=.bss,--sort-by-reference=.sdata,-Map=data_layout.map -Tuhi32.ld -save-temps</codeblock>
+</section>
+
+<section>
+<title>Data layout</title>
+<codeblock>Reference count for .sbss section
+ 5 data_layout.o(.sbss.data1)
+ 1 data_layout.o(.sbss.data4)
+
+.sbss           0x80201a94        0xd
+ .sbss.data4    0x80201a94        0x4 data_layout.o
+                0x80201a94                data4
+ .sbss.data3    0x80201a98        0x2 data_layout.o
+                0x80201a98                data3
+ .sbss.data1    0x80201a9c        0x4 data_layout.o
+                0x80201a9c                data1
+ .sbss.data2    0x80201aa0        0x1 data_layout.o
+                0x80201aa0                data2</codeblock>
+</section>
+
+<section>
+<title>Disassembly</title>
+<codeblock>8020089a &lt;main&gt;:
+8020089a:       d303            li      a2,3
+8020089c:       d382            li      a3,2
+8020089e:       44c4 0218       sb      a2,536(gp)
+802008a2:       d304            li      a2,4
+802008a4:       44d4 0210       sh      a2,528(gp)
+802008a8:       d305            li      a2,5
+802008aa:       40e0 0217       sw      a3,532(gp)
+802008ae:       1080            move    a0,zero
+802008b0:       40e0 0217       sw      a3,532(gp)
+802008b4:       40c0 020f       sw      a2,524(gp)
+802008b8:       40e0 0217       sw      a3,532(gp)
+802008bc:       40e0 0217       sw      a3,532(gp)
+802008c0:       40e0 0217       sw      a3,532(gp)
+802008c4:       dbe0            jrc     ra</codeblock>
+</section>
+
+<section>
+  <p>This is not the layout desired as <codeph>data1</codeph> is the most
+referenced and then <codeph>data4</codeph> followed by <codeph>data2</codeph>
+and <codeph>data3</codeph>. The <codeph>.sbss</codeph> section is also not at
+the start of the optimised data area either as shown by the large offsets in
+the disassembly. The issue is that the data is not actually in the
+<codeph>.sdata</codeph> section as it is uninitialised so ends up in sbss so
+the sorting has not actually worked. We do however have a report that says
+both <codeph>.sbss.data1</codeph> and <codeph>.sbss.data4</codeph> are
+candidates for the 128 word area as they have been referenced 5 times and 1
+time respectively. The report gives an example of the input descriptor
+required to catch the section where both the object and section are
+shown. Just the section is important and should be used as follows:</p>
+</section>
+
+<section>
+<title>Linker script</title>
+<codeblock>SECTIONS
+{
+  .text : {
+    *(.text)
+    *(.text.* .rodata.*)
+  }
+  .sdata : {
+    *(.sdata.* .sdata .sbss.data1 .sbss.data4)
+  }
+  .sbss : {
+    *(.sbss.* .sbss)
+  }
+}</codeblock>
+</section>
+
+<section>
+<title>Data layout</title>
+<codeblock>.sdata          0x80201a88       0x14
+ .sbss.data1    0x80201a88        0x4 data_layout.o
+                0x80201a88                data1
+ .sbss.data4    0x80201a8c        0x4 data_layout.o
+                0x80201a8c                data4
+
+8020089a &lt;main&gt;:
+8020089a:       d303            li      a2,3
+8020089c:       d382            li      a3,2
+8020089e:       44c4 0216       sb      a2,534(gp)
+802008a2:       d304            li      a2,4
+802008a4:       44d4 0214       sh      a2,532(gp)
+802008a8:       d305            li      a2,5
+802008aa:       d780            sw      a3,0(gp)
+802008ac:       1080            move    a0,zero
+802008ae:       d780            sw      a3,0(gp)
+802008b0:       d701            sw      a2,4(gp)
+802008b2:       d780            sw      a3,0(gp)
+802008b4:       d780            sw      a3,0(gp)
+802008b6:       d780            sw      a3,0(gp)
+802008b8:       dbe0            jrc     ra</codeblock>
+</section>
+
+<section>
+<p>In this example only the two most important data items have been extracted
+from the sbss section so that the rest of the data can continue to benefit
+from runtime rather than load time initialisation. Other BSS data could also
+be moved to the sdata section at the cost of a larger data segment to load but
+possibly a smaller code segment.</p>
+</section>
+ </conbody>
+</concept>

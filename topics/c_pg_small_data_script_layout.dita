@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="concept_acz_44p_1cb">
+ <title>Script managed layout of small data</title>
+ <conbody>
+   <p>This the default mode of operation. The compiler separates small data in to sections containing word and sub-word types and a linker script controls the layout of these sections. This scheme deliberately does not target the initial 128 word region, nor does it do any reference counting to optimize for the most frequently accessed variables. It works perfectly when the total amount of data of each type is within the ISA-specified limits described above and breaks down when those limits are breached.</p>
+
+   <p>The main advantage of this scheme is its simplicity. It works
+out-of-the-box with the usual compile-link workflow and the default MTI/UHI
+linker scripts shipped with the toolchain.</p>
+
+   <p>The compiler places 1 and 2-byte GP-relative data in
+<codeph>.ssdata</codeph> if it is initialized or <codeph>.ssbss</codeph> if
+unitialized. Data that is 4-bytes or larger is placed in
+<codeph>.sdata</codeph> or <codeph>.sbss</codeph> sections are usual. The
+linker scripts arrange these sections as follows, starting from the address of
+the global pointer<codeph>(GP)</codeph>:</p>
+   <codeblock>
+GP =>
+    .ssdata
+    .ssbss
+    .sdata
+    .sbss
+   </codeblock>
+   <p>To replicate this scheme with custom linker scripts, please refer to the
+section groupings in the <codeph>uhi32.ld</codeph> or
+<codeph>mti32.ld</codeph> script provided with the nanoMIPS bare-metal
+toolchain.</p>
+ </conbody>
+</concept>

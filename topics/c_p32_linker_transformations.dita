@@ -41,21 +41,17 @@
    <codeblock>    .text
     .linkrelax
     foo:
-    &lt;code>
      .set nolinkrelax
-     &lt;code>
-      .set linkrelax
-      &lt;code> </codeblock>
+     .set linkrelax
+   </codeblock>
    <p>This is equivalent to:
    <codeblock>    .text
     .linkrelax
     foo:
-    &lt;code>
      .set push
      .set nolinkrelax
-     &lt;code>
-      .set pop
-      &lt;code></codeblock></p></li>
+     .set pop
+   </codeblock></p></li>
   </ul>
   <note>The various relaxation options control both the relaxations and expansions.</note>
  </conbody>

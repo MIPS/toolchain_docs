@@ -90,7 +90,7 @@
    use a GP-relative sequence. This can lead to link time errors if relaxation is disabled. To
    ensure that PC-relative or absolute addressing is used then specify a section on the variable as
    shown below. The exact name of the section is not important as long as it does not start with
-   <codeph>.sdata</codeph> or <codeph>.sbss</codeph>.</p>
+   <codeph>.sdata</codeph>, <codeph>.sbss</codeph>, <codeph>.ssdata</codeph> or <codeph>.sbss</codeph>.</p>
 
   <codeblock>__attribute__((section(".from_script")))
 extern char __end[];</codeblock>

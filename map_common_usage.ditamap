@@ -9,7 +9,10 @@
   </topicref>
   <topicref href="topics/c_pg_managing_the_sdata_section.dita"/>
   <topicref href="topics/c_pg_address_calculation_of_rodata.dita"/>
-  <topicref href="topics/c_pg_small_data_layout.dita"/>
+  <topicref href="topics/c_pg_small_data_layout.dita">
+    <topicref href="topics/c_pg_small_data_script_layout.dita"/>
+    <topicref href="topics/c_pg_small_data_auto_layout.dita"/>
+  </topicref>
   <topicref href="topics/c_pg_linking_small_c.dita"/>
  </topicref>
 </map>
