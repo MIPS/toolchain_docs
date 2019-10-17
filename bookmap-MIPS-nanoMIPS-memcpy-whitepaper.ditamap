@@ -18,7 +18,7 @@
 			<prodname>MIPS</prodname> <!-- This must be the division name. It is used to determine which logo to display. Valid options are MIPS PvR-->
 			
 			<vrmlist>
-				<vrm version="0.1"/> <!-- This is the version of the book being output. It is not automatically incremented. -->
+				<vrm version="0.2"/> <!-- This is the version of the book being output. It is not automatically incremented. -->
 			</vrmlist>
 		
 		</prodinfo>

@@ -9,6 +9,8 @@
 
 This indicates whether the ISA contains instructions for unaligned memory
 access. In the absence of such instructions, copies from unaligned addresses
-requires the hardware to support unaligned access, as in the case MIPS32r6 and
-MIPS64r6. For cores that have neither feature, memcpy falls back to copying
-each word byte-by-byte.
+requires the hardware to support [unaligned access][HW_UNALIGNED_SUPPORT],
+as in the case of some MIPS32r6 and MIPS64r6 cores or support the
+[ALIGN instruction][ISA_HAS_ALIGN], as in the case of nanoMIPS. For
+cores/ISAs that have neither feature, memcpy falls back to copying each
+word byte-by-byte.

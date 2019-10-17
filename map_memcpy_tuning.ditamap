@@ -8,18 +8,22 @@
      <topicref href="topics/memcpy_enable_prefetch.md" format="markdown"/>
      <topicref href="topics/memcpy_enable_prefetch_check.md" format="markdown"/>
      <topicref keys="BLOCK_SIZE" href="topics/memcpy_block_size.md" format="markdown"/>
+     <topicref keys="BLOCK_SIZE_UA" href="topics/memcpy_block_size_ua.md" format="markdown"/>
    </topicref>
    <topicref href="topics/memcpy_core_controls.md" format="markdown">
-     <topicref href="topics/memcpy_hw_unaligned.md" format="markdown"/>
-     <topicref href="topics/memcpy_unaligned_instr.md" format="markdown"/>
+     <topicref keys="HW_UNALIGNED_SUPPORT" href="topics/memcpy_hw_unaligned.md" format="markdown"/>
+     <topicref keys="UNALIGNED_INSTR_SUPPORT" href="topics/memcpy_unaligned_instr.md" format="markdown"/>
+     <topicref keys="ISA_HAS_ALIGN" href="topics/memcpy_isa_has_align.md" format="markdown"/>
      <topicref keys="CACHE_LINE" href="topics/memcpy_cache_line.md" format="markdown"/>
      <topicref keys="LATENCY_CYCLES" href="topics/memcpy_latency_cycles.md" format="markdown"/>
      <topicref keys="BLOCK_CYCLES" href="topics/memcpy_block_cycles.md" format="markdown">
        <topicref keys="BLOCK_CYCLES_MEASUREMENT" href="topics/memcpy_block_cycles_measurement.md" format="markdown"/>
      </topicref>
+     <topicref keys="BLOCK_CYCLES_UA" href="topics/memcpy_block_cycles_ua.md" format="markdown"/>
    </topicref>
    <topicref href="topics/memcpy_derived_controls.md" format="markdown">
      <topicref keys="PREF_AHEAD" href="topics/memcpy_pref_ahead.md" format="markdown"/>
+     <topicref keys="PREF_AHEAD_UA" href="topics/memcpy_pref_ahead_ua.md" format="markdown"/>
      <topicref keys="CACHE_LINES_PER_BLOCK" href="topics/memcpy_cache_lines_per_block.md" format="markdown"/>
    </topicref>
  </topicref>
